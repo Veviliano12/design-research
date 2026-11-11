@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>定义与优先级 · 设计研究</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/shell.css">
+<link rel="stylesheet" href="../css/vfx.css">
+</head>
+<body>
+<div class="doc" data-page>
+  <header class="doc-head">
+    <h2>定义与优先级</h2>
+    <p>高阶视效怎么判定，以及在有限时间里该先补什么。判据都有来源，可以复核。使用场景是 H5 落地页和轻应用。</p>
+  </header>
+  <div class="doc-body vfx-method">
+
+    <h3>什么是高阶视效</h3>
+    <p>业界没有一个叫「高阶视效」的法定标准。电影行业权威机构 Visual Effects Society 在 <a href="https://www.routledge.com/The-VES-Handbook-of-Visual-Effects-Industry-Standard-VFX-Practices-and-Procedures/OkunVES-ZwermanVES-ThurmondONeal/p/book/9781032853697" target="_blank" rel="noopener noreferrer">《VES Handbook of Visual Effects》</a> 里定义的是「视效」本身：为动态影像创造、改变或增强，且无法用常规实拍完成的画面。它不区分高阶还是基础。</p>
+    <p>所以，高阶和基础的区分，必须是我们为「H5 落地页和轻应用」立下的工作定义。这张地图里的「平台」，是指 H5 / Web 运行时（浏览器或轻应用 WebView），不是 iOS、鸿蒙或 Windows。同一套视觉语言，在系统里可能是默认能力，在 H5 里却要自己实现，判定以目标平台为准。</p>
+    <p>什么算视效、什么不算，继续沿用已有结论：着色器、流体这类持续存在于画面里的算视效；页面转场和交互动画不算。这和 VES「创造、改变或增强画面」一致，也避免把动效、叙事做成分类。</p>
+
+    <h4>三条判据</h4>
+    <table class="wtbl">
+      <thead>
+        <tr><th>判据</th><th>判「基础」</th><th>判「高阶」</th><th>来源</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>① 是不是目标平台的默认能力，或规范要求每个产品都做到的</td>
+          <td>是</td>
+          <td>平台默认之外、为了表现力额外加的</td>
+          <td>
+            <a href="https://developer.apple.com/design/human-interface-guidelines/materials" target="_blank" rel="noopener noreferrer">Apple HIG · Materials</a>；
+            <a href="https://m3.material.io/blog/building-with-m3-expressive/" target="_blank" rel="noopener noreferrer">Material 3 Expressive</a>；
+            <a href="https://fluent2.microsoft.design/material" target="_blank" rel="noopener noreferrer">Fluent 2 · Material</a>
+          </td>
+        </tr>
+        <tr>
+          <td>② 实现是否超出标准 CSS</td>
+          <td>只用 CSS 就能做出来（含叠多层）</td>
+          <td>需要 SVG 滤镜、Canvas、WebGL 或着色器</td>
+          <td>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" target="_blank" rel="noopener noreferrer">MDN：backdrop-filter</a>；
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank" rel="noopener noreferrer">Canvas</a>；
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API" target="_blank" rel="noopener noreferrer">WebGL</a>
+          </td>
+        </tr>
+        <tr>
+          <td>③ 出现率校验</td>
+          <td>多数领域、多数产品都在用</td>
+          <td>只有少数顶级产品在用</td>
+          <td>用案例和后续普查来检验，不单独作为入门条件</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>判定规则：① 和 ② 都判基础，才是基础；有一条判高阶，就是高阶。③ 用来发现和直觉冲突的例子，标出来交给你裁定。</p>
+    <p>「顶级」标杆的依据仍是三条，至少满足其一：官方范例、权威评选（Apple Design Awards、Awwwards、FWA、CSS Design Awards 等）、你点名的产品或案例。</p>
+    <p>好看仍然是入图门槛。技术难或官方完整，本身都不够。</p>
+
+    <h4>为什么这样分得开</h4>
+    <p>Apple 在 HIG 里把材料分成标准材料和 Liquid Glass。<a href="https://developer.apple.com/videos/play/wwdc2025/219/" target="_blank" rel="noopener noreferrer">WWDC25 · Meet Liquid Glass</a> 写得很清楚：以往材料是散射光线，Liquid Glass 是实时弯曲、塑造和汇聚光线（lensing）。所以普通毛玻璃是基础，光学透镜语言不是。但要注意平台差异：在 iOS 上，Liquid Glass 已经是系统默认，按①它在苹果平台上是基础能力；在 H5 上浏览器并不提供这种透镜材质，要自己用着色器做，所以同一套视觉语言在这张地图里仍是高阶。</p>
+    <p>Google 把 Material 3 分成 baseline 和 Expressive，并写明 Expressive 是为了更有情绪冲击力的体验，不是系统最低要求。这是「默认规范」和「为表现力额外加强」的官方分法。</p>
+    <p>Microsoft Fluent 2 把 Acrylic、Mica 写成系统材料，用于临时层、窗口背景等常规层级。在 Windows 上调用系统 Acrylic 是平台默认；在 H5 里手写同等光学效果则不是。</p>
+
+    <h4>故意不放进这个定义的一条</h4>
+    <p>「把效果去掉，页面还能否成立」区分的是核心还是装饰，不是高阶还是基础。装饰性的流体可以是高阶，核心的 3D 产品展示也可以是高阶。案例上可以注明「核心 / 装饰」，但不用来判定高阶。</p>
+
+    <h3>哪一种高阶能撬动杠杆</h3>
+    <p>能撬动杠杆的，不是所有高阶，而是这一种：本身就能把画面从基础拉到高级，学会或预制一次能用在很多页面上，但又很难临时写对、或要调很久。这类一旦做成资产，就能很快达到那种高级感。</p>
+    <p>液态玻璃、流体着色器、可复用的材质和布光，通常属于这一类。很难但只能用一次的定制 3D 场景，高级可以成立，杠杆反而不高。</p>
+
+    <h3>优先级怎么定</h3>
+    <p>优先级不是「哪个更好看」，而是：地图上已经有这些高阶视效之后，先补齐哪一种能力，才能在有限时间里，尽量多地在 H5 落地页和轻应用中做出接近标杆的效果。</p>
+    <p>写成目标就是：用学习或制作的时间，最大化「能用上、且能把画面从基础拉到接近标杆」的能力。</p>
+    <p>技能怎么排先后，已有可复核的做法。<a href="https://hbr.org/2017/09/a-2x2-matrix-to-help-you-prioritize-the-skills-to-learn-right-now" target="_blank" rel="noopener noreferrer">哈佛商业评论 2017 年 Marc Zao-Sanders 的文章</a> 用两个量来排先学什么：效用（这个技能你会用得多频繁）和学会的时间。高效用、又要花较长时间的，应当专门安排去学；低效用又很费时的，要考虑是不是根本不学。把这些放到上面的目标上，就得到三个排序维度，外加一个门禁。</p>
+
+    <h4>三个排序维度，加一道门禁</h4>
+    <ol class="steps-ol">
+      <li><strong>区分度</strong>：这种视效是不是真能把画面从基础拉到高阶，是不是只有标杆在用。人人都会的，或只是平台默认的，先补没有意义。来源：判据①、③，以及「选长板」。</li>
+      <li><strong>复用面</strong>：学会一次，能用在多少个 H5 页面上。这就是上面说的效用，也是学习迁移。流体着色器、液态玻璃材质通常复用面高；为一个产品定做的 3D 场景通常复用面低。</li>
+      <li><strong>达到标杆的难度</strong>：人要调多久，AI 是不是很难一次写对。这就是学会的时间。</li>
+    </ol>
+    <div class="rule">
+      <span>先过门禁：目标场景里跑不起来的，先不进入当前补齐名单。</span>
+      <span>价值由「区分度 × 复用面」决定。</span>
+      <span>难度决定要不要提前做成资产，不单独决定它更值钱。</span>
+    </div>
+    <p>因此，「AI 很难写、要很久才调得好」只在区分度高、而且能复用时，才是高优先级。难但只能用一次的定制场景，优先级反而低；容易又能复用的可以很快补，但不是最稀缺的长板。</p>
+    <p>操作顺序：先过滤能不能在 H5 里用，再看区分度 × 复用面决定价值，用难度决定要不要提前投入。先给每个大类写定性说明，不打没有足够样本支撑的分数。</p>
+
+    <h4>场景可以加权，但不替换分类</h4>
+    <p>高频或高冲击的场景可以给复用面加权，但场景仍是入口和权重，不替换视效语言分类。地图的纵轴始终是视效语言，横轴是整页 / 组件；场景用来筛选，也可以在排优先级时加重某些格子的复用面。</p>
+    <p>目前场景是从 <a href="https://developers.openai.com/showcase" target="_blank" rel="noopener noreferrer">OpenAI Developers Showcase</a> 的官方用例归出来的，<a href="https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them" target="_blank" rel="noopener noreferrer">Claude Artifacts</a> 只作旁证。我们并没有公开的生成量统计，所以还不能写成「大部分 H5 都是某某场景」。真要加场景权重，应该用官方分类、已收集案例的分布，以及后续拿到的自身现状名单里的场景比例来作证，而不是先估一个百分比。</p>
+  </div>
+</div>
+</body>
+</html>

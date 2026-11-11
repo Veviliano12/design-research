@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>设计研究</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/shell.css">
+<link rel="stylesheet" href="css/vfx.css">
+</head>
+<body>
+<header class="mobile-bar">
+  <h1>设计研究</h1>
+  <button type="button" class="menu-btn press" aria-label="打开目录" aria-expanded="false" aria-controls="side">
+    <span class="mark" aria-hidden="true"></span>
+  </button>
+</header>
+
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand">
+      <h1>设计研究</h1>
+      <button type="button" class="menu-btn press" aria-label="关闭目录" aria-expanded="false" aria-controls="side">
+        <span class="mark" aria-hidden="true"></span>
+      </button>
+    </div>
+    <nav class="tree" id="tree" aria-label="文档目录"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="frame-wrap" id="inventoryWrap" hidden>
+      <iframe id="inventoryFrame" title="来源清单 · 清单总览" src="about:blank"></iframe>
+    </div>
+    <article class="doc" id="doc" hidden></article>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<script src="js/nav.js"></script>
+<script src="js/shell.js"></script>
+</body>
+</html>
