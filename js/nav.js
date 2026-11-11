@@ -100,6 +100,14 @@ window.PLATFORM_NAV = {
           src: "sections/blocks-insights.html",
           wide: true,
           scripts: ["data/blocks/viz-data.js", "js/blocks-insights.js"]
+        },
+        {
+          id: "blocks/hos7-relabel",
+          label: "HOS7 重标",
+          type: "doc",
+          src: "sections/blocks-hos7-relabel.html",
+          wide: true,
+          scripts: ["data/blocks/hos7-relabel.js", "js/blocks-hos7-relabel.js"]
         }
       ]
     },
