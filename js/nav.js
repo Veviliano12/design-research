@@ -89,6 +89,21 @@ window.PLATFORM_NAV = {
       ]
     },
     {
+      id: "blocks",
+      label: "Blocks",
+      type: "group",
+      children: [
+        {
+          id: "blocks/insights",
+          label: "对照与洞察",
+          type: "doc",
+          src: "sections/blocks-insights.html",
+          wide: true,
+          scripts: ["data/blocks/viz-data.js", "js/blocks-insights.js"]
+        }
+      ]
+    },
+    {
       id: "sources",
       label: "来源清单",
       type: "group",

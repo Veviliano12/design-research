@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<title>对照与洞察 · 设计研究</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/shell.css">
+<link rel="stylesheet" href="../css/blocks.css">
+</head>
+<body>
+<div class="doc is-wide" data-page>
+  <div class="bk-page" data-blocks-root>
+    <nav class="bk-subnav" data-bk-subnav aria-label="本页章节">
+      <a href="#bk-intro">结论</a>
+      <a href="#bk-grain">粒度</a>
+      <a href="#bk-sources">来源</a>
+      <a href="#bk-response">响应</a>
+      <a href="#bk-scenes">场景</a>
+      <a href="#bk-families">组件族</a>
+      <a href="#bk-hos7">HOS7</a>
+      <a href="#bk-insights">洞察</a>
+      <a href="#bk-learn">该学与不该学</a>
+      <a href="#bk-hypotheses">第二步</a>
+      <a href="#bk-unverified">未核实</a>
+    </nav>
+
+    <header class="bk-hero" id="bk-intro">
+      <p class="bk-kicker">第一步对照 · 不回答需要几个</p>
+      <h2>对照与洞察</h2>
+      <p class="bk-lede">这一轮能证明的不是“谁覆盖得多”，而是“block”在不同产品里根本不是同一个计量单位。任何跨源总数，在补齐 unit、grain、是否本轮核实之前都不可读。</p>
+      <p class="bk-meta">本页只对照各家如何定义、按什么粒度计数、query 到来时是选目录还是运行时组合。它不给出“我们需要 N 个 blocks”，也不使用尚未复算的 56 条 draft query 做覆盖结论。</p>
+    </header>
+
+    <section class="bk-section" id="bk-grain">
+      <header class="bk-sec-head">
+        <h3>粒度标尺</h3>
+        <p>把各源放到同一套层级上：原语、区域、整页、模板、运行时组合。一个源可以同时落在多层。这张图要说明的是：跨层数字不能比较，更不能加总。</p>
+      </header>
+      <div data-bk-grain></div>
+      <p class="bk-caption">基线 HOS7 用钴蓝浅底标出。生成式来源用虚线，表示它们往往没有传统 block 目录。位置来自各源官方粒度，不是按数量排序。</p>
+    </section>
+
+    <section class="bk-section" id="bk-sources">
+      <header class="bk-sec-head">
+        <h3>来源对照</h3>
+        <p>不是排行榜。每张卡片给出官方数字、单位、粒度和本轮是否核实。点开可看分类、场景、组件族和官方链接。</p>
+      </header>
+      <div class="bk-toolbar" data-bk-filters role="tablist" aria-label="按类型筛选"></div>
+      <p class="bk-warn" data-bk-69-warn hidden>
+        <strong>69 对 69 是巧合，不是同类。</strong> HOS7 的 69 是混粒度 blocks；CopilotKit 的 69 是 standard catalog 组件。两个数字相同，对象、粒度、响应模型都不同，禁止并列成同一量纲。
+      </p>
+      <div class="bk-cards" data-bk-cards></div>
+    </section>
+
+    <section class="bk-section" id="bk-response">
+      <header class="bk-sec-head">
+        <h3>Query 如何变成界面</h3>
+        <p>灵活性并不自动来自目录变大。有的源从目录里挑选，有的把区域组合起来，有的在运行时生成，有的把提示写成代码。同一源可以走不止一条路。</p>
+      </header>
+      <div class="bk-flow-scroll" data-bk-response></div>
+      <p class="bk-caption">生成式 UI 的灵活性来自运行时组合，不来自目录规模。OpenUI 甚至要求限制 library size：组件越多，提示词与选择噪声越大。</p>
+    </section>
+
+    <section class="bk-section" id="bk-scenes">
+      <header class="bk-sec-head">
+        <h3>场景簇</h3>
+        <p><strong>簇可以组织导航，不能跨源加总。</strong> 同一簇里，各源的最小可安装单位并不相同。营销簇被变体撑大；后台深度分化很大；agent-chat 几乎不是目录问题；HOS7 是移动内容消费，不是营销或电商。</p>
+      </header>
+      <div class="bk-scenes" data-bk-scenes></div>
+      <p class="bk-caption">这些簇是本轮的分析映射，不是任何一家的官方 taxonomy。下沉到 section 类型时，分类法就开始各说各话。</p>
+    </section>
+
+    <section class="bk-section" id="bk-families">
+      <header class="bk-sec-head">
+        <h3>组件族</h3>
+        <p><strong>大目录不等于深应用。</strong> 例如 Shadcnblocks 的 Gantt 为 1、Kanban 为 3，而 ReUI 的 Data Grid 组为 61、Gantt 为 4、Kanban Board 为 10。这张表用来辨认框架族、深度族和运行时族，不是 HOS7 的采购清单。</p>
+      </header>
+      <div data-bk-families></div>
+      <p class="bk-caption">移动族（tab-bar、search-field、sheet、mini-player 等）是 HOS7 特有的依赖，桌面商业目录基本不把它当作 block 家族，因此不在这张跨源表里加总。导航族同名不同形态（移动底栏 vs 桌面顶栏），本轮对照没有单独成行。</p>
+    </section>
+
+    <section class="bk-section" id="bk-hos7">
+      <header class="bk-sec-head">
+        <h3>叠回 HOS7</h3>
+        <p>69 不能读成一个平面目录。资产重心在「区域 × data-props」的 53 个；14 个 page-type 全部是 baked demo，却正是 <code>ds.py route</code> 当前选择的入口。先重标，不在这一步扩编。</p>
+      </header>
+      <div data-bk-hos7></div>
+    </section>
+
+    <section class="bk-section" id="bk-insights">
+      <header class="bk-sec-head">
+        <h3>已成立的洞察</h3>
+        <p>下列条目本轮可以成立。假设与未核实的数字不写在这里。</p>
+      </header>
+      <div class="bk-insights" data-bk-insights></div>
+    </section>
+
+    <section class="bk-section" id="bk-learn">
+      <header class="bk-sec-head">
+        <h3>该学，与不该学</h3>
+        <p>反哺我们自己的目录：学层级、学 frame 与数据契约，不学变体库存，也不把“做多少个”当作这一步的结论。</p>
+      </header>
+      <div class="bk-split">
+        <div class="bk-col" data-tone="learn">
+          <h4>该学</h4>
+          <ol>
+            <li>
+              <b>把层级做成一等字段</b>
+              每个条目回答 grain（primitive / region / page / template）、kind（component / demo）、data_contract、scene、routeable。防止再把卡片、区域、整页塞进同一个 69。
+            </li>
+            <li>
+              <b>把 block 当作可安装的 frame</b>
+              ReUI 写：“Treat a block as the frame. Bring your own tokens, copy, and data instead of shipping the sample content.” 21st 也要求把组件逻辑与 demo 内容分开。demo 是 frame 的展示态，不是另一类资产。<code>route</code> 应只选 routeable 且 data_contract 不为空的 frame。
+            </li>
+            <li>
+              <b>按产品表面分组，而不是平铺上百个 section 类型</b>
+              检索先缩小场景，再选条目，降低 OpenUI 所说的“组件越多越困惑”。HOS7 更适合停在 home / search / settings / media / profile / onboarding 这类表面。
+            </li>
+            <li>
+              <b>先重标，不扩编</b>
+              给 69 条补字段；把 <code>big-image-card</code> 这类卡片单元从含混的 region 里标清；14 个 page-type 标为 demo_only。若以后新增，优先补 data-driven 的 page frame，而不是再补一个 demo 整页。
+            </li>
+          </ol>
+        </div>
+        <div class="bk-col" data-tone="avoid">
+          <h4>不该学</h4>
+          <ol>
+            <li>
+              <b>不要把变体库存当成覆盖目标</b>
+              Shadcnblocks 的 2,866 里，Hero 292、Feature 334 是视觉变体；Gantt 1、Kanban 3、Onboarding 2 才暴露真实深度。把 2,866 当目标，会得到同质 hero，而不是更强的产品覆盖。
+            </li>
+            <li>
+              <b>不要学对不上的双口径</b>
+              Aceternity 首页写 183+，All-Access 文案写 182。对外报数必须能指向一个可复算的 registry 或索引。
+            </li>
+            <li>
+              <b>不要把混合库存写成 blocks</b>
+              21st 的 12,000+ 明确包含 components、templates、themes。Kibo 的 1,101 patterns 也不得画成 1,101 个 blocks。
+            </li>
+            <li>
+              <b>不要假设大目录等于更强的 agent 能力</b>
+              CopilotKit 与 OpenUI 的能力来自运行时与协议。对 agent 更重要的是可检索的场景、清晰的数据契约，以及少而准的 frame。
+            </li>
+            <li>
+              <b>不要为 69 条硬造 133 类平铺 taxonomy</b>
+              那是商业浏览器的信息架构，不是 agent 的选择架构。
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bk-section" id="bk-hypotheses">
+      <header class="bk-sec-head">
+        <h3>第二步要证伪的假设</h3>
+        <p>下列是有方向的假设，不是已成立的洞察。56 条 draft query 本轮未复算，不能据此给出任何覆盖率。</p>
+      </header>
+      <div class="bk-hyps" data-bk-hyps></div>
+    </section>
+
+    <section class="bk-section" id="bk-unverified">
+      <header class="bk-sec-head">
+        <h3>未核实，与不得合并</h3>
+        <p>这些数字可以出现在页上，但必须带着单位、粒度和状态。不能做成无标注的排行榜，也不能跨源加减除。</p>
+      </header>
+      <div data-bk-unverified></div>
+      <p class="bk-method" data-bk-method></p>
+    </section>
+  </div>
+</div>
+<script src="../data/blocks/viz-data.js"></script>
+<script src="../js/blocks-insights.js"></script>
+</body>
+</html>
