@@ -20,7 +20,10 @@
     doc: $("#doc"),
     frameWrap: $("#inventoryWrap"),
     frame: $("#inventoryFrame"),
-    title: $("#pageTitle")
+    title: $("#pageTitle"),
+    app: document.querySelector(".app"),
+    fold: $("#sideFold"),
+    openSide: $("#sideOpen")
   };
 
   const routes = new Map();
@@ -253,6 +256,29 @@
     else openNav();
   }
 
+  function isDesktopNav() {
+    return matchMedia("(min-width: 761px)").matches;
+  }
+  function isSideCollapsed() {
+    return isDesktopNav() && !!loadUI().sideCollapsed;
+  }
+  function applySide() {
+    const collapsed = isSideCollapsed();
+    if (els.app) els.app.classList.toggle("is-side-collapsed", collapsed);
+    if (els.fold) {
+      els.fold.hidden = !isDesktopNav();
+      els.fold.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    }
+    if (els.openSide) {
+      els.openSide.hidden = !collapsed;
+      els.openSide.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    }
+  }
+  function setSideCollapsed(value) {
+    saveUI({ sideCollapsed: !!value });
+    applySide();
+  }
+
   function ensureHash() {
     const raw = (location.hash || "").replace(/^#\/?/, "");
     if (!raw) {
@@ -280,10 +306,14 @@
     });
     menuButtons().forEach((btn) => btn.addEventListener("click", toggleNav));
     els.scrim.addEventListener("click", closeNav);
+    if (els.fold) els.fold.addEventListener("click", () => setSideCollapsed(true));
+    if (els.openSide) els.openSide.addEventListener("click", () => setSideCollapsed(false));
     addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeNav();
     });
+    addEventListener("resize", applySide);
     addEventListener("hashchange", onHash);
+    applySide();
     ensureHash();
     show(currentRoute());
   }

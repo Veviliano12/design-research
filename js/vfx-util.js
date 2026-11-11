@@ -27,9 +27,11 @@
     return !!(global.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches);
   }
 
+  const SHOW_DELAY = 700;
   const Hover = {
     el: null,
     hideTimer: 0,
+    showTimer: 0,
     current: null,
     onAction: null,
 
@@ -68,6 +70,7 @@
 
     _onScroll: () => {
       /* 滚动时收起，避免浮卡与格子错位。 */
+      Hover.cancelShow();
       Hover.hide(true);
     },
 
@@ -78,13 +81,36 @@
       }
     },
 
+    cancelShow() {
+      if (this.showTimer) {
+        clearTimeout(this.showTimer);
+        this.showTimer = 0;
+      }
+    },
+
     scheduleHide() {
       this.cancelHide();
-      this.hideTimer = setTimeout(() => this.hide(true), 120);
+      this.hideTimer = setTimeout(() => this.hide(true), 180);
+    },
+
+    scheduleShow(anchor, data, opts, delay) {
+      this.cancelShow();
+      this.cancelHide();
+      const wait = delay == null ? SHOW_DELAY : delay;
+      if (wait <= 0) {
+        this.show(anchor, data, opts);
+        return;
+      }
+      this.showTimer = setTimeout(() => {
+        this.showTimer = 0;
+        if (!anchor.isConnected) return;
+        this.show(anchor, data, opts);
+      }, wait);
     },
 
     hide(immediate) {
       this.cancelHide();
+      this.cancelShow();
       this.current = null;
       this.onAction = null;
       if (!this.el) return;
@@ -145,15 +171,20 @@
       const vw = innerWidth;
       const vh = innerHeight;
       const margin = 12;
+      const gap = 10;
       const w = el.offsetWidth || 320;
       const h = el.offsetHeight || 280;
-      let left = r.right - 8;
-      if (left + w > vw - margin) left = r.left - w + 8;
-      if (left < margin) left = Math.max(margin, Math.min(vw - w - margin, r.left));
-      let top = r.top;
-      if (top + h > vh - margin) top = Math.max(margin, vh - h - margin);
-      if (top < margin) top = margin;
-      /* 与锚点略重叠，便于指针移入浮卡。 */
+      /* 优先放在缩略图上方或下方，避免出现在右侧挡住同一行后面的内容。 */
+      let top = r.top - h - gap;
+      if (top < margin) {
+        top = r.bottom + gap;
+        if (top + h > vh - margin) {
+          top = Math.max(margin, vh - h - margin);
+        }
+      }
+      let left = r.left + r.width / 2 - w / 2;
+      if (left < margin) left = margin;
+      if (left + w > vw - margin) left = Math.max(margin, vw - w - margin);
       el.style.left = Math.round(left) + "px";
       el.style.top = Math.round(top) + "px";
     },
@@ -163,10 +194,11 @@
       const selector = (opts && opts.selector) || "[data-vfx-id]";
       let lastPointer = "mouse";
 
-      const showFrom = (card) => {
+      const showFrom = (card, delay) => {
         const data = getData(card);
         if (!data) return;
-        this.show(card, data, opts);
+        if (delay == null || delay <= 0) this.show(card, data, opts);
+        else this.scheduleShow(card, data, opts, delay);
       };
 
       const onOver = (e) => {
@@ -175,13 +207,20 @@
         if (!card || !root.contains(card)) return;
         const from = e.relatedTarget;
         if (from && card.contains(from)) return;
-        showFrom(card);
+        /* 已显示同一张卡时不再重新计时；扫过其他卡则收起并重新等待。 */
+        if (this.current && this.current.id === (getData(card) || {}).id && this.el && !this.el.hidden) {
+          this.cancelHide();
+          return;
+        }
+        if (this.current && this.el && !this.el.hidden) this.hide(true);
+        showFrom(card, SHOW_DELAY);
       };
       const onOut = (e) => {
         const card = e.target.closest(selector);
         if (!card || !root.contains(card)) return;
         const next = e.relatedTarget;
         if (next && (card.contains(next) || (this.el && this.el.contains(next)))) return;
+        this.cancelShow();
         this.scheduleHide();
       };
       const onPointerDown = (e) => {

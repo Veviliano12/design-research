@@ -28,6 +28,17 @@ a { color: inherit; }
   flex: 1;
   min-height: 0;
   min-width: 0;
+  transition: grid-template-columns 240ms var(--ease-out);
+}
+.app.is-side-collapsed {
+  grid-template-columns: 0 1fr;
+}
+.app.is-side-collapsed .side {
+  overflow: hidden;
+  border-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  visibility: hidden;
 }
 
 /* ---------------- sidebar / doc tree ---------------- */
@@ -54,6 +65,33 @@ a { color: inherit; }
   letter-spacing: -.02em;
   line-height: 1.25;
 }
+.side-fold {
+  flex: none;
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: var(--r-s);
+  color: var(--mute);
+  font-size: var(--f11);
+  line-height: 1.3;
+}
+.side-open {
+  display: none;
+  position: absolute;
+  top: 16px;
+  left: 14px;
+  z-index: 12;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 999px;
+  color: var(--ink2);
+  font-size: var(--f13);
+  line-height: 1.3;
+  box-shadow: var(--shadow-s);
+}
+.app.is-side-collapsed .side-open { display: inline-flex; align-items: center; }
+.app.is-side-collapsed .doc { padding-left: 72px; }
+.app.is-side-collapsed .doc.is-wide { padding-left: 64px; }
 .menu-btn {
   display: none;
   width: 36px;
@@ -163,6 +201,8 @@ a { color: inherit; }
   .tree-toggle:hover { background: var(--sunken); color: var(--ink); }
   .tree-group > .tree-toggle:hover { color: var(--ink2); }
   .menu-btn:hover { background: var(--sunken); color: var(--ink); }
+  .side-fold:hover { background: var(--sunken); color: var(--ink); }
+  .side-open:hover { background: var(--sunken); color: var(--ink); }
 }
 
 /* ---------------- main pane ---------------- */
@@ -401,6 +441,7 @@ a { color: inherit; }
   .press:active { transform: none; }
   .caret::before { transition: none; }
   .side { transition: none !important; }
+  .app { transition: none; }
   .scrim { transition: none; }
 }
 @media (prefers-reduced-transparency: reduce) {
@@ -444,6 +485,16 @@ a { color: inherit; }
     letter-spacing: -.02em;
   }
   .mobile-bar .menu-btn { display: grid; }
+  .side-fold, .side-open, .app.is-side-collapsed .side-open { display: none !important; }
+  .app.is-side-collapsed { grid-template-columns: unset; }
+  .app.is-side-collapsed .side {
+    overflow: auto;
+    border-right: 0;
+    padding: 22px 16px 20px;
+    /* visibility follows the mobile drawer, not the desktop collapse */
+  }
+  .app.is-side-collapsed .doc,
+  .app.is-side-collapsed .doc.is-wide { padding-left: 16px; }
   .side {
     position: fixed;
     z-index: 35;

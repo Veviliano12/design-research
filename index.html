@@ -22,6 +22,7 @@
   <aside class="side" id="side">
     <div class="brand">
       <h1>设计研究</h1>
+      <button type="button" class="side-fold press" id="sideFold" aria-label="收起目录" aria-expanded="true" aria-controls="side">收起</button>
       <button type="button" class="menu-btn press" aria-label="关闭目录" aria-expanded="false" aria-controls="side">
         <span class="mark" aria-hidden="true"></span>
       </button>
@@ -30,6 +31,7 @@
   </aside>
 
   <main class="main">
+    <button type="button" class="side-open press" id="sideOpen" hidden aria-label="打开目录" aria-expanded="false" aria-controls="side">目录</button>
     <div class="frame-wrap" id="inventoryWrap" hidden>
       <iframe id="inventoryFrame" title="来源清单 · 清单总览" src="about:blank"></iframe>
     </div>
