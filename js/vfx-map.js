@@ -1,6 +1,125 @@
-/* 设计研究 · 全景总览：密缩略图网格 + 场景筛选 + 悬停浮卡。 */
+/* 设计研究 · 全景总览：密缩略图网格 + 场景筛选 + 自身现状覆盖 + 悬停浮卡。 */
 (function (global) {
   "use strict";
+
+  const LIGHTUP_SRC = "data/vfx/lightup.js";
+  const LIGHTUP_PREFIX = "lightup:";
+
+  const STATUS_LABEL = {
+    present: "点亮",
+    attempted: "做了但不够",
+    near_benchmark: "接近标杆",
+    none: "未见"
+  };
+
+  function loadLightup() {
+    if (global.VFX_LIGHTUP) return Promise.resolve(global.VFX_LIGHTUP);
+    const already = [...document.scripts].find(
+      (s) => s.getAttribute("data-shell-src") === LIGHTUP_SRC || s.getAttribute("src") === LIGHTUP_SRC
+    );
+    if (already) {
+      return new Promise((resolve) => {
+        if (global.VFX_LIGHTUP) {
+          resolve(global.VFX_LIGHTUP);
+          return;
+        }
+        already.addEventListener("load", () => resolve(global.VFX_LIGHTUP || null), { once: true });
+        already.addEventListener("error", () => resolve(null), { once: true });
+      });
+    }
+    return new Promise((resolve) => {
+      const s = document.createElement("script");
+      s.src = LIGHTUP_SRC;
+      s.setAttribute("data-shell-src", LIGHTUP_SRC);
+      s.onload = () => resolve(global.VFX_LIGHTUP || null);
+      s.onerror = () => resolve(null);
+      document.head.appendChild(s);
+    });
+  }
+
+  function rowRecord(lightup, name) {
+    const rows = (lightup && lightup.rows) || [];
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].name === name) return rows[i];
+    }
+    return { name: name, pages: [] };
+  }
+
+  function rollup(rec) {
+    const pages = (rec && rec.pages) || [];
+    let present = 0;
+    let attempted = 0;
+    let near = 0;
+    for (let i = 0; i < pages.length; i++) {
+      const p = pages[i].presence;
+      if (p === "present") present++;
+      else if (p === "attempted") attempted++;
+      else if (p === "near_benchmark") near++;
+    }
+    return {
+      pages: pages,
+      hint: (rec && rec.hint) || "",
+      present: present,
+      attempted: attempted,
+      near: near,
+      none: present + attempted + near === 0
+    };
+  }
+
+  function markBits(roll, opts) {
+    const o = opts || {};
+    const bits = [];
+    if (roll.present) bits.push({ key: "present", label: STATUS_LABEL.present });
+    /* 行首：已点亮就不再叠「做了但不够」。条带上若同时有两种页，两种都标一次。 */
+    if (roll.attempted && (o.allStatuses || !roll.present)) {
+      bits.push({ key: "attempted", label: STATUS_LABEL.attempted });
+    }
+    if (roll.near) bits.push({ key: "near_benchmark", label: STATUS_LABEL.near_benchmark });
+    return bits;
+  }
+
+  function marksHtml(U, roll, className, opts) {
+    const bits = markBits(roll, opts);
+    if (!bits.length) return "";
+    return `<div class="${className}">${bits
+      .map((b) => `<span class="vfx-mark is-${U.esc(b.key)}">${U.esc(b.label)}</span>`)
+      .join("")}</div>`;
+  }
+
+  function coverageMarkText(roll) {
+    if (roll.none) return STATUS_LABEL.none;
+    const parts = [];
+    if (roll.present) parts.push(STATUS_LABEL.present + " " + roll.present);
+    if (roll.attempted && !roll.present) parts.push(STATUS_LABEL.attempted + " " + roll.attempted);
+    if (roll.attempted && roll.present) parts.push(STATUS_LABEL.attempted + " " + roll.attempted);
+    if (roll.near) parts.push(STATUS_LABEL.near_benchmark + " " + roll.near);
+    return parts.join(" · ");
+  }
+
+  function coverageKind(roll) {
+    if (roll.present) return "present";
+    if (roll.near && !roll.attempted) return "near_benchmark";
+    if (roll.attempted) return "attempted";
+    return "none";
+  }
+
+  function coverageLead(lightup) {
+    const rows = (lightup.rows || []).map(rollup);
+    const nPresent = rows.filter((r) => r.present).length;
+    const nAttemptedOnly = rows.filter((r) => r.attempted && !r.present).length;
+    const nNear = rows.filter((r) => r.near).length;
+    const nNone = rows.filter((r) => r.none).length;
+    const reviewed = lightup.reviewed || 94;
+    const parts = [];
+    parts.push("自身 " + reviewed + " 页抽样");
+    if (nAttemptedOnly) parts.push(nAttemptedOnly + " 条语言做了但不够");
+    if (nPresent) parts.push(nPresent + " 条已点亮");
+    if (nNear) parts.push(nNear + " 条接近标杆");
+    if (nNone) parts.push(nNone + " 条未见");
+    if (!nPresent && !nNear) parts.push("尚未有点亮或接近标杆");
+    if (lightup.updated_at) parts.push("审于 " + lightup.updated_at);
+    return parts.join(" · ");
+  }
 
   function init() {
     const U = global.VfxUtil;
@@ -13,6 +132,7 @@
     }
 
     let scene = "全部";
+    let lightup = global.VFX_LIGHTUP || null;
     const byId = new Map(D.cases.map((c) => [c.id, c]));
 
     function count(name) {
@@ -43,6 +163,59 @@
       };
     }
 
+    function parseOwnId(id) {
+      if (!id || id.indexOf(LIGHTUP_PREFIX) !== 0) return null;
+      const rest = id.slice(LIGHTUP_PREFIX.length);
+      const at = rest.indexOf("::");
+      if (at < 0) return null;
+      return { task: rest.slice(0, at), row: rest.slice(at + 2) };
+    }
+
+    function ownFloatData(id) {
+      const parsed = parseOwnId(id);
+      if (!parsed || !lightup) return null;
+      const page = (lightup.pages || {})[parsed.task];
+      if (!page) return null;
+      const rec = rowRecord(lightup, parsed.row);
+      let presence = "attempted";
+      let note = rec.hint || "";
+      for (let i = 0; i < (rec.pages || []).length; i++) {
+        if (rec.pages[i].id === parsed.task) {
+          presence = rec.pages[i].presence;
+          if (rec.pages[i].note) note = rec.pages[i].note;
+          break;
+        }
+      }
+      const meta = [lightup.source || "设计 query 随机采样 · 现状", STATUS_LABEL[presence] || presence];
+      const extra = note ? `<div class="why">${U.esc(note)}</div>` : "";
+      return {
+        id: id,
+        name: page.title || parsed.task,
+        url: "",
+        image: page.thumb || "",
+        meta: meta,
+        extraHtml: extra
+      };
+    }
+
+    function renderCoverage() {
+      const host = root.querySelector("[data-vfx-coverage]");
+      if (!host) return;
+      if (!lightup) {
+        host.hidden = true;
+        host.innerHTML = "";
+        return;
+      }
+      const items = (D.rows || []).map((r) => {
+        const roll = rollup(rowRecord(lightup, r.name));
+        const kind = coverageKind(roll);
+        const mark = coverageMarkText(roll);
+        return `<div class="vfx-cov is-${U.esc(kind)}"><span class="name">${U.esc(r.name)}</span><span class="mark">${U.esc(mark)}</span></div>`;
+      }).join("");
+      host.innerHTML = `<div class="vfx-coverage-lead">${U.esc(coverageLead(lightup))}</div><div class="vfx-coverage-grid">${items}</div>`;
+      host.hidden = false;
+    }
+
     function renderTabs() {
       const host = root.querySelector("[data-vfx-tabs]");
       const tabs = [{ name: "全部", kind: "all" }, ...(D.scenes || [])];
@@ -56,9 +229,39 @@
         .join("");
     }
 
-    function emptyNote(row, scale) {
+    function emptyNote() {
       if (scene === "全部") return "此格暂无案例";
       return `「${scene}」暂无`;
+    }
+
+    function ownStrip(r) {
+      if (!lightup) return "";
+      const rec = rowRecord(lightup, r.name);
+      const roll = rollup(rec);
+      if (roll.none) return "";
+      const pages = lightup.pages || {};
+      const thumbs = roll.pages
+        .map((item) => {
+          const page = pages[item.id];
+          if (!page) return "";
+          return U.thumbButton({
+            id: LIGHTUP_PREFIX + item.id + "::" + r.name,
+            name: page.title || item.id,
+            thumb: page.thumb
+          });
+        })
+        .join("");
+      const hint = roll.hint
+        ? `<div class="vfx-own-hint">${U.esc(roll.hint)}</div>`
+        : "";
+      return `<div class="vfx-own">
+        <div class="vfx-own-label">
+          <span class="k">现状</span>
+          ${marksHtml(U, roll, "vfx-own-marks", { allStatuses: true })}
+        </div>
+        <div class="vfx-own-thumbs">${thumbs}</div>
+        ${hint}
+      </div>`;
     }
 
     function renderGrid() {
@@ -72,13 +275,19 @@
               const items = list.filter((c) => c.row === r.name && c.scale === sc);
               const inner = items.length
                 ? items.map((c) => U.thumbButton(c)).join("")
-                : `<div class="vfx-empty">${U.esc(emptyNote(r.name, sc))}</div>`;
+                : `<div class="vfx-empty">${U.esc(emptyNote())}</div>`;
               return `<div class="vfx-map-cell" data-scale="${U.esc(sc)}">${inner}</div>`;
             })
             .join("");
-          return `<div class="vfx-map-lang">
-            <div class="vfx-map-row-head"><b>${U.esc(r.name)}</b><span>${U.esc(r.desc || "")}</span></div>
-            ${cells}
+          const roll = lightup ? rollup(rowRecord(lightup, r.name)) : { none: true, present: 0, attempted: 0, near: 0, pages: [] };
+          const headMarks = marksHtml(U, roll, "vfx-row-marks");
+          const strip = ownStrip(r);
+          return `<div class="vfx-map-lang${strip ? " has-own" : ""}">
+            <div class="vfx-map-row">
+              <div class="vfx-map-row-head"><b>${U.esc(r.name)}</b><span>${U.esc(r.desc || "")}</span>${headMarks}</div>
+              ${cells}
+            </div>
+            ${strip}
           </div>`;
         })
         .join("");
@@ -104,12 +313,29 @@
     });
 
     U.Hover.bind(root.querySelector("[data-vfx-grid]"), (card) => {
-      const c = byId.get(card.getAttribute("data-vfx-id"));
+      const id = card.getAttribute("data-vfx-id");
+      if (id && id.indexOf(LIGHTUP_PREFIX) === 0) return ownFloatData(id);
+      const c = byId.get(id);
       return c ? floatData(c) : null;
     });
 
+    function paint() {
+      if (!root.isConnected) return;
+      renderCoverage();
+      renderTabs();
+      renderGrid();
+    }
+
     renderTabs();
-    renderGrid();
+    if (lightup) {
+      paint();
+    } else {
+      loadLightup().then((L) => {
+        if (!root.isConnected) return;
+        lightup = L;
+        paint();
+      });
+    }
   }
 
   global.VfxPages = global.VfxPages || {};
