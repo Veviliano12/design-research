@@ -97,6 +97,7 @@
   }
 
   function renderNode(node, route, isRoot) {
+    if (node.hidden) return "";
     if (node.children && node.children.length) {
       const open = isOpen(node.id);
       return `<li class="tree-group${isRoot ? " is-root" : ""}${open ? " is-open" : ""}" data-group="${esc(node.id)}">

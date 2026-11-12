@@ -10,6 +10,7 @@
  *
  * scripts: 装载该页后按序加载的脚本（已加载的不会重复）。
  * wide: 内容区取消文档栏宽，供全景地图等宽版页使用。
+ * hidden: true — 仍可被旧链接打开，但不出现在左侧目录。
  */
 window.PLATFORM_NAV = {
   title: "设计研究",
@@ -99,6 +100,7 @@ window.PLATFORM_NAV = {
       id: "blocks",
       label: "Blocks",
       type: "group",
+      hidden: true,
       children: [
         {
           id: "blocks/insights",
