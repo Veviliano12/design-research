@@ -660,22 +660,34 @@
   .vfx-float.is-in { animation: none; }
 }
 
-/* Research-logic overview: keep the approved dark / lime page.
-   Full-bleed iframe in the shell; do not reuse #inventoryFrame. */
+/* Research-logic overview: hooks live on the iframe so they survive
+   extractBody([data-page].innerHTML). Do not reuse #inventoryFrame.
+   Height chain: .app → .main → .doc → .doc-inner → iframe, all definite. */
+.doc:has(.vfx-logic-frame),
 .doc:has([data-vfx-logic-embed]) {
+  flex: 1;
+  min-height: 0;
   padding: 0;
   overflow: hidden;
-  background: #0e0f11;
+  display: flex;
+  background: var(--bg);
 }
+.doc:has(.vfx-logic-frame) .doc-inner,
 .doc:has([data-vfx-logic-embed]) .doc-inner {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
   max-width: none;
   width: 100%;
-  height: 100%;
   display: flex;
 }
+.doc:has(.vfx-logic-frame) .doc-inner.is-enter,
 .doc:has([data-vfx-logic-embed]) .doc-inner.is-enter {
   animation: none;
 }
+.app.is-side-collapsed .doc:has(.vfx-logic-frame),
+.app.is-side-collapsed .doc:has([data-vfx-logic-embed]),
+.app.is-side-collapsed .doc.is-wide:has(.vfx-logic-frame),
 .app.is-side-collapsed .doc.is-wide:has([data-vfx-logic-embed]) {
   padding: 0;
 }
@@ -686,13 +698,16 @@
   width: 100%;
   height: 100%;
   display: flex;
-  background: #0e0f11;
+  background: var(--bg);
 }
-.vfx-logic-frame {
+.vfx-logic-frame,
+iframe[data-vfx-logic-embed] {
   flex: 1;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   border: 0;
   display: block;
-  background: #0e0f11;
+  background: var(--bg);
 }
