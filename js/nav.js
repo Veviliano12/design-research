@@ -30,6 +30,13 @@ window.PLATFORM_NAV = {
           scripts: ["data/vfx/map-cases.js", "js/vfx-util.js", "js/vfx-map.js"]
         },
         {
+          id: "vfx/logic",
+          label: "研究逻辑",
+          type: "doc",
+          src: "sections/vfx-logic.html",
+          wide: true
+        },
+        {
           id: "vfx/preview",
           label: "待吸收预览",
           type: "doc",
@@ -41,50 +48,15 @@ window.PLATFORM_NAV = {
           id: "vfx/method",
           label: "定义与优先级",
           type: "doc",
-          src: "sections/vfx-method.html"
-        },
-        {
-          id: "vfx/logic",
-          label: "研究逻辑",
-          type: "doc",
-          src: "sections/vfx-logic.html",
-          wide: true
+          src: "sections/vfx-method.html",
+          hidden: true
         },
         {
           id: "vfx/sources",
           label: "视效来源",
           type: "group",
+          hidden: true,
           children: [
-            {
-              id: "vfx/sources/official",
-              label: "官方渠道",
-              type: "doc",
-              src: "sections/vfx-sources-official.html",
-              wide: true,
-              scripts: ["data/vfx/blocks.js", "data/vfx/sources-core.js", "js/vfx-util.js", "js/vfx-sources.js"]
-            },
-            {
-              id: "vfx/sources/oss",
-              label: "开源与组件库",
-              type: "doc",
-              src: "sections/vfx-sources-oss.html",
-              wide: true,
-              scripts: [
-                "data/vfx/blocks.js",
-                "data/vfx/sources-core.js",
-                "data/vfx/sources-sites.js",
-                "js/vfx-util.js",
-                "js/vfx-sources.js"
-              ]
-            },
-            {
-              id: "vfx/sources/x",
-              label: "X",
-              type: "doc",
-              src: "sections/vfx-sources-x.html",
-              wide: true,
-              scripts: ["data/vfx/blocks.js", "data/vfx/sources-x.js", "js/vfx-util.js", "js/vfx-sources.js"]
-            },
             {
               id: "vfx/sources/atlas",
               label: "设计资产来源",
@@ -132,16 +104,48 @@ window.PLATFORM_NAV = {
           src: "vendor/design-atlas/index.html?embed=1"
         },
         {
+          id: "vfx/sources/official",
+          label: "官方渠道",
+          type: "doc",
+          src: "sections/vfx-sources-official.html",
+          wide: true,
+          scripts: ["data/vfx/blocks.js", "data/vfx/sources-core.js", "js/vfx-util.js", "js/vfx-sources.js"]
+        },
+        {
+          id: "vfx/sources/oss",
+          label: "开源与组件库",
+          type: "doc",
+          src: "sections/vfx-sources-oss.html",
+          wide: true,
+          scripts: [
+            "data/vfx/blocks.js",
+            "data/vfx/sources-core.js",
+            "data/vfx/sources-sites.js",
+            "js/vfx-util.js",
+            "js/vfx-sources.js"
+          ]
+        },
+        {
+          id: "vfx/sources/x",
+          label: "X",
+          type: "doc",
+          src: "sections/vfx-sources-x.html",
+          wide: true,
+          scripts: ["data/vfx/blocks.js", "data/vfx/sources-x.js", "js/vfx-util.js", "js/vfx-sources.js"]
+        },
+        {
           id: "sources/scoring",
           label: "打分规则",
           type: "doc",
-          src: "sections/sources-scoring.html"
+          src: "sections/sources-scoring.html",
+          hidden: true
         },
         {
           id: "sources/northstar",
           label: "北极星问题",
           type: "doc",
-          src: "sections/sources-northstar.html"
+          src: "sections/sources-northstar.html",
+          hidden: true
         }
       ]
     }
