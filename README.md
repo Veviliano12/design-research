@@ -16,6 +16,8 @@ python3 -m http.server 4173
 
 高阶视效已经接入本壳：全景总览、待吸收预览、定义与优先级，以及视效来源（官方渠道、开源与组件库、X）。数据与缩略图在 `data/vfx/`、`thumbs/vfx/`，页面脚本在 `js/vfx-*.js`、`css/vfx.css`。视觉只引用本平台令牌，不另起皮肤。
 
+「研究逻辑」（`#/vfx/logic`）是明确例外：该页保持已通过的暗色演示底 `#0e0f11` 与荧光黄绿 `#c9ff3a`，不改写成平台纸色或钴蓝。可全屏打开 [`vfx-logic/`](https://veviliano12.github.io/design-research/vfx-logic/)，或从目录进入；壳内用独立 iframe 嵌入，不占用清单总览的 iframe。
+
 ## 目录
 
 ```

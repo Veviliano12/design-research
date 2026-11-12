@@ -43,6 +43,13 @@ window.PLATFORM_NAV = {
           src: "sections/vfx-method.html"
         },
         {
+          id: "vfx/logic",
+          label: "研究逻辑",
+          type: "doc",
+          src: "sections/vfx-logic.html",
+          wide: true
+        },
+        {
           id: "vfx/sources",
           label: "视效来源",
           type: "group",

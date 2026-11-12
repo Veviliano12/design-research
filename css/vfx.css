@@ -659,3 +659,40 @@
 @media (prefers-reduced-motion: reduce) {
   .vfx-float.is-in { animation: none; }
 }
+
+/* Research-logic overview: keep the approved dark / lime page.
+   Full-bleed iframe in the shell; do not reuse #inventoryFrame. */
+.doc:has([data-vfx-logic-embed]) {
+  padding: 0;
+  overflow: hidden;
+  background: #0e0f11;
+}
+.doc:has([data-vfx-logic-embed]) .doc-inner {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.doc:has([data-vfx-logic-embed]) .doc-inner.is-enter {
+  animation: none;
+}
+.app.is-side-collapsed .doc.is-wide:has([data-vfx-logic-embed]) {
+  padding: 0;
+}
+.vfx-logic-page {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: #0e0f11;
+}
+.vfx-logic-frame {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #0e0f11;
+}
