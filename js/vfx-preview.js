@@ -1,4 +1,4 @@
-/* 设计研究 · 待吸收预览：30 条密缩略图 + 悬停浮卡。不自动并入地图。 */
+/* 设计研究 · 候审：30 条真实格子，按来源组排列。不计入地图上的 124。不编造截图。 */
 (function (global) {
   "use strict";
 
@@ -33,6 +33,7 @@
     const byId = new Map(items.map((it) => [it.id, it]));
     const groupOrder = D.groupOrder || [];
     let store = loadStore();
+    let selected = null;
 
     function marksOf(id) {
       return store[id] || {};
@@ -42,42 +43,61 @@
       saveStore(store);
     }
 
-    function reviewHtml(it) {
+    function cellClass(it) {
       const m = marksOf(it.id);
+      const bits = ["q-cell"];
+      if (it.thumbMissing || !U.hasThumb(it)) bits.push("is-missing");
+      if (m.seen) bits.push("is-seen");
+      if (m.fit === "yes") bits.push("is-yes");
+      if (m.fit === "no") bits.push("is-no");
+      if (selected && selected.id === it.id) bits.push("is-on");
+      return bits.join(" ");
+    }
+
+    function cellHtml(it) {
+      const src = U.thumbSrc(it, false);
+      const img = src
+        ? `<img src="${U.esc(src)}" alt="${U.esc(it.name)}" loading="lazy">`
+        : `<span>暂无现场截图</span>`;
+      return `<button type="button" class="${cellClass(it)}" data-vfx-id="${U.esc(it.id)}" aria-label="${U.esc(it.name)}">${img}</button>`;
+    }
+
+    function inspectHtml(it) {
+      if (!it) return `<div class="src-inspect-empty">点格查看单条 · 候审不计入 124</div>`;
+      const m = marksOf(it.id);
+      const img = U.thumbSrc(it, true);
+      const shot = img
+        ? `<div class="src-inspect-shot"><img src="${U.esc(img)}" alt="${U.esc(it.name)}"></div>`
+        : `<div class="src-inspect-shot is-missing">暂无现场截图</div>`;
+      const bits = [];
+      bits.push("候审");
+      if (it.sourceGroup) bits.push(U.esc(it.sourceGroup));
+      if (it.sourceSite && it.sourceSite !== it.sourceGroup) bits.push(U.esc(it.sourceSite));
+      if (it.language) bits.push(U.esc(it.language));
+      if (it.scale) bits.push(U.esc(it.scale));
+      if ((it.scenes || []).length) bits.push(U.esc(it.scenes.join("、")));
       const btn = (act, label, on) =>
         `<button type="button" data-vfx-act="${act}" class="${on ? "is-on" : ""}">${label}</button>`;
-      const note = m.note || "";
-      return `<div class="vfx-review">
+      const review = `<div class="vfx-review">
         ${btn("seen", "看过了", !!m.seen)}
         ${btn("yes", "合适", m.fit === "yes")}
         ${btn("no", "不合适", m.fit === "no")}
-        <textarea data-vfx-act="note" placeholder="批注（仅保存在本机）">${U.esc(note)}</textarea>
+        <textarea data-vfx-act="note" placeholder="批注（仅保存在本机）">${U.esc(m.note || "")}</textarea>
       </div>`;
-    }
-
-    function floatData(it) {
-      const src = it.sourceSite && it.sourceSite !== it.sourceGroup
-        ? `${it.sourceGroup} · ${it.sourceSite}`
-        : it.sourceGroup || it.sourceSite || "";
-      const meta = [];
-      if (src) meta.push(src);
-      if ((it.scenes || []).length) meta.push(it.scenes.join("、"));
-      if (it.scale) meta.push(it.scale);
-      if (it.language) meta.push(it.language);
-      const extra = it.reason ? `<div class="why">${U.esc(it.reason)}</div>` : "";
-      return {
-        id: it.id,
-        name: it.name,
-        url: it.url,
-        image: U.thumbSrc(it, true),
-        meta,
-        extraHtml: extra,
-        reviewHtml: reviewHtml(it)
-      };
+      const note = it.reason ? `<p class="src-inspect-note">${U.esc(it.reason)}</p>` : "";
+      const link = it.url
+        ? `<a class="src-go" href="${U.esc(it.url)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`
+        : "";
+      return `${shot}
+        <h3>${U.esc(it.name)}</h3>
+        <p class="src-inspect-meta">${bits.join(" · ")}</p>
+        <div class="src-inspect-links">${link}</div>
+        ${note}
+        ${review}`;
     }
 
     function render() {
-      const host = root.querySelector("[data-vfx-gallery]");
+      root.classList.add("src-viz-root", "is-preview-viz");
       const present = {};
       items.forEach((it) => {
         present[it.sourceGroup] = (present[it.sourceGroup] || 0) + 1;
@@ -86,46 +106,83 @@
       Object.keys(present).forEach((g) => {
         if (!order.includes(g)) order.push(g);
       });
-      host.innerHTML = order
+      const fields = order
         .map((g) => {
           const group = items.filter((it) => it.sourceGroup === g);
-          return `<section class="vfx-group">
-            <h3>${U.esc(g)}<span class="n">${group.length}</span></h3>
-            <div class="vfx-dense">${group.map((it) => U.thumbButton(it)).join("")}</div>
+          return `<section class="q-group">
+            <header class="q-group-head">
+              <h2>${U.esc(g)}</h2>
+              <b>${group.length}</b>
+            </header>
+            <div class="q-field">${group.map(cellHtml).join("")}</div>
           </section>`;
         })
         .join("");
-      host.querySelectorAll(".vfx-thumb img").forEach((img) => {
+
+      root.innerHTML = `
+        <header class="src-viz-head">
+          <div class="src-viz-title">
+            <p class="kicker">候审</p>
+            <div class="src-inventories">
+              <div class="src-inv">
+                <b>${items.length}</b>
+                <span>候审 · 不计入 124</span>
+              </div>
+            </div>
+          </div>
+          <div class="src-viz-legend">
+            <span><i class="src-swatch is-queue"></i>候审，尚未进入视效库</span>
+            <a class="src-queue" href="#/sources/review">返回来源</a>
+          </div>
+        </header>
+        <div class="q-board">
+          <div class="q-fields">${fields}</div>
+          <aside class="src-inspect" data-inspect>${inspectHtml(selected)}</aside>
+        </div>
+      `;
+
+      root.querySelectorAll(".q-cell img").forEach((img) => {
         img.addEventListener("error", () => {
-          const btn = img.closest(".vfx-thumb");
+          const btn = img.closest(".q-cell");
           if (!btn) return;
           btn.classList.add("is-missing");
           img.remove();
-          btn.appendChild(document.createTextNode("暂无截图"));
+          btn.insertAdjacentHTML("afterbegin", "<span>暂无现场截图</span>");
         });
       });
     }
 
-    const hoverOpts = {
-      onAction(act, data, el) {
-        if (!data) return;
-        const cur = marksOf(data.id);
-        if (act === "seen") setMark(data.id, { seen: !cur.seen });
-        else if (act === "yes") setMark(data.id, { fit: cur.fit === "yes" ? "" : "yes" });
-        else if (act === "no") setMark(data.id, { fit: cur.fit === "no" ? "" : "no" });
-        else if (act === "note") {
-          setMark(data.id, { note: el.value || "" });
-          return;
-        }
-        const it = byId.get(data.id);
-        const card = root.querySelector(`[data-vfx-id="${CSS.escape(data.id)}"]`);
-        if (it && card) U.Hover.show(card, floatData(it), hoverOpts);
+    root.addEventListener("click", (e) => {
+      const act = e.target.closest("[data-vfx-act]");
+      if (act && selected) {
+        const kind = act.getAttribute("data-vfx-act");
+        const cur = marksOf(selected.id);
+        if (kind === "seen") setMark(selected.id, { seen: !cur.seen });
+        else if (kind === "yes") setMark(selected.id, { fit: cur.fit === "yes" ? "" : "yes" });
+        else if (kind === "no") setMark(selected.id, { fit: cur.fit === "no" ? "" : "no" });
+        const pane = root.querySelector("[data-inspect]");
+        const latest = byId.get(selected.id);
+        if (pane && latest) pane.innerHTML = inspectHtml(latest);
+        const cell = root.querySelector(`[data-vfx-id="${CSS.escape(selected.id)}"]`);
+        if (cell && latest) cell.className = cellClass(latest);
+        return;
       }
-    };
-    U.Hover.bind(root.querySelector("[data-vfx-gallery]"), (card) => {
-      const it = byId.get(card.getAttribute("data-vfx-id"));
-      return it ? floatData(it) : null;
-    }, hoverOpts);
+      const cell = e.target.closest("[data-vfx-id]");
+      if (!cell) return;
+      const it = byId.get(cell.getAttribute("data-vfx-id"));
+      if (!it) return;
+      selected = it;
+      root.querySelectorAll(".q-cell.is-on").forEach((el) => el.classList.remove("is-on"));
+      cell.classList.add("is-on");
+      const pane = root.querySelector("[data-inspect]");
+      if (pane) pane.innerHTML = inspectHtml(it);
+    });
+
+    root.addEventListener("input", (e) => {
+      const area = e.target.closest("[data-vfx-act='note']");
+      if (!area || !selected) return;
+      setMark(selected.id, { note: area.value || "" });
+    });
 
     render();
   }

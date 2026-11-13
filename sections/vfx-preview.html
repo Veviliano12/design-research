@@ -4,20 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>待吸收预览 · 设计研究</title>
+<title>候审 · 设计研究</title>
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/shell.css">
 <link rel="stylesheet" href="../css/vfx.css">
 </head>
 <body>
-<div class="doc is-wide" data-page>
-  <div data-vfx-root="preview">
-    <header class="vfx-head">
-      <h2>待吸收预览</h2>
-      <p>这些是尚未并入全景地图、还待下结论的条目，目前共 30 条。按来源分组，用小缩略图浏览；指针移上去可看放大截图、名称、来源和场景。本页不会把条目自动并入地图。</p>
+<div data-page>
+  <div class="book-page is-preview">
+    <header class="book-topbar">
+      <nav class="book-tabs" aria-label="平台章节">
+        <a class="book-tab" href="#/vfx/overview">视效库</a>
+        <a class="book-tab" href="#/vfx/logic">研究逻辑</a>
+        <a class="book-tab is-current" href="#/sources/review">来源</a>
+      </nav>
     </header>
-    <div data-vfx-gallery></div>
-    <p class="vfx-note">审阅（看过了 / 合适 / 不合适 / 批注）放在浮卡里，只保存在本机，不会同步到旧的待吸收预览，也不会改地图。</p>
+    <div class="book-body">
+      <div data-vfx-root="preview" class="src-viz-root is-preview-viz"></div>
+    </div>
+    <footer class="book-deckbar">
+      <div class="book-deck-left">
+        <span class="book-deck-status">03 来源 · 候审</span>
+      </div>
+      <nav class="book-chapters" aria-label="章节进度">
+        <a class="book-chapter" href="#/vfx/overview">01 视效库</a>
+        <a class="book-chapter" href="#/vfx/logic">02 研究逻辑</a>
+        <a class="book-chapter is-current" href="#/sources/review">03 来源</a>
+      </nav>
+      <div class="book-wordmark">设计研究</div>
+    </footer>
   </div>
 </div>
 </body>

@@ -12,18 +12,17 @@
 <body>
 <div class="doc is-wide" data-page>
   <div data-vfx-root="sources">
-    <header class="vfx-head">
-      <h2>官方渠道</h2>
-      <p>官方设计规范与产品页，以及放在本页的获奖、工作室与产品来源。按渠道分组。已吸收、不吸收、待审都来自文献记录；待审只表示尚未下结论，不等于不吸收。本页不复制「设计资产清单」。</p>
+    <header class="vfx-head is-quiet">
+      <h2 class="visually-hidden">官方渠道</h2>
     </header>
     <div class="vfx-toolbar">
       <div class="vfx-toolbar-row">
         <div class="vfx-tabs" data-vfx-tabs></div>
         <div class="vfx-search">
-          <input type="search" data-vfx-q placeholder="搜索名称、来源或备注" aria-label="搜索本页来源">
+          <input type="search" data-vfx-q placeholder="搜索" aria-label="搜索本页来源">
+          <p class="vfx-filter-n" data-vfx-count hidden></p>
         </div>
       </div>
-      <p class="label" data-vfx-count style="margin-top:8px"></p>
     </div>
     <div data-vfx-body></div>
   </div>

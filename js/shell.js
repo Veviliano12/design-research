@@ -165,12 +165,35 @@
     }
   }
 
+
+  function isLibraryRoute(route) {
+    return (
+      route === "vfx/overview" ||
+      route === "vfx/logic" ||
+      route === "sources/review" ||
+      route === "vfx/preview"
+    );
+  }
+
+  function applyLibraryChrome(on) {
+    document.documentElement.classList.toggle("is-library-route", on);
+    document.body.classList.toggle("is-library-route", on);
+    if (els.app) els.app.classList.toggle("is-library-route", on);
+    if (on) {
+      closeNav();
+      if (els.openSide) els.openSide.hidden = true;
+    } else {
+      applySide();
+    }
+  }
+
   async function show(route) {
     const node = routes.get(route) || routes.get(NAV.defaultRoute);
     const resolved = node.type === "alias" ? routes.get(node.to) : node;
     document.title = `${resolved.label} · ${NAV.title}`;
     if (els.title) els.title.textContent = NAV.title;
     updateActive(resolved.id);
+    applyLibraryChrome(isLibraryRoute(resolved.id));
     closeNav();
 
     const isWide = !!resolved.wide;

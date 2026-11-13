@@ -293,11 +293,15 @@
     const id = item.id || "";
     const label = item.name || "";
     const src = thumbSrc(item, false);
-    const cls = "vfx-thumb" + (src ? "" : " is-missing");
+    const failed = !!(item && item.capture_failed);
+    const miss = failed ? "未采集" : "暂无截图";
+    const extra = o.className ? " " + o.className : "";
+    const cls = "vfx-thumb" + (src ? "" : " is-missing") + (failed ? " is-uncaptured" : "") + extra;
     const img = src
       ? `<img loading="lazy" src="${esc(src)}" alt="${esc(label)}">`
-      : "暂无截图";
-    return `<button type="button" class="${cls}" data-vfx-id="${esc(id)}" aria-label="${esc(label)}">${img}</button>`;
+      : `<span class="vfx-thumb-miss">${esc(miss)}</span>`;
+    const title = failed ? ' title="未采集"' : "";
+    return `<button type="button" class="${cls}" data-vfx-id="${esc(id)}" aria-label="${esc(label)}"${title}>${img}</button>`;
   }
 
   global.VfxUtil = { esc, hasThumb, thumbSrc, isFinePointer, Hover, thumbButton };

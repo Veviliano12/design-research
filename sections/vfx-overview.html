@@ -5,25 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>全景总览 · 设计研究</title>
-<link rel="stylesheet" href="../css/tokens.css">
-<link rel="stylesheet" href="../css/shell.css">
-<link rel="stylesheet" href="../css/vfx.css">
 </head>
 <body>
-<div class="doc is-wide" data-page>
-  <div data-vfx-root="overview">
-    <header class="vfx-head">
-      <h2>全景总览</h2>
-      <p>格子里是外部高阶视效标杆。缩略图小而密；把指针放上去，可以看到放大截图、名称、来源和所属场景。点卡片或浮卡上的链接，打开原站。</p>
-      <p>行上的状态和行下的现状缩略图，是自身 94 页抽样的覆盖：点亮是这种语言已在现状里出现，哪怕还不够标杆；做了但不够是朝这个方向做了，但还不能算已具备；接近标杆单独标出。空白的语言不点，也不另贴标签。</p>
-    </header>
-    <div class="vfx-coverage" data-vfx-coverage hidden></div>
-    <div class="vfx-toolbar">
-      <div class="label">按场景筛选</div>
-      <div class="vfx-tabs" data-vfx-tabs></div>
-    </div>
-    <div data-vfx-grid></div>
-  </div>
+<div class="vfx-map-page" data-page>
+  <iframe
+    class="vfx-map-frame"
+    data-vfx-map-embed
+    title="视效库：124 条标杆，按九种视效语言分两层墙陈列。"
+    src="vfx-map/index.html?embed=1"
+    allow="fullscreen"
+  ></iframe>
 </div>
 </body>
 </html>

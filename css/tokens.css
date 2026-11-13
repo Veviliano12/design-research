@@ -1,6 +1,6 @@
 /* 设计研究 · 设计令牌
- * 从 /workspace/design-resource-atlas/index.html 原样抽出，不另起皮肤。
- * 平台壳与「好看的视效」的页面共同引用本文件。默认浅色（纸色 + 钴蓝）。
+ * 纸色 + 钴蓝。平台壳与可见内容页共用同一套字阶、间距、运动与颜色。
+ * 默认浅色为审阅目标；深色只做映射，不另起皮肤。
  */
 
 :root {
@@ -32,11 +32,15 @@
   --ease-io: cubic-bezier(.77, 0, .175, 1);
   --ease-drawer: cubic-bezier(.32, .72, 0, 1);
   --spring: cubic-bezier(.34, 1.45, .64, 1);
+  --ease-enter: cubic-bezier(.22, 1, .36, 1);
 
   --f11: 11px; --f13: 13px; --f15: 15px; --f17: 17px; --f20: 20px; --f24: 24px; --f30: 30px;
+  --f40: 40px;
   --r-s: 8px; --r-m: 12px; --r-l: 18px;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
-  --side-w: 300px;
+  --display: "Helvetica Neue", "SF Pro Display", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --side-w: 260px;
   color-scheme: light;
 }
 

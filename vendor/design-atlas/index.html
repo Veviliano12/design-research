@@ -9851,9 +9851,253 @@ a { color: inherit; }
 }
 
 
-/* embed mode for 设计研究 platform; standalone unchanged */
-html[data-embed] .brand { display: none; }
-html[data-embed] .side { padding-top: 16px; }
+/* 嵌入用的「更多筛选」开关：独立打开时完全不出现，结构不影响原筛选。 */
+.embed-more-flt,
+label.embed-more-lab { display: none !important; }
+
+/* embed mode for 设计研究 platform; standalone unchanged.
+ * 嵌入时不再自带左侧栏，避免和平台壳叠两层目录；打分规则 / 北极星入口一并藏起。
+ * 主类与次级筛选收到数字条下方，折行而不是横向溢出。
+ */
+html[data-embed],
+html[data-embed] body {
+  height: 100%;
+  overflow: hidden;
+}
+html[data-embed] .app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  grid-template-columns: unset;
+}
+html[data-embed] .main { display: contents; }
+html[data-embed] .brand,
+html[data-embed] .side-foot,
+html[data-embed] .side-actions,
+html[data-embed] .side .lab,
+html[data-embed] .lab-toggle,
+html[data-embed] .chip-reset { display: none !important; }
+html[data-embed] .head {
+  order: 1;
+  padding: 20px 28px 8px;
+  align-items: flex-end;
+  gap: 24px;
+  overflow: visible;
+  flex: none;
+}
+html[data-embed] .head h2,
+html[data-embed] .head p { display: none; }
+html[data-embed] .kpis {
+  gap: 16px 22px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+html[data-embed] .kpi {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+html[data-embed] .kpi:first-child b {
+  display: block;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -.05em;
+  line-height: .95;
+  color: var(--ink);
+}
+html[data-embed] .kpi:first-child span {
+  font-size: 11px;
+  color: var(--mute);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+html[data-embed] .kpi:not(:first-child) {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 5px;
+}
+html[data-embed] .kpi:not(:first-child) b {
+  display: inline;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  color: var(--ink2);
+}
+html[data-embed] .kpi:not(:first-child) span {
+  font-size: 11px;
+  color: var(--mute);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+html[data-embed] .kpi.acc b { color: var(--ink2); }
+html[data-embed] .side {
+  order: 2;
+  flex: none;
+  overflow: visible;
+  border-right: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  padding: 4px 28px 14px;
+  gap: 0;
+}
+html[data-embed] .filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+html[data-embed] .flt-group.is-primary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+html[data-embed] .flt-group.is-primary .lab { display: none; }
+html[data-embed] .srcs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+html[data-embed] .src-row {
+  display: inline-flex;
+  grid-template-columns: unset;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  white-space: nowrap;
+}
+html[data-embed] .src-row .lt {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+html[data-embed] .src-row[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+html[data-embed] .src-row[aria-pressed="true"] .lt {
+  background: var(--acc);
+  color: #fff;
+}
+html[data-embed] .src-row[aria-pressed="true"] .n {
+  color: var(--bg);
+  opacity: .75;
+}
+html[data-embed] label.embed-more-lab {
+  display: inline-flex !important;
+  align-items: center;
+  border: 1px dashed var(--line);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--ink2);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.3;
+}
+html[data-embed] .embed-more-flt:checked + .flt-group.is-primary + label.embed-more-lab,
+html[data-embed] #embedMoreFlt:checked ~ label.embed-more-lab {
+  background: var(--sunken);
+  border-style: solid;
+  color: var(--ink);
+}
+html[data-embed] .flt-more {
+  display: none;
+  flex: 1 0 100%;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 2px;
+  border-top: 0;
+}
+html[data-embed] #embedMoreFlt:checked ~ .flt-more {
+  display: flex;
+}
+html[data-embed] .flt-more .flt-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+html[data-embed] .flt-more .lab-toggle {
+  display: inline-flex !important;
+  pointer-events: none;
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  padding: 0 4px 0 0;
+  color: var(--mute);
+  font-size: 11px;
+  letter-spacing: .02em;
+  gap: 0;
+}
+html[data-embed] .flt-more .lab-toggle i,
+html[data-embed] .flt-more .lab-toggle .flt-now { display: none !important; }
+html[data-embed] .flt-body,
+html[data-embed] .flt-group:not(.open) .flt-body {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+}
+html[data-embed] .chips { display: contents; }
+html[data-embed] .stage {
+  order: 3;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 28px 32px;
+}
+html[data-embed] .view,
+html[data-embed] .view.leaving { filter: none; }
+html[data-embed] .mx {
+  border-radius: 12px;
+  box-shadow: none;
+}
+html[data-embed] .atlas { min-width: 0; width: 100%; }
+html[data-embed] .atlas col:nth-child(n+2):nth-child(-n+13),
+html[data-embed] .atlas col:nth-last-child(-n+2) { display: none; }
+html[data-embed] .atlas th.cov,
+html[data-embed] .atlas td.cov,
+html[data-embed] .atlas th.cred,
+html[data-embed] .atlas td.cred,
+html[data-embed] .atlas th.seen,
+html[data-embed] .atlas td.seen { display: none; }
+html[data-embed] .list-foot .legend { display: none; }
+html[data-embed] .atlas thead th { padding-top: 10px; padding-bottom: 8px; }
+html[data-embed] .atlas tbody td { padding-top: 11px; padding-bottom: 11px; }
+html[data-embed] .atlas td.auth .num {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+}
+html[data-embed] .atlas td.cn b { font-size: 13px; }
+html[data-embed] .atlas th.does,
+html[data-embed] .atlas td.does { display: table-cell; }
+html[data-embed] .atlas thead th:first-child,
+html[data-embed] .atlas tbody td:first-child { padding-left: 18px; }
+html[data-embed] .atlas thead th:last-child,
+html[data-embed] .atlas tbody td:last-child { padding-right: 16px; }
+@media (max-width: 760px) {
+  html[data-embed] .head { padding: 16px 16px 6px; }
+  html[data-embed] .side { padding: 2px 16px 12px; }
+  html[data-embed] .stage { padding: 4px 16px 32px; }
+  html[data-embed] .kpi:first-child b { font-size: 24px; }
+  html[data-embed] .kpis { gap: 10px 16px; }
+  html[data-embed] .atlas { min-width: 0; }
+  html[data-embed] .atlas thead th { position: static; }
+  html[data-embed] .mx { overflow-x: auto; overflow-y: visible; }
+  html[data-embed] .atlas th.does,
+  html[data-embed] .atlas td.does { display: table-cell; }
+}
 </style>
 <script>
 /* 设计资产清单 · 数据层
@@ -14899,10 +15143,12 @@ window.ATLAS_DATA = {
     </div>
 
     <div class="filters" id="filters">
+      <input type="checkbox" id="embedMoreFlt" class="embed-more-flt" hidden>
       <div class="flt-group is-primary">
         <div class="lab"><span>主类</span><button type="button" class="chip-reset press" id="fltReset" hidden>清除</button></div>
         <div class="srcs" id="srcs"></div>
       </div>
+      <label for="embedMoreFlt" class="embed-more-lab">更多筛选</label>
       <div class="flt-more">
         <div class="flt-group" data-flt="channel">
           <button type="button" class="lab lab-toggle" aria-expanded="false">发现渠道<span class="flt-now" hidden></span><i class="ph ph-caret-down" aria-hidden="true"></i></button>

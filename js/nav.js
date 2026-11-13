@@ -14,34 +14,51 @@
  */
 window.PLATFORM_NAV = {
   title: "设计研究",
-  defaultRoute: "sources/list",
+  defaultRoute: "vfx/overview",
   tree: [
+    {
+      id: "vfx/overview",
+      label: "全景总览",
+      type: "doc",
+      src: "sections/vfx-overview.html",
+      wide: true
+    },
+    {
+      id: "sources/review",
+      label: "来源",
+      type: "doc",
+      src: "sections/vfx-sources-review.html",
+      wide: true,
+      scripts: [
+        "data/vfx/blocks.js",
+        "data/vfx/sources-core.js",
+        "data/vfx/sources-sites.js",
+        "data/vfx/sources-x.js",
+        "js/vfx-util.js",
+        "js/vfx-sources.js"
+      ]
+    },
     {
       id: "vfx",
       label: "高阶视效",
       type: "group",
+      hidden: true,
       children: [
         {
-          id: "vfx/overview",
-          label: "全景总览",
-          type: "doc",
-          src: "sections/vfx-overview.html",
-          wide: true,
-          scripts: ["data/vfx/map-cases.js", "js/vfx-util.js", "js/vfx-map.js"]
-        },
-        {
           id: "vfx/logic",
-          label: "研究逻辑",
+          label: "如何读这张图",
           type: "doc",
           src: "sections/vfx-logic.html",
-          wide: true
+          wide: true,
+          hidden: true
         },
         {
           id: "vfx/preview",
-          label: "待吸收预览",
+          label: "候审",
           type: "doc",
           src: "sections/vfx-preview.html",
           wide: true,
+          hidden: true,
           scripts: ["data/vfx/preview-cases.js", "js/vfx-util.js", "js/vfx-preview.js"]
         },
         {
@@ -96,6 +113,7 @@ window.PLATFORM_NAV = {
       id: "sources",
       label: "来源清单",
       type: "group",
+      hidden: true,
       children: [
         {
           id: "sources/list",

@@ -1,46 +1,70 @@
-/* 设计研究 · 视效来源三页。按文档层级分组，不把所有来源平铺在一页。
- * 未读（待审）不等于不吸收。不编造文献里没有的条目。 */
+/* 设计研究 · 来源。一屏三层：渠道 → 具体来源 → 一条一格。
+ * 颜色只表示真实状态：已吸收 / 待审 / 不吸收。候审 30 另行着色，不画进 124。
+ * 核心 / 站点清单 / X 分库存立账，不加总成一个来源库总数。
+ * 已吸收 53 ≠ 视效库 124。格子亮了只说明这条来源记录已吸收。 */
 (function (global) {
   "use strict";
 
-  const PAGE_SIZE = 40;
   const STATUS_CN = { absorbed: "已吸收", rejected: "不吸收", pending: "待审" };
-  const PAGE_BLOCKS = {
-    "vfx/sources/official": [
-      {
-        id: "official",
-        intro: "苹果、鸿蒙、谷歌、微软的官方设计规范与产品页。"
-      },
-      {
-        id: "awards",
-        intro: "权威评选与高视效工作室。放在本页是为了和官方渠道一起构成已审的专业来源，而不是把它们算成官方规范。"
-      },
-      {
-        id: "product",
-        intro: "面向使用的产品页、配置器，以及已被反复引用的经典实验。"
-      }
-    ],
-    "vfx/sources/oss": [
-      {
-        id: "threeui",
-        intro: "Meng To 的 ThreeUI 组件与落地页，单独成组，不混进其他渠道。"
-      },
-      {
-        id: "opensource",
-        intro: "Chrome Experiments、Codrops Webzibition、p5aholic 等开源或实验图库。"
-      },
-      {
-        id: "gallery",
-        intro: "MUUUUU、mesh3d、HOVERSTAT.ES、Berkeley 案例库等图库渠道。"
-      }
-    ],
-    "vfx/sources/x": [
-      {
-        id: "x",
-        intro: "从 X 收获的视效 / 动效推文，以及来源标为 X 的站点。推文链接和外部站点链接分开标注。"
-      }
-    ]
-  };
+  const STATUS_ORDER = { absorbed: 0, rejected: 1, pending: 2 };
+  const QUEUE_HREF = "#/vfx/preview";
+  const LANG_ORDER = [
+    "液态玻璃与光学",
+    "流体与着色器场",
+    "光与发光",
+    "粒子与点云",
+    "图像与视频后期",
+    "生成艺术与程序化图形",
+    "实时 3D · 写实材质与物件",
+    "实时 3D · 场景与世界",
+    "物理与软体模拟"
+  ];
+
+  const CHANNELS = [
+    {
+      id: "official",
+      label: "官方渠道",
+      blocks: ["official", "awards", "product"],
+      groups: [
+        { name: "厂方", sources: ["苹果", "谷歌", "鸿蒙", "微软"] },
+        { name: "奖项", sources: ["Awwwards", "FWA", "CSSDA", "工作室"] },
+        { name: "产品与案例", sources: ["产品", "已有案例", "经典实验"] }
+      ]
+    },
+    {
+      id: "oss",
+      label: "开源与组件库",
+      blocks: ["threeui", "opensource", "gallery"],
+      groups: [
+        { name: "核心清单", sources: ["ThreeUI", "开源产品"], kind: "core" },
+        {
+          name: "站点清单",
+          sources: [
+            "Codrops Webzibition",
+            "Chrome Experiments",
+            "Berkeley 案例库",
+            "mesh3d",
+            "MUUUUU",
+            "Interact Gallery",
+            "storytelling.design",
+            "HOVERSTAT.ES",
+            "补充收录",
+            "p5aholic",
+            "The Pudding"
+          ],
+          kind: "sites"
+        }
+      ]
+    },
+    {
+      id: "x",
+      label: "X",
+      blocks: ["x"],
+      groups: [
+        { name: "发现渠道", sources: ["视效推文", "动效推文", "X 收获站点"], kind: "x" }
+      ]
+    }
+  ];
 
   function hydrate(it) {
     const o = Object.assign({}, it);
@@ -57,10 +81,9 @@
   }
 
   function collectItems() {
-    const list = []
+    return []
       .concat(global.VFX_LIT_CORE || [], global.VFX_LIT_SITES || [], global.VFX_LIT_X || [])
       .map(hydrate);
-    return list;
   }
 
   function countsOf(list) {
@@ -71,10 +94,66 @@
     return c;
   }
 
-  function statusClass(st) {
-    if (st === "absorbed") return "is-absorbed";
-    if (st === "rejected") return "is-rejected";
-    return "is-pending";
+  function sortItems(list) {
+    return list.slice().sort((a, b) => (STATUS_ORDER[a.status] || 9) - (STATUS_ORDER[b.status] || 9));
+  }
+
+  function statusFill(st) {
+    if (st === "absorbed") return "#3EC8FF";
+    if (st === "rejected") return "rgba(232,233,235,0.30)";
+    return "rgba(255,255,255,0.075)";
+  }
+
+  function mixHtml(U, c, withLabels) {
+    return [
+      `<span class="src-swatch is-absorbed"></span>${withLabels ? "已吸收 " : ""}${c.absorbed}`,
+      `<span class="src-swatch is-rejected"></span>${withLabels ? "不吸收 " : ""}${c.rejected}`,
+      `<span class="src-swatch is-pending"></span>${withLabels ? "待审 " : ""}${c.pending}`
+    ].join(" ");
+  }
+
+  function paintGrid(canvas, items, opts) {
+    const cell = Math.max(2, opts.cell || 8);
+    const gap = opts.gap != null ? opts.gap : Math.min(2, Math.max(1, Math.floor(cell / 5)));
+    const pad = opts.pad || 0;
+    const width = Math.max(1, canvas.clientWidth || opts.width || 120);
+    const maxCols = Math.max(1, Math.floor((width - pad * 2) / cell));
+    const sq = Math.ceil(Math.sqrt(Math.max(items.length, 1)));
+    const cols = Math.min(maxCols, Math.max(1, opts.fillWidth ? maxCols : (opts.cols || sq)));
+    const rows = Math.max(1, Math.ceil(Math.max(items.length, 1) / cols));
+    const h = rows * cell + pad * 2;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(h * dpr));
+    canvas.style.width = width + "px";
+    canvas.style.height = h + "px";
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, h);
+    const size = Math.max(1, cell - gap);
+    items.forEach((it, i) => {
+      const x = pad + (i % cols) * cell;
+      const y = pad + Math.floor(i / cols) * cell;
+      ctx.fillStyle = statusFill(it.status);
+      ctx.fillRect(x, y, size, size);
+    });
+    canvas.__grid = { items, cols, rows, cell, pad, size, width, height: h };
+    return canvas.__grid;
+  }
+
+  function hitCell(canvas, ev) {
+    const g = canvas.__grid;
+    if (!g) return null;
+    const r = canvas.getBoundingClientRect();
+    const x = ev.clientX - r.left;
+    const y = ev.clientY - r.top;
+    const scaleX = g.width / r.width;
+    const scaleY = g.height / r.height;
+    const col = Math.floor((x * scaleX - g.pad) / g.cell);
+    const row = Math.floor((y * scaleY - g.pad) / g.cell);
+    if (col < 0 || row < 0 || col >= g.cols) return null;
+    const i = row * g.cols + col;
+    return g.items[i] || null;
   }
 
   function init(route) {
@@ -82,270 +161,364 @@
     const root = document.querySelector("[data-vfx-root='sources']");
     if (!root || !U) return;
 
-    const plan = PAGE_BLOCKS[route];
-    if (!plan) {
-      root.querySelector("[data-vfx-body]").innerHTML = '<p class="vfx-empty-page">未知的来源页。</p>';
+    const all = collectItems();
+    if (!all.length) {
+      root.innerHTML = '<p class="vfx-empty-page">没有载入到来源数据。</p>';
       return;
     }
 
-    const all = collectItems();
-    const blocksMeta = new Map((global.VFX_LIT_BLOCKS || []).map((b) => [b.id, b]));
-    const byId = new Map();
+    const bySource = new Map();
+    all.forEach((it) => {
+      const name = it.channel || "未分组";
+      if (!bySource.has(name)) bySource.set(name, []);
+      bySource.get(name).push(it);
+    });
 
-    const state = { filter: "all", q: "", more: {} };
+    const coreItems = global.VFX_LIT_CORE || [];
+    const siteItems = global.VFX_LIT_SITES || [];
+    const xItems = global.VFX_LIT_X || [];
+    const coreC = countsOf(coreItems);
+    const siteC = countsOf(siteItems);
+    const xC = countsOf(xItems);
 
-    function pageItems() {
-      const ids = new Set(plan.map((b) => b.id));
-      return all.filter((it) => ids.has(it.block));
+    const state = {
+      focus: null,
+      item: null
+    };
+
+    function itemsOf(name) {
+      return bySource.get(name) || [];
     }
 
-    function matches(it) {
-      if (state.filter !== "all" && it.status !== state.filter) return false;
-      if (state.q) {
-        const q = state.q.toLowerCase();
-        const blob = [
-          it.name,
-          it.url,
-          it.channel,
-          (it.channels || []).join(" "),
-          it.source_detail,
-          it.studio,
-          it.author_name,
-          it.excerpt,
-          it.note,
-          it.external_url
-        ]
-          .join("\n")
-          .toLowerCase();
-        if (blob.indexOf(q) === -1) return false;
+    function channelItems(ch) {
+      const names = ch.groups.flatMap((g) => g.sources);
+      const list = [];
+      names.forEach((n) => list.push.apply(list, itemsOf(n)));
+      return list;
+    }
+
+    function kindOf(name, group) {
+      if (group && group.kind) return group.kind;
+      const n = itemsOf(name).length;
+      if (n >= 400) return "sites";
+      return "core";
+    }
+
+    function cellSize(kind, mode) {
+      if (mode === "focus") {
+        if (kind === "core") return 12;
+        if (kind === "x") return 7;
+        return 5;
       }
-      return true;
+      if (kind === "core") return 8;
+      return 3;
     }
 
-    function channelOrder(blockId, items) {
-      const seen = [];
-      items.forEach((it) => {
-        const ch = it.channel || "未分组";
-        if (!seen.includes(ch)) seen.push(ch);
+    function renderHead(host) {
+      host.innerHTML = `
+        <header class="src-viz-head">
+          <div class="src-viz-title">
+            <p class="kicker">来源</p>
+            <div class="src-inventories" aria-label="分库存立账，不加总">
+              <div class="src-inv">
+                <b>${coreC.total}</b>
+                <span>核心清单</span>
+                <small>已吸收 ${coreC.absorbed} · 不吸收 ${coreC.rejected} · 待审 ${coreC.pending}</small>
+              </div>
+              <div class="src-inv">
+                <b>${siteC.total}</b>
+                <span>站点清单</span>
+                <small>待审 ${siteC.pending}</small>
+              </div>
+              <div class="src-inv">
+                <b>${xC.total}</b>
+                <span>X</span>
+                <small>已吸收 ${xC.absorbed} · 不吸收 ${xC.rejected} · 待审 ${xC.pending}</small>
+              </div>
+            </div>
+          </div>
+          <div class="src-viz-legend">
+            <span><i class="src-swatch is-absorbed"></i>已吸收</span>
+            <span><i class="src-swatch is-rejected"></i>不吸收</span>
+            <span><i class="src-swatch is-pending"></i>待审</span>
+            <a class="src-queue" href="${QUEUE_HREF}">
+              <i class="src-swatch is-queue"></i>候审 30 · 不计入 124
+            </a>
+          </div>
+        </header>
+        <p class="src-viz-note">亮格 = 该条来源记录已吸收，不是视效库的 124。站点清单与 X 按真实条数铺成密色域，几乎都还待审。</p>
+      `;
+    }
+
+    function clusterButton(name, group) {
+      const items = sortItems(itemsOf(name));
+      const c = countsOf(items);
+      if (!c.total) return "";
+      const kind = kindOf(name, group);
+      const featured = name === "ThreeUI" || name === "视效推文" ? " is-featured" : "";
+      return `<button type="button" class="src-cluster is-${kind}${featured}" data-source="${U.esc(name)}" data-kind="${kind}">
+        <span class="src-cluster-head">
+          <span class="src-cluster-name">${U.esc(name)}</span>
+          <b>${c.total}</b>
+        </span>
+        <span class="src-cluster-mix">${mixHtml(U, c, false)}</span>
+        <canvas class="src-grid" data-grid="${U.esc(name)}" aria-hidden="true"></canvas>
+      </button>`;
+    }
+
+    function leftoverSources(ch) {
+      const listed = new Set(ch.groups.flatMap((g) => g.sources));
+      const names = [];
+      all.forEach((it) => {
+        if (ch.blocks.indexOf(it.block) === -1) return;
+        const name = it.channel || "未分组";
+        if (!listed.has(name) && names.indexOf(name) === -1) names.push(name);
       });
-      return seen;
+      return names;
     }
 
-    function rowRich(it) {
-      const thumb = U.thumbButton(it);
-      const stu = it.studio || it.author_name;
-      const meta = [
-        `<span class="vfx-st ${statusClass(it.status)}">${STATUS_CN[it.status] || "待审"}</span>`
-      ];
-      if (stu) meta.push(`<span>${U.esc(stu)}</span>`);
-      if (it.source_detail) meta.push(`<span>${U.esc(it.source_detail)}</span>`);
-      const reason =
-        it.status === "rejected" && it.note
-          ? `<p class="reason">不吸收原因：${U.esc(it.note)}</p>`
-          : it.note
-            ? `<p class="reason">${U.esc(it.note)}</p>`
-            : "";
+    function renderBoard(host) {
+      const cols = CHANNELS.map((ch) => {
+        const extra = leftoverSources(ch);
+        const groupsSpec = ch.groups.map((g, i, arr) => {
+          if (i === arr.length - 1 && extra.length) {
+            return Object.assign({}, g, { sources: g.sources.concat(extra) });
+          }
+          return g;
+        });
+        const items = channelItems(ch).concat(extra.flatMap(itemsOf));
+        const c = countsOf(items);
+        const groups = groupsSpec
+          .map((g) => {
+            const present = g.sources.filter((n) => itemsOf(n).length);
+            if (!present.length) return "";
+            const body = present.map((n) => clusterButton(n, g)).join("");
+            const wrapCls = g.kind === "sites" || g.kind === "x" ? "src-dense-wrap" : "src-core-wrap";
+            return `<div class="src-group">
+              <p class="src-group-name">${U.esc(g.name)}</p>
+              <div class="${wrapCls}">${body}</div>
+            </div>`;
+          })
+          .join("");
+        let tally = "";
+        if (ch.id === "official") {
+          tally = `${c.total} · 核心清单中的官方渠道`;
+        } else if (ch.id === "oss") {
+          const coreN = itemsOf("ThreeUI").length + itemsOf("开源产品").length;
+          const siteN = c.total - coreN;
+          tally = `核心 ${coreN} · 站点清单 ${siteN}`;
+        } else {
+          tally = String(c.total);
+        }
+        return `<section class="src-channel" data-channel="${ch.id}">
+          <header class="src-channel-head">
+            <h2>${U.esc(ch.label)}</h2>
+            <p>${U.esc(tally)}</p>
+          </header>
+          <div class="src-groups">${groups}</div>
+        </section>`;
+      }).join("");
+      host.insertAdjacentHTML("beforeend", `<div class="src-board">${cols}</div>`);
+    }
+
+    function paintAll(scope) {
+      (scope || root).querySelectorAll("canvas[data-grid]").forEach((cv) => {
+        const name = cv.getAttribute("data-grid");
+        const cluster = cv.closest("[data-kind]");
+        const kind = cluster ? cluster.getAttribute("data-kind") : "core";
+        const mode = cv.closest(".src-focus") ? "focus" : "view";
+        const band = cv.getAttribute("data-band");
+        let items;
+        if (band === "absorbed") {
+          const lang = cv.getAttribute("data-lang") || "";
+          items = sortItems(itemsOf(name).filter((it) => it.status === "absorbed" && languageOf(it) === lang));
+        } else if (band === "rejected" || band === "pending") {
+          items = itemsOf(name).filter((it) => it.status === band);
+        } else {
+          items = sortItems(itemsOf(name));
+        }
+        const fillWidth = kind === "sites" || kind === "x" || mode === "focus";
+        paintGrid(cv, items, { cell: cellSize(kind, mode), fillWidth });
+      });
+    }
+
+    function languageOf(it) {
+      return (it.map && it.map.row) || "未分组";
+    }
+
+    function inspectHtml(it) {
+      if (!it) {
+        return `<div class="src-inspect-empty">点格查看单条</div>`;
+      }
+      const img = U.thumbSrc(it, true);
+      const shot = img
+        ? `<div class="src-inspect-shot"><img src="${U.esc(img)}" alt="${U.esc(it.name)}"></div>`
+        : `<div class="src-inspect-shot is-missing">暂无现场截图</div>`;
+      const bits = [];
+      bits.push(`<span class="src-st is-${it.status}">${STATUS_CN[it.status] || "待审"}</span>`);
+      if (it.studio) bits.push(U.esc(it.studio));
+      if (it.author_name && it.author_name !== it.studio) bits.push(U.esc(it.author_name));
+      if (it.map && it.map.row) bits.push(U.esc(it.map.row));
+      if (it.map && it.map.scale) bits.push(U.esc(it.map.scale));
       const links = [];
       if (it.url) {
-        links.push(`<a class="go" href="${U.esc(it.url)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`);
+        links.push(`<a class="src-go" href="${U.esc(it.url)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`);
       }
       if (it.external_url && it.external_url !== it.url) {
-        links.push(`<a class="go" href="${U.esc(it.external_url)}" target="_blank" rel="noopener noreferrer">相关站点 ↗</a>`);
+        links.push(`<a class="src-go" href="${U.esc(it.external_url)}" target="_blank" rel="noopener noreferrer">相关站点 ↗</a>`);
       }
-      return `<article class="vfx-src-row" data-vfx-id="${U.esc(it.id)}">
-        ${thumb}
-        <div>
-          <h5>${U.esc(it.name)}</h5>
-          <div class="meta">${meta.join("")}</div>
-          ${reason}
-          ${links.join(" ")}
-        </div>
-      </article>`;
-    }
-
-    function rowLine(it) {
-      const reason =
+      const note =
         it.status === "rejected" && it.note
-          ? `<span class="reason"> · 不吸收原因：${U.esc(it.note)}</span>`
-          : "";
-      const href = it.url || it.external_url || "";
-      const name = href
-        ? `<a class="name" href="${U.esc(href)}" target="_blank" rel="noopener noreferrer">${U.esc(it.name)}</a>`
-        : `<span class="name">${U.esc(it.name)}</span>`;
-      const ext = href
-        ? `<a class="ext" href="${U.esc(href)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`
-        : "";
-      return `<div class="vfx-src-line">
-        <span class="vfx-st ${statusClass(it.status)}">${STATUS_CN[it.status] || "待审"}</span>
-        <span>${name}${reason}</span>
-        ${ext}
-      </div>`;
+          ? `<p class="src-inspect-note">不吸收原因：${U.esc(it.note)}</p>`
+          : it.note
+            ? `<p class="src-inspect-note">${U.esc(it.note)}</p>`
+            : "";
+      return `${shot}
+        <h3>${U.esc(it.name)}</h3>
+        <p class="src-inspect-meta">${bits.join(" · ")}</p>
+        <div class="src-inspect-links">${links.join("")}</div>
+        ${note}`;
     }
 
-    function renderToolbar(visible, total) {
-      const host = root.querySelector("[data-vfx-tabs]");
-      const chips = [
-        ["all", "全部", total],
-        ["absorbed", "已吸收", countsOf(pageItems()).absorbed],
-        ["rejected", "不吸收", countsOf(pageItems()).rejected],
-        ["pending", "待审", countsOf(pageItems()).pending]
-      ];
-      host.innerHTML = chips
-        .map(([id, label, n]) => {
-          const on = state.filter === id ? " is-on" : "";
-          return `<button type="button" class="vfx-tab press${on}" data-filter="${id}" aria-pressed="${state.filter === id}">${label}<span class="n">${n}</span></button>`;
-        })
-        .join("");
-      const qel = root.querySelector("[data-vfx-q]");
-      if (qel && qel.value !== state.q) qel.value = state.q;
-      const hint = root.querySelector("[data-vfx-count]");
-      if (hint) {
-        hint.textContent =
-          visible === total
-            ? `本页 ${total} 条。待审只表示尚未下结论，不等于不吸收。`
-            : `正在显示 ${visible} / ${total} 条。待审只表示尚未下结论，不等于不吸收。`;
+    function renderFocus(host, sourceName) {
+      const items = itemsOf(sourceName);
+      const c = countsOf(items);
+      const kind = sourceName === "ThreeUI" || sourceName === "开源产品" || CHANNELS[0].groups.some((g) => g.sources.includes(sourceName))
+        ? "core"
+        : sourceName.indexOf("推文") >= 0 || sourceName === "X 收获站点"
+          ? "x"
+          : "sites";
+      const absorbed = items.filter((it) => it.status === "absorbed");
+      const byLang = new Map();
+      absorbed.forEach((it) => {
+        const lang = languageOf(it);
+        if (!byLang.has(lang)) byLang.set(lang, []);
+        byLang.get(lang).push(it);
+      });
+      const langNames = LANG_ORDER.filter((n) => byLang.has(n));
+      byLang.forEach((_, n) => {
+        if (!langNames.includes(n)) langNames.push(n);
+      });
+
+      let langHtml = "";
+      if (absorbed.length && kind === "core") {
+        langHtml = `<div class="src-langs">` + langNames
+          .map((lang) => {
+            const n = byLang.get(lang).length;
+            return `<div class="src-band">
+              <p class="src-band-name">${U.esc(lang)}<b>${n}</b></p>
+              <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="absorbed" data-lang="${U.esc(lang)}"></canvas>
+            </div>`;
+          })
+          .join("") + `</div>`;
+      } else if (absorbed.length) {
+        langHtml = `<div class="src-band">
+          <p class="src-band-name">已吸收<b>${c.absorbed}</b></p>
+          <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="absorbed" data-lang=""></canvas>
+        </div>`;
       }
+      const statusHtml = `<div class="src-status-row">
+        ${c.rejected ? `<div class="src-band">
+          <p class="src-band-name">不吸收<b>${c.rejected}</b></p>
+          <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="rejected"></canvas>
+        </div>` : ""}
+        ${c.pending ? `<div class="src-band">
+          <p class="src-band-name">待审<b>${c.pending}</b></p>
+          <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="pending"></canvas>
+        </div>` : ""}
+      </div>`;
+      const gridHtml = langHtml + statusHtml;
+
+      host.insertAdjacentHTML(
+        "beforeend",
+        `<div class="src-focus" data-kind="${kind}">
+          <header class="src-focus-head">
+            <button type="button" class="src-back" data-back>全部来源</button>
+            <h2>${U.esc(sourceName)}</h2>
+            <p class="src-cluster-mix">${c.total}　${mixHtml(U, c, true)}</p>
+          </header>
+          <div class="src-focus-body">
+            <div class="src-focus-grid">${gridHtml}</div>
+            <aside class="src-inspect" data-inspect>${inspectHtml(state.item)}</aside>
+          </div>
+        </div>`
+      );
     }
 
-    function render(opts) {
-      const keepScroll = opts && opts.keepScroll;
-      const scroller = document.getElementById("doc");
-      const saved = keepScroll && scroller ? scroller.scrollTop : 0;
-      const body = root.querySelector("[data-vfx-body]");
-      const scoped = pageItems();
-      const visibleAll = scoped.filter(matches);
-      renderToolbar(visibleAll.length, scoped.length);
-
-      const toc = plan
-        .map((b) => {
-          const meta = blocksMeta.get(b.id);
-          const n = scoped.filter((it) => it.block === b.id).length;
-          return `<li><button type="button" class="press" data-jump="src-${U.esc(b.id)}">${U.esc((meta && meta.name) || b.id)}</button><span class="n">${n}</span></li>`;
-        })
-        .join("");
-
-      const sections = plan
-        .map((b) => {
-          const meta = blocksMeta.get(b.id);
-          const name = (meta && meta.name) || b.id;
-          const desc = b.intro || (meta && meta.desc) || "";
-          const blockItems = scoped.filter((it) => it.block === b.id);
-          const vis = blockItems.filter(matches);
-          const channels = channelOrder(b.id, vis);
-          const chHtml = channels
-            .map((ch) => {
-              const items = vis.filter((it) => (it.channel || "未分组") === ch);
-              if (!items.length) return "";
-              const c = countsOf(items);
-              const key = b.id + "::" + ch;
-              const shownN = state.more[key] || PAGE_SIZE;
-              const shown = items.slice(0, shownN);
-              const rich = shown.some((it) => U.hasThumb(it) || it.note);
-              shown.forEach((it) => byId.set(it.id, it));
-              const list = shown.map((it) => (rich || U.hasThumb(it) ? rowRich(it) : rowLine(it))).join("");
-              const more =
-                items.length > shown.length
-                  ? `<button type="button" class="vfx-more press" data-more="${U.esc(key)}">还有 ${items.length - shown.length} 条，继续显示</button>`
-                  : "";
-              const sid = "src-" + b.id + "-" + ch;
-              return `<section class="vfx-ch" id="${U.esc(sid)}">
-                <h4>${U.esc(ch)}<span class="n">${items.length}</span></h4>
-                <p class="stats">已吸收 ${c.absorbed} · 不吸收 ${c.rejected} · 待审 ${c.pending}</p>
-                <div class="${rich || items.some((it) => U.hasThumb(it)) ? "vfx-src-list" : ""}">${list}</div>
-                ${more}
-              </section>`;
-            })
-            .join("");
-          const empty = vis.length
-            ? chHtml
-            : '<p class="vfx-empty-page">这一组里没有符合当前筛选的条目。</p>';
-          return `<section class="vfx-block" id="src-${U.esc(b.id)}">
-            <h3>${U.esc(name)}</h3>
-            <p class="lead">${U.esc(desc)}</p>
-            ${empty}
-          </section>`;
-        })
-        .join("");
-
-      body.innerHTML = `<ul class="vfx-toc">${toc}</ul>${sections}`;
-
-      body.querySelectorAll(".vfx-thumb img").forEach((img) => {
-        img.addEventListener("error", () => {
-          const btn = img.closest(".vfx-thumb");
-          if (!btn) return;
-          btn.classList.add("is-missing");
-          img.remove();
-          btn.appendChild(document.createTextNode("暂无截图"));
-        });
-      });
-      if (keepScroll && scroller) scroller.scrollTop = saved;
+    function render() {
+      root.innerHTML = "";
+      root.classList.add("src-viz-root");
+      if (state.focus) {
+        renderHead(root);
+        renderFocus(root, state.focus);
+      } else {
+        renderHead(root);
+        renderBoard(root);
+      }
+      requestAnimationFrame(() => paintAll(root));
     }
 
-    const tabs = root.querySelector("[data-vfx-tabs]");
-    tabs.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-filter]");
-      if (!b) return;
-      state.filter = b.getAttribute("data-filter");
-      state.more = {};
-      render();
+    let resizeTimer = 0;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => paintAll(root), 60);
     });
-    const qel = root.querySelector("[data-vfx-q]");
-    if (qel) {
-      let t = 0;
-      qel.addEventListener("input", () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          state.q = qel.value.trim();
-          state.more = {};
-          render();
-        }, 160);
-      });
-    }
-    const body = root.querySelector("[data-vfx-body]");
-    body.addEventListener("click", (e) => {
-      const jump = e.target.closest("[data-jump]");
-      if (jump) {
-        const el = document.getElementById(jump.getAttribute("data-jump"));
-        const doc = document.getElementById("doc");
-        if (el && doc) {
-          const top = el.getBoundingClientRect().top - doc.getBoundingClientRect().top + doc.scrollTop - 8;
-          doc.scrollTo({ top, behavior: "smooth" });
+    ro.observe(root);
+
+    root.addEventListener("click", (e) => {
+      const back = e.target.closest("[data-back]");
+      if (back) {
+        state.focus = null;
+        state.item = null;
+        render();
+        return;
+      }
+      const canvas = e.target.closest("canvas[data-grid]");
+      if (canvas && canvas.closest(".src-focus")) {
+        const it = hitCell(canvas, e);
+        if (it) {
+          state.item = it;
+          const pane = root.querySelector("[data-inspect]");
+          if (pane) pane.innerHTML = inspectHtml(it);
+          root.querySelectorAll("canvas[data-grid]").forEach((cv) => cv.classList.remove("is-picked"));
+          canvas.classList.add("is-picked");
         }
         return;
       }
-      const more = e.target.closest("[data-more]");
-      if (!more) return;
-      const key = more.getAttribute("data-more");
-      state.more[key] = (state.more[key] || PAGE_SIZE) + PAGE_SIZE;
-      render({ keepScroll: true });
+      const cluster = e.target.closest("[data-source]");
+      if (cluster && !state.focus) {
+        state.focus = cluster.getAttribute("data-source");
+        state.item = null;
+        render();
+      }
     });
 
-    U.Hover.bind(body, (card) => {
-      const it = byId.get(card.getAttribute("data-vfx-id"));
-      if (!it) return null;
-      const src = it.studio || it.author_name || it.channel || "";
-      const meta = [];
-      if (src) meta.push(src);
-      meta.push(STATUS_CN[it.status] || "待审");
-      if (it.map && it.map.scenes && it.map.scenes.length) meta.push(it.map.scenes.join("、"));
-      if (it.map && it.map.scale) meta.push(it.map.scale);
-      const extra = it.status === "rejected" && it.note
-        ? `<div class="why">不吸收原因：${U.esc(it.note)}</div>`
-        : "";
-      return {
-        id: it.id,
-        name: it.name,
-        url: it.url,
-        image: U.thumbSrc(it, true),
-        meta,
-        extraHtml: extra
-      };
-    });
+    global.addEventListener("keydown", function onKey(ev) {
+      if (ev.key !== "Escape") return;
+      if (state.item) {
+        ev.preventDefault();
+        state.item = null;
+        const pane = root.querySelector("[data-inspect]");
+        if (pane) pane.innerHTML = inspectHtml(null);
+        return;
+      }
+      if (state.focus) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        state.focus = null;
+        render();
+      }
+    }, true);
 
     render();
+
+    if (route && route !== "sources/review") {
+      /* Old single-channel routes still open the same three-channel visual. */
+    }
   }
 
   global.VfxPages = global.VfxPages || {};
+  global.VfxPages["sources/review"] = () => init("sources/review");
   global.VfxPages["vfx/sources/official"] = () => init("vfx/sources/official");
   global.VfxPages["vfx/sources/oss"] = () => init("vfx/sources/oss");
   global.VfxPages["vfx/sources/x"] = () => init("vfx/sources/x");
