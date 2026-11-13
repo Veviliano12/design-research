@@ -1,0 +1,737 @@
+{
+  "updated": "2026-11-12",
+  "timezone": "America/New_York",
+  "total": 124,
+  "public_code": [
+    "cue__components-fisheye-chromatic-card-grid",
+    "cue__components-phantom-infinite-gallery",
+    "inspira-ui-docs-en-components-backgrounds-liquid-background",
+    "inspira-ui-docs-en-components-backgrounds-neural-background",
+    "inspira-ui-docs-en-components-backgrounds-singularity-background",
+    "inspira-ui-docs-en-components-html-in-canvas-html-cloth",
+    "inspira-ui-docs-en-components-visualization-liquid-logo",
+    "kepler-gl",
+    "kokonut-ui__docs-backgrounds-caustics-background",
+    "kokonut-ui__docs-backgrounds-rain-glass-background",
+    "lightswind-ui__components-satin-flow",
+    "r3f-examples__scrollcontrols-and-lens-refraction",
+    "react-bits-animations-electric-logo",
+    "react-bits-animations-metallic-paint",
+    "react-bits-animations-shape-blur",
+    "react-bits-animations-strands",
+    "react-bits-backgrounds-beams",
+    "react-bits-backgrounds-ghost-fibers",
+    "react-bits-backgrounds-light-rays",
+    "react-bits-backgrounds-lightning",
+    "react-bits-backgrounds-side-rays",
+    "react-bits-components-holo-card",
+    "smoothui__docs-components-aurora-curtain",
+    "smoothui__docs-components-glass-card",
+    "threeui-kage",
+    "threeui-portal-field",
+    "threeui-sylva-living-world"
+  ],
+  "public_code_count": 27,
+  "notes": {
+    "apple-iphone-18-pro": {
+      "kind": "none",
+      "officialUrl": "https://www.apple.com/iphone-18-pro/"
+    },
+    "product-suno": {
+      "kind": "none",
+      "officialUrl": "https://suno.com/"
+    },
+    "apple-music": {
+      "kind": "none",
+      "officialUrl": "https://www.apple.com/apple-music/"
+    },
+    "cssda-bmw-f3": {
+      "kind": "none",
+      "officialUrl": "https://www.bmwf3.com/"
+    },
+    "threeui-emberline-page": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/hero/emberline-page"
+    },
+    "fwa-nebulofi": {
+      "kind": "none",
+      "officialUrl": "https://nebulofi.vercel.app/"
+    },
+    "awwwards-lando-norris": {
+      "kind": "none",
+      "officialUrl": "https://www.landonorris.com/"
+    },
+    "awwwards-sobha-privy": {
+      "kind": "none",
+      "officialUrl": "https://sobha-privy-collection.com/"
+    },
+    "harmonyos-7-consumer": {
+      "kind": "none",
+      "officialUrl": "https://consumer.huawei.com/cn/harmonyos-7/"
+    },
+    "threeui-aureon-crystal-button": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/buttons/aureon-crystal-button"
+    },
+    "threeui-liquid-clock": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/three-js/liquid-clock"
+    },
+    "threeui-liquid-glass": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/buttons/star-portal/liquid-glass"
+    },
+    "threeui-noema-bloom": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/three-js/noema-bloom"
+    },
+    "threeui-orbital-dust": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/backgrounds/orbital-dust"
+    },
+    "threeui-recursive-erosion": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/backgrounds/recursive-erosion"
+    },
+    "threeui-tideform-page": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/hero/tideform-page"
+    },
+    "awwwards-the-tie-break": {
+      "kind": "none",
+      "officialUrl": "https://thetiebreak.merci-michel.com/"
+    },
+    "apple-ipad-pro": {
+      "kind": "none",
+      "officialUrl": "https://www.apple.com/ipad-pro/"
+    },
+    "studio-lusion-atlas-motion": {
+      "kind": "none",
+      "officialUrl": "https://atlasmotion.com/"
+    },
+    "awwwards-a24": {
+      "kind": "none",
+      "officialUrl": "https://a24.raviklaassens.com/"
+    },
+    "awwwards-butter": {
+      "kind": "none",
+      "officialUrl": "https://www.butter.video/"
+    },
+    "awwwards-edolus": {
+      "kind": "none",
+      "officialUrl": "https://edolus.com/"
+    },
+    "fwa-garuda-2026": {
+      "kind": "none",
+      "officialUrl": "https://garuda2026.offwg.com/"
+    },
+    "fwa-orvae": {
+      "kind": "none",
+      "officialUrl": "https://orvae.undreamstudio.com/"
+    },
+    "threeui-cathode-page": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/hero/cathode-page"
+    },
+    "threeui-drift": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/drift-landing-page"
+    },
+    "threeui-matter": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/matter-landing-page"
+    },
+    "threeui-noctiluca": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/noctiluca-landing-page"
+    },
+    "studio-lusion-everswap": {
+      "kind": "none",
+      "officialUrl": "https://everswap.com/"
+    },
+    "fwa-explore-primland": {
+      "kind": "none",
+      "officialUrl": "https://explore.ownprimland.com/"
+    },
+    "threeui-orrery-page": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/hero/orrery-page"
+    },
+    "threeui-terrain-plume": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/backgrounds/terrain-plume"
+    },
+    "awwwards-ascension-pegassi": {
+      "kind": "none",
+      "officialUrl": "https://ascension.pegassi.be/"
+    },
+    "awwwards-dont-look-up": {
+      "kind": "none",
+      "officialUrl": "https://www.dontlookup.app/"
+    },
+    "awwwards-illoca": {
+      "kind": "none",
+      "officialUrl": "https://illoca.unseen.co/"
+    },
+    "studio-active-theory": {
+      "kind": "none",
+      "officialUrl": "https://activetheory.net/"
+    },
+    "harmonyos-immersive-light-design": {
+      "kind": "none",
+      "officialUrl": "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/immersivelight-0000002612101053"
+    },
+    "awwwards-jesper-landberg": {
+      "kind": "none",
+      "officialUrl": "http://jesperlandberg.com/"
+    },
+    "awwwards-santioni-spirits": {
+      "kind": "none",
+      "officialUrl": "https://santionispirits.com/"
+    },
+    "threeui-dark-souls-holo": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/hero/dark-souls-holo-card"
+    },
+    "threeui-fathomless": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/fathomless-landing-page"
+    },
+    "threeui-photonic-interconnect": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/photonic-interconnect-landing-page"
+    },
+    "harmonyos-design-portal": {
+      "kind": "none",
+      "officialUrl": "https://developer.huawei.com/consumer/cn/design"
+    },
+    "kinematic-cloth": {
+      "kind": "none",
+      "officialUrl": "https://kinematic.org/simulate/cloth/"
+    },
+    "threeui-kasane": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/kasane-landing-page"
+    },
+    "threeui-inkbound": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/landing-pages/inkbound-river-story"
+    },
+    "threeui-3d-paper": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/three-js/3d-paper"
+    },
+    "threeui-book-of-tea": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/three-js/book-of-tea"
+    },
+    "threeui-glass-ai-button": {
+      "kind": "official-only",
+      "officialUrl": "https://threeui.com/buttons/glass-ai-button"
+    },
+    "aceternity-ui-components-liquid-glass": {
+      "kind": "official-only",
+      "officialUrl": "https://ui.aceternity.com/components/liquid-glass"
+    },
+    "apple-design-hub": {
+      "kind": "none",
+      "officialUrl": "https://developer.apple.com/design/"
+    },
+    "aura-amber-house": {
+      "kind": "official-only",
+      "officialUrl": "https://amber-house.aura.build/"
+    },
+    "aura-aura-living-sanctuary": {
+      "kind": "official-only",
+      "officialUrl": "https://aura-living-sanctuary.aura.build/"
+    },
+    "aura-aural-72": {
+      "kind": "official-only",
+      "officialUrl": "https://aural-72.aura.build/"
+    },
+    "aura-aurelia-bug": {
+      "kind": "official-only",
+      "officialUrl": "https://aurelia-bug.aura.build/"
+    },
+    "aura-elytra-ladybug": {
+      "kind": "official-only",
+      "officialUrl": "https://elytra-ladybug.aura.build/"
+    },
+    "aura-inflate-event": {
+      "kind": "official-only",
+      "officialUrl": "https://inflate-event.aura.build/"
+    },
+    "aura-ink-landing-page-69": {
+      "kind": "official-only",
+      "officialUrl": "https://ink-landing-page-69.aura.build/"
+    },
+    "aura-kasane": {
+      "kind": "official-only",
+      "officialUrl": "https://kasane.aura.build/"
+    },
+    "aura-kveld-showroom": {
+      "kind": "official-only",
+      "officialUrl": "https://kveld-showroom.aura.build/"
+    },
+    "aura-matrixpay-v4": {
+      "kind": "official-only",
+      "officialUrl": "https://matrixpay-v4.aura.build/"
+    },
+    "aura-matter-immersive": {
+      "kind": "official-only",
+      "officialUrl": "https://matter-immersive.aura.build/"
+    },
+    "aura-ravine-a-world-65": {
+      "kind": "official-only",
+      "officialUrl": "https://ravine-a-world-65.aura.build/"
+    },
+    "aura-tale-52-17": {
+      "kind": "official-only",
+      "officialUrl": "https://tale-52-17.aura.build/"
+    },
+    "aura-veloce-prive": {
+      "kind": "official-only",
+      "officialUrl": "https://veloce-prive.aura.build/"
+    },
+    "aura-vow-atelier-diamond-ring": {
+      "kind": "official-only",
+      "officialUrl": "https://vow-atelier-diamond-ring.aura.build/"
+    },
+    "aura-wallow-bath-body-63": {
+      "kind": "official-only",
+      "officialUrl": "https://wallow-bath-body-63.aura.build/"
+    },
+    "cue__components-diagonal-field-journal-scroll": {
+      "kind": "prompt-only",
+      "officialUrl": "https://kit.cuedesign.space/components/diagonal-field-journal-scroll"
+    },
+    "cue__components-paper-fold-showcase": {
+      "kind": "prompt-only",
+      "officialUrl": "https://kit.cuedesign.space/components/paper-fold-showcase"
+    },
+    "cue__home-c-cue015": {
+      "kind": "official-only",
+      "officialUrl": "https://www.cuedesign.space/?c=cue015"
+    },
+    "lightswind-ui__components-volumetric-fractal": {
+      "kind": "official-only",
+      "officialUrl": "https://lightswind.com/components/volumetric-fractal"
+    },
+    "scrolltide__templates-aether": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/aether"
+    },
+    "scrolltide__templates-aperture": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/aperture"
+    },
+    "scrolltide__templates-aurora": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/aurora"
+    },
+    "scrolltide__templates-dune": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/dune"
+    },
+    "scrolltide__templates-flying-garden": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/flying-garden"
+    },
+    "scrolltide__templates-glacier": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/glacier"
+    },
+    "scrolltide__templates-nebula": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/nebula"
+    },
+    "scrolltide__templates-oasis": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/oasis"
+    },
+    "scrolltide__templates-prairie": {
+      "kind": "official-only",
+      "officialUrl": "https://www.scrolltide.co/templates/prairie"
+    },
+    "shaders-collection-afternoon-sunlight": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/afternoon-sunlight"
+    },
+    "shaders-collection-brass": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/brass"
+    },
+    "shaders-collection-chrome-logo": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/chrome-logo"
+    },
+    "shaders-collection-chrome-rings": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/chrome-rings"
+    },
+    "shaders-collection-color-eclipse": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/color-eclipse"
+    },
+    "shaders-collection-cracked-crystal": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/cracked-crystal"
+    },
+    "shaders-collection-holographic-waves": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/holographic-waves"
+    },
+    "shaders-collection-mercury": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/mercury"
+    },
+    "shaders-collection-neutral-folds": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/neutral-folds"
+    },
+    "shaders-collection-prism-shards": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/prism-shards"
+    },
+    "shaders-collection-resolving-chrome": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/resolving-chrome"
+    },
+    "shaders-collection-royal-purple": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/royal-purple"
+    },
+    "shaders-collection-scanner-noise": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/scanner-noise"
+    },
+    "shaders-collection-silk-curtain": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/silk-curtain"
+    },
+    "shaders-collection-stainless-steel": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/stainless-steel"
+    },
+    "shaders-collection-swirled-lenses": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/swirled-lenses"
+    },
+    "shaders-collection-traced-paths": {
+      "kind": "official-only",
+      "officialUrl": "https://shaders.com/collection/traced-paths"
+    }
+  },
+  "counts": {
+    "code": 27,
+    "official-only": 67,
+    "prompt-only": 2,
+    "none": 28
+  },
+  "repos": {
+    "react-bits": {
+      "repo": "DavidHDev/react-bits",
+      "branch": "main",
+      "sha": "9d9c687dc4f55b23539aa5417b703078047efa74"
+    },
+    "inspira-ui": {
+      "repo": "unovue/inspira-ui",
+      "branch": "main",
+      "sha": "eec920b047589058b4b02ba64deb614869e7237a"
+    },
+    "kokonutui": {
+      "repo": "kokonut-labs/kokonutui",
+      "branch": "main",
+      "sha": "8af6e27fb628d6d944e000436bad7628ddc372f2"
+    },
+    "smoothui": {
+      "repo": "educlopez/smoothui",
+      "branch": "main",
+      "sha": "e4b0b44a5c640ec217800eb664db18879822cd6c"
+    },
+    "lightswind": {
+      "repo": "codewithMUHILAN/Lightswind-UI-Library",
+      "branch": "Master",
+      "sha": "a3895bd6968b5d96425eb45edcc84a1d79b3ecb4"
+    },
+    "threeui": {
+      "repo": "MengTo/threeui",
+      "branch": "main",
+      "sha": "68802d5428071ada5c20db8094b1649e6bb770ed"
+    },
+    "kepler.gl": {
+      "repo": "keplergl/kepler.gl",
+      "branch": "master",
+      "sha": "ad56b5c0bb4acdadbbca99084e1f6c4fdf3a3cad"
+    }
+  },
+  "excerpts": [
+    {
+      "id": "react-bits-backgrounds-ghost-fibers",
+      "file": "GhostFibers.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Backgrounds/GhostFibers/GhostFibers.tsx#L119-L165",
+      "lines": [
+        119,
+        165
+      ]
+    },
+    {
+      "id": "react-bits-backgrounds-beams",
+      "file": "Beams.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Backgrounds/Beams/Beams.tsx#L67-L102",
+      "lines": [
+        67,
+        102
+      ]
+    },
+    {
+      "id": "react-bits-backgrounds-light-rays",
+      "file": "LightRays.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Backgrounds/LightRays/LightRays.tsx#L104-L139",
+      "lines": [
+        104,
+        139
+      ]
+    },
+    {
+      "id": "react-bits-backgrounds-lightning",
+      "file": "Lightning.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Backgrounds/Lightning/Lightning.tsx#L19-L54",
+      "lines": [
+        19,
+        54
+      ]
+    },
+    {
+      "id": "react-bits-backgrounds-side-rays",
+      "file": "SideRays.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Backgrounds/SideRays/SideRays.tsx#L85-L120",
+      "lines": [
+        85,
+        120
+      ]
+    },
+    {
+      "id": "react-bits-animations-electric-logo",
+      "file": "ElectricLogo.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Animations/ElectricLogo/ElectricLogo.tsx#L389-L424",
+      "lines": [
+        389,
+        424
+      ]
+    },
+    {
+      "id": "react-bits-animations-metallic-paint",
+      "file": "MetallicPaint.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Animations/MetallicPaint/MetallicPaint.tsx#L94-L129",
+      "lines": [
+        94,
+        129
+      ]
+    },
+    {
+      "id": "react-bits-animations-shape-blur",
+      "file": "ShapeBlur.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Animations/ShapeBlur/ShapeBlur.tsx#L13-L48",
+      "lines": [
+        13,
+        48
+      ]
+    },
+    {
+      "id": "react-bits-animations-strands",
+      "file": "Strands.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Animations/Strands/Strands.tsx#L78-L113",
+      "lines": [
+        78,
+        113
+      ]
+    },
+    {
+      "id": "react-bits-components-holo-card",
+      "file": "HoloCard.tsx",
+      "license": "MIT + Commons Clause",
+      "fileUrl": "https://github.com/DavidHDev/react-bits/blob/9d9c687dc4f55b23539aa5417b703078047efa74/src/ts-default/Components/HoloCard/HoloCard.tsx#L56-L91",
+      "lines": [
+        56,
+        91
+      ]
+    },
+    {
+      "id": "inspira-ui-docs-en-components-backgrounds-liquid-background",
+      "file": "LiquidBackground.vue",
+      "license": "MIT",
+      "fileUrl": "https://github.com/unovue/inspira-ui/blob/eec920b047589058b4b02ba64deb614869e7237a/app/components/inspira/ui/liquid-background/LiquidBackground.vue#L31-L66",
+      "lines": [
+        31,
+        66
+      ]
+    },
+    {
+      "id": "inspira-ui-docs-en-components-backgrounds-neural-background",
+      "file": "NeuralBg.vue",
+      "license": "MIT",
+      "fileUrl": "https://github.com/unovue/inspira-ui/blob/eec920b047589058b4b02ba64deb614869e7237a/app/components/inspira/ui/bg-neural/NeuralBg.vue#L48-L83",
+      "lines": [
+        48,
+        83
+      ]
+    },
+    {
+      "id": "inspira-ui-docs-en-components-backgrounds-singularity-background",
+      "file": "SingularityBackground.vue",
+      "license": "MIT",
+      "fileUrl": "https://github.com/unovue/inspira-ui/blob/eec920b047589058b4b02ba64deb614869e7237a/app/components/inspira/ui/bg-singularity/SingularityBackground.vue#L41-L76",
+      "lines": [
+        41,
+        76
+      ]
+    },
+    {
+      "id": "inspira-ui-docs-en-components-html-in-canvas-html-cloth",
+      "file": "HtmlCloth.vue",
+      "license": "MIT",
+      "fileUrl": "https://github.com/unovue/inspira-ui/blob/eec920b047589058b4b02ba64deb614869e7237a/app/components/inspira/ui/html-cloth/HtmlCloth.vue#L55-L90",
+      "lines": [
+        55,
+        90
+      ]
+    },
+    {
+      "id": "inspira-ui-docs-en-components-visualization-liquid-logo",
+      "file": "shader.ts",
+      "license": "MIT",
+      "fileUrl": "https://github.com/unovue/inspira-ui/blob/eec920b047589058b4b02ba64deb614869e7237a/app/components/inspira/ui/liquid-logo/shader.ts#L1-L36",
+      "lines": [
+        1,
+        36
+      ]
+    },
+    {
+      "id": "kokonut-ui__docs-backgrounds-caustics-background",
+      "file": "caustics-background.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/kokonut-labs/kokonutui/blob/8af6e27fb628d6d944e000436bad7628ddc372f2/components/kokonutui/caustics-background.tsx#L49-L84",
+      "lines": [
+        49,
+        84
+      ]
+    },
+    {
+      "id": "kokonut-ui__docs-backgrounds-rain-glass-background",
+      "file": "rain-glass-background.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/kokonut-labs/kokonutui/blob/8af6e27fb628d6d944e000436bad7628ddc372f2/components/kokonutui/rain-glass-background.tsx#L54-L89",
+      "lines": [
+        54,
+        89
+      ]
+    },
+    {
+      "id": "smoothui__docs-components-aurora-curtain",
+      "file": "index.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/aurora-curtain/index.tsx#L102-L137",
+      "lines": [
+        102,
+        137
+      ]
+    },
+    {
+      "id": "smoothui__docs-components-glass-card",
+      "file": "index.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/glass-card/index.tsx#L16-L55",
+      "lines": [
+        16,
+        55
+      ]
+    },
+    {
+      "id": "lightswind-ui__components-satin-flow",
+      "file": "satin-flow.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/codewithMUHILAN/Lightswind-UI-Library/blob/a3895bd6968b5d96425eb45edcc84a1d79b3ecb4/src/components/ui/satin-flow.tsx#L13-L48",
+      "lines": [
+        13,
+        48
+      ]
+    },
+    {
+      "id": "threeui-portal-field",
+      "file": "portal-field.html",
+      "license": "MIT",
+      "fileUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/src/shaders/neuform-isolated/sources/portal-field.html#L247-L330",
+      "lines": [
+        247,
+        330
+      ]
+    },
+    {
+      "id": "threeui-sylva-living-world",
+      "file": "inner-green-3d.html",
+      "license": "MIT",
+      "fileUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/src/shaders/sylva-living-world/sources/inner-green-3d.html#L2903-L2940",
+      "lines": [
+        2903,
+        2940
+      ]
+    },
+    {
+      "id": "threeui-kage",
+      "file": "kage.html",
+      "license": "MIT",
+      "fileUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/public/landing-pages/kage.html#L3101-L3149",
+      "lines": [
+        3101,
+        3149
+      ]
+    },
+    {
+      "id": "cue__components-fisheye-chromatic-card-grid",
+      "file": "fisheye-chromatic-card-grid.tsx",
+      "license": "MIT",
+      "fileUrl": "https://kit.cuedesign.space/r/fisheye-chromatic-card-grid.json",
+      "lines": [
+        63,
+        98
+      ]
+    },
+    {
+      "id": "cue__components-phantom-infinite-gallery",
+      "file": "phantom-infinite-gallery.tsx",
+      "license": "MIT",
+      "fileUrl": "https://kit.cuedesign.space/r/phantom-infinite-gallery.json",
+      "lines": [
+        1,
+        36
+      ]
+    },
+    {
+      "id": "kepler-gl",
+      "file": "globe-stars-layer.ts",
+      "license": "MIT",
+      "fileUrl": "https://github.com/keplergl/kepler.gl/blob/ad56b5c0bb4acdadbbca99084e1f6c4fdf3a3cad/src/deckgl-layers/src/globe/globe-stars-layer.ts#L34-L71",
+      "lines": [
+        34,
+        71
+      ]
+    },
+    {
+      "id": "r3f-examples__scrollcontrols-and-lens-refraction",
+      "file": "src/App.tsx",
+      "license": "MIT",
+      "fileUrl": "https://github.com/pmndrs/examples/blob/main/examples/scrollcontrols-and-lens-refraction/src/App.tsx",
+      "lines": null
+    }
+  ]
+}

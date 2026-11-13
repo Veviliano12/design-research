@@ -8,6 +8,13 @@
   const STATUS_CN = { absorbed: "已吸收", rejected: "不吸收", pending: "待审" };
   const STATUS_ORDER = { absorbed: 0, rejected: 1, pending: 2 };
   const QUEUE_HREF = "#/vfx/preview";
+  const SOURCE_AUTHORITY = [
+    { id: "producer", name: "出品方", weight: 30, hint: "大厂官方或该领域公认标准接近满分。" },
+    { id: "scale", name: "维护与规模", weight: 25, hint: "以已核实的星标与最近推送为准。" },
+    { id: "citation", name: "被引用", weight: 20, hint: "官方互链或行业默认入口最高。" },
+    { id: "docs", name: "文档与可核验", weight: 15, hint: "官网、文档、示例、许可、定价能否当场核对。" },
+    { id: "license", name: "许可与获取", weight: 10, hint: "许可证和获取方式是否清楚。" }
+  ];
   const LANG_ORDER = [
     "液态玻璃与光学",
     "流体与着色器场",
@@ -179,9 +186,11 @@
     const y = ev.clientY - r.top;
     const scaleX = g.width / r.width;
     const scaleY = g.height / r.height;
-    const col = Math.floor((x * scaleX - g.pad) / g.cell);
-    const row = Math.floor((y * scaleY - g.pad) / g.cell);
-    if (col < 0 || row < 0 || col >= g.cols) return null;
+    const originX = g.originX != null ? g.originX : g.pad;
+    const originY = g.originY != null ? g.originY : g.pad;
+    const col = Math.floor((x * scaleX - originX) / g.cell);
+    const row = Math.floor((y * scaleY - originY) / g.cell);
+    if (col < 0 || row < 0 || col >= g.cols || row >= g.rows) return null;
     const i = row * g.cols + col;
     return g.items[i] || null;
   }
@@ -256,6 +265,7 @@
             <a class="src-queue" href="${QUEUE_HREF}">
               <i class="src-swatch is-queue"></i>候审 30 · 不计入 124
             </a>
+            <a class="src-queue" href="#/vfx/review">评判</a>
           </div>
         </header>
       `;
@@ -266,13 +276,13 @@
       const c = countsOf(items);
       if (!c.total) return "";
       const kind = kindOf(name, group);
-      return `<div class="src-cluster is-${kind}${fill ? " is-fill" : ""}" data-kind="${kind}">
+      return `<button type="button" class="src-cluster is-${kind}${fill ? " is-fill" : ""}" data-kind="${kind}" data-source="${U.esc(name)}" aria-label="${U.esc(name)}，${c.total} 条，打开来源">
         <span class="src-cluster-head">
           <span class="src-cluster-name">${U.esc(name)}</span>
           <b>${c.total}</b>
         </span>
         <canvas class="src-grid" data-grid="${U.esc(name)}" aria-hidden="true"></canvas>
-      </div>`;
+      </button>`;
     }
 
     function leftoverSources(ch) {
@@ -363,7 +373,7 @@
         const name = cv.getAttribute("data-grid");
         const cluster = cv.closest("[data-kind]");
         const kind = cluster ? cluster.getAttribute("data-kind") : "core";
-        const mode = cv.closest(".src-focus") ? "focus" : "view";
+        const mode = cv.closest(".book-modal, .src-focus") ? "focus" : "view";
         const band = cv.getAttribute("data-band");
         let items;
         if (band === "absorbed") {
@@ -384,24 +394,108 @@
       });
     }
 
-        function languageOf(it) {
+    function languageOf(it) {
       return (it.map && it.map.row) || "未分组";
     }
 
-    function inspectHtml(it) {
-      if (!it) {
-        return `<div class="src-inspect-empty">点格查看单条</div>`;
+    function bindShotFallback(scope) {
+      (scope || document).querySelectorAll(".book-modal-shot img, .src-record-shot img").forEach((img) => {
+        img.addEventListener("error", () => {
+          const box = img.closest(".book-modal-shot, .src-record-shot");
+          if (!box) return;
+          box.classList.add("is-missing");
+          img.remove();
+          if (!box.querySelector("span")) {
+            box.insertAdjacentHTML("beforeend", "<span>暂无现场截图</span>");
+          }
+        });
+      });
+    }
+
+    function lookupAuthority(sourceName) {
+      const pack = window.VFX_AUTHORITY;
+      if (!pack || !sourceName) return null;
+      const aliases = pack.aliases || {};
+      const key = aliases[sourceName] || sourceName;
+      const items = pack.items || [];
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].name === key) return items[i];
       }
-      const img = U.thumbSrc(it, true);
-      const shot = img
-        ? `<div class="src-inspect-shot"><img src="${U.esc(img)}" alt="${U.esc(it.name)}"></div>`
-        : `<div class="src-inspect-shot is-missing">暂无现场截图</div>`;
+      return null;
+    }
+
+    function starMarks(label) {
+      const n = ({ "五星": 5, "四星": 4, "三星": 3, "两星": 2, "一星": 1 })[label] || 0;
+      return "★".repeat(n) + "☆".repeat(Math.max(0, 5 - n));
+    }
+
+    function authorityHtml(sourceName) {
+      const scored = lookupAuthority(sourceName);
+      const who = sourceName ? U.esc(sourceName) : "该来源";
+      const pack = window.VFX_AUTHORITY || {};
+      const rows = SOURCE_AUTHORITY.map((a) => {
+        const score = scored ? scored[a.id] : null;
+        const scoreHtml = score == null ? `<b>${a.weight}%</b>` : `<b class="auth-factor-score">${score}</b>`;
+        const nameHtml = scored
+          ? `<span>${U.esc(a.name)}<small>${a.weight}%</small></span>`
+          : `<span>${U.esc(a.name)}</span>`;
+        const width = scored ? Math.max(0, Math.min(100, (Number(score) / 5) * 100)) : a.weight;
+        return `
+        <li class="auth-row">
+          <div class="auth-row-head">
+            ${nameHtml}
+            ${scoreHtml}
+          </div>
+          <i class="auth-track"><i style="width:${width}%"></i></i>
+        </li>`;
+      }).join("");
+      const scoreBlock = scored ? `
+        <div class="auth-score">
+          <p class="auth-stars"><span class="auth-star-marks">${starMarks(scored.stars)}</span><b>${scored.total}</b> ${U.esc(scored.stars)}</p>
+          <p class="auth-basis">依据：${U.esc(scored.basis || "")}</p>
+        </div>` : "";
+      const obs = pack.observedAt
+        ? `<p class="auth-obs">观测时点：${U.esc(pack.observedAt)}（${U.esc(pack.observedZone || "America/New_York")}）。工作表已有分数，未当场重跑。</p>`
+        : "";
+      const status = scored
+        ? obs
+        : `<p class="auth-status"><strong>${who}</strong> 尚未按准则打分。</p>${obs ? obs.replace("工作表已有分数，未当场重跑。", "有分的来源才展示星级，不把厂方桶或单条推文算成已打分。") : ""}`;
+      return `<section class="auth-panel is-compact${scored ? " is-scored" : ""}" aria-label="权威评分体系">
+        <p class="auth-kicker">权威性</p>
+        <h3>值不值得让这个来源进入输入池</h3>
+        <p class="auth-lead">对来源的加权初评，不是单条推文或单页的星级，也不能代替可信度标注。权威性不是下一站的页面形态初筛。</p>
+        ${scoreBlock}
+        <ol class="auth-weights is-row${scored ? " is-scored" : ""}">${rows}</ol>
+        <p class="auth-method">满分 5 星。先加权得到 0–5 的总分（一位小数），再换成星级：4.5–5.0 五星，3.5–4.4 四星，2.5–3.4 三星，1.5–2.4 两星，0–1.4 一星。有分时同时展示星级、总分、一句依据和五项分数。不编造星标或价格。</p>
+        ${status}
+      </section>`;
+    }
+
+    function kindOfName(sourceName) {
+      if (sourceName === "ThreeUI" || sourceName === "开源产品" || CHANNELS[0].groups.some((g) => g.sources.includes(sourceName))) {
+        return "core";
+      }
+      if (String(sourceName).indexOf("推文") >= 0 || sourceName === "X 收获站点") return "x";
+      return "sites";
+    }
+
+    function recordMetaHtml(it) {
       const bits = [];
       bits.push(`<span class="src-st is-${it.status}">${STATUS_CN[it.status] || "待审"}</span>`);
+      if (it.channel) bits.push(U.esc(it.channel));
       if (it.studio) bits.push(U.esc(it.studio));
       if (it.author_name && it.author_name !== it.studio) bits.push(U.esc(it.author_name));
-      if (it.map && it.map.row) bits.push(U.esc(it.map.row));
-      if (it.map && it.map.scale) bits.push(U.esc(it.map.scale));
+      if (it.date) bits.push(U.esc(it.date));
+      if (it.tag) bits.push(U.esc(it.tag));
+      if (it.status === "absorbed" && it.map && it.map.row) bits.push(U.esc(it.map.row));
+      if (it.status === "absorbed" && it.map && it.map.scale) bits.push(U.esc(it.map.scale));
+      if (it.status === "absorbed" && it.map && it.map.scenes && it.map.scenes.length) {
+        bits.push(U.esc(it.map.scenes.join("、")));
+      }
+      return bits.join(" · ");
+    }
+
+    function recordLinksHtml(it) {
       const links = [];
       if (it.url) {
         links.push(`<a class="src-go" href="${U.esc(it.url)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`);
@@ -409,27 +503,69 @@
       if (it.external_url && it.external_url !== it.url) {
         links.push(`<a class="src-go" href="${U.esc(it.external_url)}" target="_blank" rel="noopener noreferrer">相关站点 ↗</a>`);
       }
-      const note =
-        it.status === "rejected" && it.note
-          ? `<p class="src-inspect-note">不吸收原因：${U.esc(it.note)}</p>`
-          : it.note
-            ? `<p class="src-inspect-note">${U.esc(it.note)}</p>`
-            : "";
-      return `${shot}
-        <h3>${U.esc(it.name)}</h3>
-        <p class="src-inspect-meta">${bits.join(" · ")}</p>
-        <div class="src-inspect-links">${links.join("")}</div>
-        ${note}`;
+      return links.length ? `<div class="src-inspect-links">${links.join("")}</div>` : "";
     }
 
-    function renderFocus(host, sourceName) {
+    function recordNotesHtml(it) {
+      const parts = [];
+      if (it.source_detail) {
+        parts.push(`<p class="src-inspect-detail">来路：${U.esc(it.source_detail)}</p>`);
+      }
+      if (it.excerpt) {
+        parts.push(`<p class="src-inspect-excerpt">${U.esc(it.excerpt)}</p>`);
+      }
+      if (it.note) {
+        const label = it.status === "rejected" ? "不吸收原因：" : "";
+        parts.push(`<p class="src-inspect-note">${label}${U.esc(it.note)}</p>`);
+      }
+      if (it.inherited) {
+        parts.push(`<p class="src-inspect-inherited">沿用已有判断${it.inherited_from ? "（" + U.esc(it.inherited_from) + "）" : ""}。</p>`);
+      }
+      return parts.join("");
+    }
+
+    function shotHtml(it, extraClass) {
+      const img = U.thumbSrc(it, true);
+      const cls = extraClass ? " " + extraClass : "";
+      if (img) {
+        return `<div class="book-modal-shot${cls}" data-shot><span>暂无现场截图</span><img src="${U.esc(img)}" alt="${U.esc(it.name || "")}"></div>`;
+      }
+      return `<div class="book-modal-shot is-missing${cls}" data-shot><span>暂无现场截图</span></div>`;
+    }
+
+    function recordBodyHtml(it) {
+      return `
+        <div class="src-record">
+          ${shotHtml(it)}
+          <div class="src-record-main">
+            <h3 class="src-record-name">${U.esc(it.name)}</h3>
+            <p class="src-inspect-meta">${recordMetaHtml(it)}</p>
+            ${recordLinksHtml(it)}
+            ${recordNotesHtml(it)}
+            <p class="auth-status is-record">本条尚未按准则打分。权威性评估的是来源是否进入输入池，不给单条编造星级。</p>
+          </div>
+        </div>`;
+    }
+
+    function recordCardHtml(it) {
+      const img = U.thumbSrc(it, true);
+      const shot = img
+        ? `<div class="src-record-shot"><span>暂无现场截图</span><img src="${U.esc(img)}" alt=""></div>`
+        : `<div class="src-record-shot is-missing"><span>暂无现场截图</span></div>`;
+      return `<button type="button" class="src-record-card" data-record="${U.esc(it.id)}" aria-label="${U.esc(it.name)}，${STATUS_CN[it.status] || "待审"}">
+        ${shot}
+        <span class="src-st is-${it.status}">${STATUS_CN[it.status] || "待审"}</span>
+        <span class="src-record-card-name">${U.esc(it.name)}</span>
+      </button>`;
+    }
+
+    function clusterFieldHtml(sourceName) {
       const items = itemsOf(sourceName);
       const c = countsOf(items);
-      const kind = sourceName === "ThreeUI" || sourceName === "开源产品" || CHANNELS[0].groups.some((g) => g.sources.includes(sourceName))
-        ? "core"
-        : sourceName.indexOf("推文") >= 0 || sourceName === "X 收获站点"
-          ? "x"
-          : "sites";
+      const kind = kindOfName(sourceName);
+      if (items.length <= 12) {
+        return `<div class="src-record-cards" data-kind="${kind}">${sortItems(items).map(recordCardHtml).join("")}</div>`;
+      }
       const absorbed = items.filter((it) => it.status === "absorbed");
       const byLang = new Map();
       absorbed.forEach((it) => {
@@ -441,18 +577,15 @@
       byLang.forEach((_, n) => {
         if (!langNames.includes(n)) langNames.push(n);
       });
-
       let langHtml = "";
       if (absorbed.length && kind === "core") {
-        langHtml = `<div class="src-langs">` + langNames
-          .map((lang) => {
-            const n = byLang.get(lang).length;
-            return `<div class="src-band">
-              <p class="src-band-name">${U.esc(lang)}<b>${n}</b></p>
-              <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="absorbed" data-lang="${U.esc(lang)}"></canvas>
-            </div>`;
-          })
-          .join("") + `</div>`;
+        langHtml = `<div class="src-langs">` + langNames.map((lang) => {
+          const n = byLang.get(lang).length;
+          return `<div class="src-band">
+            <p class="src-band-name">${U.esc(lang)}<b>${n}</b></p>
+            <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="absorbed" data-lang="${U.esc(lang)}"></canvas>
+          </div>`;
+        }).join("") + `</div>`;
       } else if (absorbed.length) {
         langHtml = `<div class="src-band">
           <p class="src-band-name">已吸收<b>${c.absorbed}</b></p>
@@ -469,22 +602,82 @@
           <canvas class="src-grid" data-grid="${U.esc(sourceName)}" data-band="pending"></canvas>
         </div>` : ""}
       </div>`;
-      const gridHtml = langHtml + statusHtml;
+      return `<div class="src-cluster-field" data-kind="${kind}">${langHtml}${statusHtml}</div>`;
+    }
 
-      host.insertAdjacentHTML(
-        "beforeend",
-        `<div class="src-focus" data-kind="${kind}">
-          <header class="src-focus-head">
-            <button type="button" class="src-back" data-back>全部来源</button>
-            <h2>${U.esc(sourceName)}</h2>
-            <p class="src-cluster-mix">${c.total}　${mixHtml(U, c, true)}</p>
-          </header>
-          <div class="src-focus-body">
-            <div class="src-focus-grid">${gridHtml}</div>
-            <aside class="src-inspect" data-inspect>${inspectHtml(state.item)}</aside>
-          </div>
-        </div>`
-      );
+    function bindClusterField(panel, sourceName) {
+      paintAll(panel);
+      bindShotFallback(panel);
+      panel.querySelectorAll("canvas[data-grid]").forEach((cv) => {
+        cv.style.cursor = "pointer";
+        cv.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          const item = hitCell(cv, ev);
+          if (item) openRecordModal(item);
+        });
+      });
+      panel.querySelectorAll("[data-record]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-record");
+          const item = itemsOf(sourceName).find((it) => it.id === id);
+          if (item) openRecordModal(item);
+        });
+      });
+    }
+
+    function openClusterModal(sourceName) {
+      const Modal = global.VfxModal;
+      if (!Modal) return;
+      const items = itemsOf(sourceName);
+      const c = countsOf(items);
+      const html = `
+        <div class="src-l2" data-qa="source-l2">
+          <p class="src-l2-mix">${c.total}　${mixHtml(U, c, true)}</p>
+          <p class="src-l2-legend">亮格表示该条来源记录已吸收，不是视效库的 124，也不是研究逻辑里的「点亮」。</p>
+          ${authorityHtml(sourceName)}
+          ${clusterFieldHtml(sourceName)}
+        </div>`;
+      Modal.open({
+        kicker: "来源",
+        title: U.esc(sourceName),
+        label: sourceName,
+        className: "is-source-l2",
+        html,
+        onMount: (panel) => bindClusterField(panel, sourceName)
+      });
+    }
+
+    function openRecordModal(it) {
+      const Modal = global.VfxModal;
+      if (!Modal || !it) return;
+      Modal.open({
+        kicker: "来源记录",
+        title: U.esc(it.name),
+        label: it.name,
+        className: "is-source-l3",
+        html: `<div data-qa="source-l3">${recordBodyHtml(it)}</div>`,
+        onMount: (panel) => bindShotFallback(panel)
+      });
+    }
+
+    function onBoardClick(event) {
+      const cluster = event.target.closest(".src-cluster");
+      if (!cluster || !root.contains(cluster)) return;
+      const name = cluster.getAttribute("data-source");
+      if (!name) return;
+      const kind = cluster.getAttribute("data-kind") || "core";
+      const canvas = event.target.closest("canvas[data-grid]");
+      if (canvas && (kind === "sites" || kind === "x")) {
+        const item = hitCell(canvas, event);
+        if (item) {
+          event.preventDefault();
+          openRecordModal(item);
+          return;
+        }
+      }
+      event.preventDefault();
+      openClusterModal(name);
     }
 
     function render() {
@@ -502,8 +695,8 @@
     });
     ro.observe(root);
 
-    /* 给别人看时先不支持点进单个来源。renderFocus / inspectHtml 仍留在文件里，不接线。 */
-
+    if (global.VfxModal) global.VfxModal.closeAll();
+    root.addEventListener("click", onBoardClick);
     render();
 
     if (route && route !== "sources/review") {

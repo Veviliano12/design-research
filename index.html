@@ -9,7 +9,7 @@
 /* 默认路由是视效库：在装载壳之前就把 html 设为暗场，避免纸色闪一下。 */
 (function () {
   var raw = (location.hash || "").replace(/^#\/?/, "");
-  var book = { "vfx/overview": 1, "vfx/logic": 1, "sources/review": 1, "vfx/preview": 1 };
+  var book = { "vfx/overview": 1, "vfx/logic": 1, "sources/review": 1, "vfx/preview": 1, "vfx/review": 1 };
   if (!raw || book[raw]) document.documentElement.classList.add("is-library-route");
 })();
 </script>

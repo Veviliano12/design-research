@@ -35,6 +35,8 @@ window.PLATFORM_NAV = {
         "data/vfx/sources-sites.js",
         "data/vfx/sources-x.js",
         "js/vfx-util.js",
+        "js/vfx-modal.js",
+        "data/vfx/authority-scores.js",
         "js/vfx-sources.js"
       ]
     },
@@ -59,7 +61,23 @@ window.PLATFORM_NAV = {
           src: "sections/vfx-preview.html",
           wide: true,
           hidden: true,
-          scripts: ["data/vfx/preview-cases.js", "js/vfx-util.js", "js/vfx-preview.js"]
+          scripts: ["data/vfx/preview-cases.js", "js/vfx-util.js",
+        "js/vfx-modal.js", "js/vfx-preview.js"]
+        },
+        {
+          id: "vfx/review",
+          label: "评判",
+          type: "doc",
+          src: "sections/vfx-review.html",
+          wide: true,
+          hidden: true,
+          scripts: [
+            "data/vfx/preview-cases.js",
+            "data/vfx/review-queue.js",
+            "data/vfx/review-marks.js",
+            "js/vfx-util.js",
+            "js/vfx-review.js"
+          ]
         },
         {
           id: "vfx/method",
@@ -127,7 +145,8 @@ window.PLATFORM_NAV = {
           type: "doc",
           src: "sections/vfx-sources-official.html",
           wide: true,
-          scripts: ["data/vfx/blocks.js", "data/vfx/sources-core.js", "js/vfx-util.js", "js/vfx-sources.js"]
+          scripts: ["data/vfx/blocks.js", "data/vfx/sources-core.js", "js/vfx-util.js",
+        "js/vfx-modal.js", "data/vfx/authority-scores.js", "js/vfx-sources.js"]
         },
         {
           id: "vfx/sources/oss",
@@ -140,6 +159,8 @@ window.PLATFORM_NAV = {
             "data/vfx/sources-core.js",
             "data/vfx/sources-sites.js",
             "js/vfx-util.js",
+        "js/vfx-modal.js",
+            "data/vfx/authority-scores.js",
             "js/vfx-sources.js"
           ]
         },
@@ -149,7 +170,8 @@ window.PLATFORM_NAV = {
           type: "doc",
           src: "sections/vfx-sources-x.html",
           wide: true,
-          scripts: ["data/vfx/blocks.js", "data/vfx/sources-x.js", "js/vfx-util.js", "js/vfx-sources.js"]
+          scripts: ["data/vfx/blocks.js", "data/vfx/sources-x.js", "js/vfx-util.js",
+        "js/vfx-modal.js", "data/vfx/authority-scores.js", "js/vfx-sources.js"]
         },
         {
           id: "sources/scoring",

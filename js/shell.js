@@ -171,7 +171,8 @@
       route === "vfx/overview" ||
       route === "vfx/logic" ||
       route === "sources/review" ||
-      route === "vfx/preview"
+      route === "vfx/preview" ||
+      route === "vfx/review"
     );
   }
 

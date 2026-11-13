@@ -59,41 +59,65 @@
       const img = src
         ? `<img src="${U.esc(src)}" alt="${U.esc(it.name)}" loading="lazy">`
         : `<span>暂无现场截图</span>`;
-      return `<div class="${cellClass(it)}" title="${U.esc(it.name)}">${img}</div>`;
+      return `<button type="button" class="${cellClass(it)}" data-preview-id="${U.esc(it.id)}" title="${U.esc(it.name)}" aria-label="${U.esc(it.officialName || it.name)}，候审，尚未进入视效库">${img}</button>`;
     }
 
-    function inspectHtml(it) {
-      if (!it) return `<div class="src-inspect-empty">点格查看单条 · 候审不计入 124</div>`;
-      const m = marksOf(it.id);
+    function recordBodyHtml(it) {
       const img = U.thumbSrc(it, true);
       const shot = img
-        ? `<div class="src-inspect-shot"><img src="${U.esc(img)}" alt="${U.esc(it.name)}"></div>`
-        : `<div class="src-inspect-shot is-missing">暂无现场截图</div>`;
+        ? `<div class="book-modal-shot"><span>暂无现场截图</span><img src="${U.esc(img)}" alt="${U.esc(it.officialName || it.name)}"></div>`
+        : `<div class="book-modal-shot is-missing"><span>暂无现场截图</span></div>`;
       const bits = [];
-      bits.push("候审");
+      bits.push('<span class="src-st is-queue">候审</span>');
       if (it.sourceGroup) bits.push(U.esc(it.sourceGroup));
       if (it.sourceSite && it.sourceSite !== it.sourceGroup) bits.push(U.esc(it.sourceSite));
       if (it.language) bits.push(U.esc(it.language));
       if (it.scale) bits.push(U.esc(it.scale));
       if ((it.scenes || []).length) bits.push(U.esc(it.scenes.join("、")));
-      const btn = (act, label, on) =>
-        `<button type="button" data-vfx-act="${act}" class="${on ? "is-on" : ""}">${label}</button>`;
-      const review = `<div class="vfx-review">
-        ${btn("seen", "看过了", !!m.seen)}
-        ${btn("yes", "合适", m.fit === "yes")}
-        ${btn("no", "不合适", m.fit === "no")}
-        <textarea data-vfx-act="note" placeholder="批注（仅保存在本机）">${U.esc(m.note || "")}</textarea>
-      </div>`;
       const note = it.reason ? `<p class="src-inspect-note">${U.esc(it.reason)}</p>` : "";
       const link = it.url
         ? `<a class="src-go" href="${U.esc(it.url)}" target="_blank" rel="noopener noreferrer">打开原页 ↗</a>`
         : "";
-      return `${shot}
-        <h3>${U.esc(it.name)}</h3>
-        <p class="src-inspect-meta">${bits.join(" · ")}</p>
-        <div class="src-inspect-links">${link}</div>
-        ${note}
-        ${review}`;
+      const official = it.officialName && it.officialName !== it.name
+        ? `<p class="src-official-name">${U.esc(it.officialName)}</p>`
+        : "";
+      return `
+        <div class="src-record" data-qa="preview-item">
+          ${shot}
+          <div class="src-record-main">
+            <h3 class="src-record-name">${U.esc(it.name)}</h3>
+            ${official}
+            <p class="src-inspect-meta">${bits.join(" · ")}</p>
+            <div class="src-inspect-links">${link}</div>
+            ${note}
+            <p class="auth-status">尚未进入视效库 · 不计入 124</p>
+          </div>
+        </div>`;
+    }
+
+    function bindShotFallback(scope) {
+      (scope || document).querySelectorAll(".book-modal-shot img").forEach((img) => {
+        img.addEventListener("error", () => {
+          const box = img.closest(".book-modal-shot");
+          if (!box) return;
+          box.classList.add("is-missing");
+          img.remove();
+          if (!box.querySelector("span")) box.insertAdjacentHTML("beforeend", "<span>暂无现场截图</span>");
+        });
+      });
+    }
+
+    function openItem(it) {
+      const Modal = global.VfxModal;
+      if (!Modal || !it) return;
+      Modal.open({
+        kicker: "候审",
+        title: U.esc(it.officialName || it.name),
+        label: it.officialName || it.name,
+        className: "is-preview-item",
+        html: recordBodyHtml(it),
+        onMount: (panel) => bindShotFallback(panel)
+      });
     }
 
     function render() {
@@ -124,6 +148,7 @@
           <p class="kicker">候审</p>
           <div class="src-viz-legend">
             <span><i class="src-swatch is-queue"></i>候审，尚未进入视效库 · 不计入 124</span>
+            <a class="src-queue" href="#/vfx/review">去评判</a>
             <a class="src-queue" href="#/sources/review">返回来源</a>
           </div>
         </header>
@@ -142,11 +167,17 @@
           btn.insertAdjacentHTML("afterbegin", "<span>暂无现场截图</span>");
         });
       });
+
+      root.querySelectorAll("[data-preview-id]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const it = byId.get(btn.getAttribute("data-preview-id"));
+          if (it) openItem(it);
+        });
+      });
     }
 
-    /* 先不支持点进单条：格子本身已展示缩略图与分组，不再打开未完成的详层。 */
-
-        render();
+    if (global.VfxModal) global.VfxModal.closeAll();
+    render();
   }
 
   global.VfxPages = global.VfxPages || {};
