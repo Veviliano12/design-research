@@ -1,0 +1,128 @@
+/* 改造前后、质量两章的接入层样式。时长与延迟由组件按 src/motion/tokens.ts 写入 --ch-dur / --ch-delay。 */
+
+/* 内容层宿主：与 .chapter-overlay 同层级，挂在 .stage 下 */
+.ch-host {
+  position: absolute;
+  inset: 0;
+  z-index: 38;
+  pointer-events: none;
+}
+
+.ch-fade {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--ch-dur, 0.45s) cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ch-fade.is-hidden {
+  opacity: 0;
+}
+
+/* 入场：只在延迟期间保持起点，结束后交还给 transition，离场淡出才不会被动画填充值压住 */
+.ch-enter {
+  position: absolute;
+  inset: 0;
+  animation: ch-in var(--ch-dur, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) var(--ch-delay, 0s) backwards;
+}
+
+@keyframes ch-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- 改造前后：设备框与章节标题 ---------- */
+
+/* 设备框：边框围出屏幕区域，屏幕透明，露出内容层里的 LiveCanvas；外缘只用主线 14% 白 */
+.ch-device {
+  position: absolute;
+  border-style: solid;
+  border-color: #16181b;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.14), 0 32px 90px rgb(0 0 0 / 0.5);
+}
+
+.ch-device__dots {
+  position: absolute;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.22);
+  box-shadow: 14px 0 rgb(255 255 255 / 0.22), 28px 0 rgb(255 255 255 / 0.22);
+}
+
+/* 章节小标题：全局标题栏之下的一行，不做大标题 */
+.ch-title {
+  position: absolute;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ch-title__sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.ch-title--compact {
+  font-size: 0.8125rem;
+}
+.ch-title--compact .ch-title__sub {
+  font-size: 0.6875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch-enter {
+    animation: none;
+  }
+  .ch-fade {
+    transition: none;
+  }
+}
+
+/* ---------- 质量章节的质量证明分段：标题下方的结论数字（挂在 Stage 的 .chapter-copy 里） ---------- */
+
+.ch-conclusion {
+  margin-top: 40px;
+}
+
+.ch-conclusion__value {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  height: 48px;
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-conclusion__unit {
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.ch-conclusion__label {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.stage--compact .ch-conclusion {
+  display: none;
+}

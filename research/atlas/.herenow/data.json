@@ -1,0 +1,17 @@
+{
+  "collections": {
+    "marks": {
+      "fields": {
+        "state": { "type": "object" }
+      },
+      "access": {
+        "read": "public",
+        "insert": "public",
+        "update": "public",
+        "delete": "none"
+      },
+      "publicMutation": "open",
+      "rateLimit": "600/hour/ip"
+    }
+  }
+}

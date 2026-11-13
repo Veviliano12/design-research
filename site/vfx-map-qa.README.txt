@@ -1,0 +1,1 @@
+验收静帧没有打进这个仓库。共享电脑上的原路径是 /workspace/design-research-platform/vfx-map-qa/。

@@ -1,0 +1,102 @@
+.fx-detail {
+  position: absolute;
+  inset: auto;
+  z-index: 8;
+  display: flex;
+  gap: 28px;
+  pointer-events: none;
+  color: var(--text);
+}
+.fx-board,
+.fx-meta,
+.fx-close,
+.fx-link {
+  pointer-events: auto;
+}
+.fx-board {
+  position: relative;
+  overflow: hidden;
+  background: #15181b;
+  border: 1px solid #2a2d32;
+  border-radius: 8px;
+}
+.fx-board .long-image,
+.fx-board .long-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.fx-plate {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: rgba(232, 233, 235, 0.42);
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+.fx-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.fx-kicker {
+  margin: 0 0 0.6em;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.fx-meta h2 {
+  margin: 0 0 1.2em;
+  font-size: 22px;
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+.fx-meta dl {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.fx-meta div {
+  display: grid;
+  gap: 2px;
+}
+.fx-meta dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+.fx-meta dd {
+  margin: 0;
+  font-size: 14px;
+}
+.fx-missing {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.fx-link {
+  margin-top: 20px;
+  color: var(--accent);
+  font-size: 13px;
+  text-decoration: none;
+}
+.fx-link:hover {
+  text-decoration: underline;
+}
+.fx-close {
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #2a2d32;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.fx-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

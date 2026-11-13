@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+.env
+.env.*
+
+# local review artifacts, not published
+vfx-map-qa/
+BOOK-PASS-*.md
+PLATFORM-VISUAL.md

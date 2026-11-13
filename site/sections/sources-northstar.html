@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>北极星问题 · 设计研究</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/shell.css">
+</head>
+<body>
+<div class="doc" data-page>
+  <header class="doc-head">
+    <h2>北极星问题</h2>
+    <p>深挖时必须回答。没有看出来就写「尚未形成洞察」或「尚未形成结论」，不编造。准则最后对齐时间：2026-11-11（America/New_York）。</p>
+  </header>
+  <div class="doc-body">
+    <h3>深挖时必须回答</h3>
+    <p>深度分析只围着北极星问题做，服务于我们自己要维护和组装的目标。概览写完仍是待分析；深挖并回答了适用的北极星问题，才改为已分析。</p>
+    <div class="qlist">
+      <div><span class="gid">01</span><span>这类资产在这个来源里是怎么被拆和规整的？尤其是 Blocks。</span></div>
+      <div><span class="gid">02</span><span>底层用什么技术和方案：框架、样式、动效库、是不是仍走 shadcn / registry / CLI，或其他路线。</span></div>
+      <div><span class="gid">03</span><span>组装单元是什么，约束在哪，灵活改动靠什么实现（复制源码、registry、令牌、槽位/变体、AI 生成等）？</span></div>
+      <div><span class="gid">04</span><span>它和哪些资产是配套的，一起用时边界在哪？</span></div>
+      <div><span class="gid">05</span><span>抽完一批之后，动效、组件、blocks 各自能归纳出哪些做法和类型？有没有跨来源的共性结论？</span></div>
+      <div><span class="gid">06</span><span>开放式洞察：这个来源里，最先进或最有启发性的一点是什么？尤其在 AGUI / 生成式 UI / AI 相关做法上，它揭示了什么可能性或路径？没有看出来就写「尚未形成洞察」，允许「没有特别的洞察」。</span></div>
+    </div>
+
+    <h3>分析状态改为「已分析」前必须查清</h3>
+    <ul>
+      <li><strong>相关主题与可连带的资产</strong>，以及一起用时的边界。</li>
+      <li><strong>技术栈与实现方案</strong>：框架、样式方案、动效库；是否仍走 shadcn / registry / CLI，或其他路线。</li>
+      <li><strong>组装模型</strong>：复制源码、registry、主题令牌、槽位/变体、AI 生成等。</li>
+      <li><strong>约束与灵活度</strong>：单元怎么拆、限制在哪、灵活改动靠什么实现。</li>
+      <li><strong>是否适合作为可自由组装的输入</strong>。</li>
+      <li><strong>开放式洞察</strong>：最先进或最有启发的一点，尤其是 AGUI / AI 相关；无则标明尚未形成洞察。必须附依据（截图、原文或可核验页面），不编造。</li>
+    </ul>
+    <p>未做深挖的来源，这些字段留空，分析状态保持「待分析」。</p>
+
+    <h3>两层状态</h3>
+    <ul>
+      <li><strong>可信度</strong>：待诊断 / 可信 / 不可信 / 待定。这是委托方抽样后的判断，助手只代为写入清单，不替其下结论。</li>
+      <li><strong>分析状态</strong>：待分析 / 已分析。概览写完仍是待分析；深挖并回答了适用的北极星问题，才改为已分析。</li>
+    </ul>
+
+    <h3>证据与不编造</h3>
+    <div class="pnote">结论、打分、洞察和「最先进」这类判断，都必须能指回当场可核验的依据，逻辑要严谨。依据优先用：官网或文档的原文与截图、公开仓库（含 <code>gh api</code> 核实的星标与推送时间）、可打开的示例或源码、定价/许可页面。没有截图或原文支撑时，不得把推测写成结论，也不得补全没看到的技术细节、价格、归属或洞察。</div>
+    <p>看过仍证据不足的，写「尚未形成结论」或「尚未形成洞察」；引用证据有限时在依据里注明。截图与引用材料保存在调研记录中，和结论一起可回溯。</p>
+  </div>
+</div>
+</body>
+</html>

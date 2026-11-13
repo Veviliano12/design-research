@@ -1,0 +1,4153 @@
+{
+  "source": {
+    "cases": "src/data/raw/cases.json",
+    "lightup": "src/data/raw/lightup.json",
+    "images": "public/generated/ (real captures only; placeholders stay in the catalog, not in this folder)"
+  },
+  "counts": {
+    "onWall": 124,
+    "withCapture": 123,
+    "missingCapture": 1,
+    "languages": 9,
+    "vfxKind": 119,
+    "visualRefKind": 5,
+    "core": 118,
+    "decor": 6,
+    "fullPage": 60,
+    "component": 64,
+    "landingPages": 105,
+    "reviewed": 94,
+    "present": 0,
+    "nearBenchmark": 0,
+    "attempted": 36,
+    "attemptedPages": 27,
+    "attemptedLanguages": 6,
+    "unseenLanguages": 3,
+    "pendingReview": 30
+  },
+  "missing": {
+    "id": "threeui-dark-souls-holo",
+    "label": "暂无现场截图"
+  },
+  "languages": [
+    {
+      "id": "liquid-glass",
+      "no": "01",
+      "name": "液态玻璃与光学",
+      "short": "液态玻璃",
+      "desc": "折射、色散、透镜材质",
+      "caption": "折射、色散、透镜材质，这类语言靠页里的光学现象本身成立。",
+      "count": 19,
+      "heroId": "apple-iphone-18-pro",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/apple-iphone-18-pro/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "apple-iphone-18-pro",
+          "name": "Apple iPhone 18 Pro 产品页",
+          "url": "https://www.apple.com/iphone-18-pro/",
+          "studio": "Apple",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "通过复杂镜面反射与色散光效，结合逼真产品材质渲染，营造极高视觉质感。",
+          "note": "苹果产品页多为预渲染视频，H5 复刻需自行实现；截图时用 CSS 隐藏了顶部地区切换条",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-iphone-18-pro/hero.webp"
+          }
+        },
+        {
+          "id": "harmonyos-7-consumer",
+          "name": "华为官网 · HarmonyOS 7",
+          "url": "https://consumer.huawei.com/cn/harmonyos-7/",
+          "studio": "Huawei",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "高精度3D渲染的数字7，展现了极佳的体积感、材质折射与光影过渡。",
+          "note": "首屏大 7 可能是预渲染视频/图片",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/harmonyos-7-consumer/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-aureon-crystal-button",
+          "name": "ThreeUI · Aureon Crystal Button",
+          "url": "https://threeui.com/buttons/aureon-crystal-button",
+          "studio": "Meng To / ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "利用复杂高光与折射质感，展现了超越标准 CSS 的控件级晶体光学材质。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-aureon-crystal-button/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-liquid-clock",
+          "name": "ThreeUI · Liquid Clock",
+          "url": "https://threeui.com/three-js/liquid-clock",
+          "studio": "Meng To / ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "实时渲染出具有折射和内部高光的液态材质，实现远超标准CSS的视觉表现力。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-liquid-clock/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-liquid-glass",
+          "name": "ThreeUI · Shader Buttons — Liquid Glass",
+          "url": "https://threeui.com/buttons/star-portal/liquid-glass",
+          "studio": "Meng To / ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "通过着色器渲染出流动渐变背景与逼真的玻璃折射高光质感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-liquid-glass/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-dark-souls-holo",
+          "name": "ThreeUI · Dark Souls Holo Card",
+          "url": "https://threeui.com/hero/dark-souls-holo-card",
+          "studio": "Meng To / ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "装饰",
+          "reason": "你把它当作卡片本身的视效，放在组件列。加长等待并隐藏 Pro 浮层后，预览仍停在「THE ASHEN ONE / ENTERING」加载态，公开预览没有渲染出全息卡。案例保留，可点开原站。",
+          "note": "作为卡片本身的视效是很牛的，但是作为 H5 我不知道 H5 存在什么这相关的视效呢？",
+          "captureNote": "公开预览仍停在「THE ASHEN ONE / ENTERING」加载态。未登录、未绕过付费墙。已找到同一页的官方预览视频/静帧，但没有把它当作「现场截到了原页」放进地图。",
+          "imageNote": "",
+          "missingCapture": true,
+          "missingLabel": "暂无现场截图",
+          "image": null
+        },
+        {
+          "id": "threeui-photonic-interconnect",
+          "name": "ThreeUI · Photonic Interconnect 落地页",
+          "url": "https://threeui.com/landing-pages/photonic-interconnect-landing-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "核心视觉是玻璃柱体的折射与透镜光效，直接塑造标题与氛围。",
+          "note": "虽然很牛，但是我觉得这个可能得分 B 端跟 C 端的场景了。这个有点像 B 端的场景，就是一个产品介绍页",
+          "captureNote": "隐藏 Pro 浮层后等待约 40 秒，公开预览渲染出玻璃柱与折射。未登录、未点 Upgrade。",
+          "imageNote": "截图为 ThreeUI 公开预览区；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）。",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-photonic-interconnect/hero.webp"
+          }
+        },
+        {
+          "id": "harmonyos-design-portal",
+          "name": "HarmonyOS / 华为 · 设计门户（空间美学）",
+          "url": "https://developer.huawei.com/consumer/cn/design",
+          "studio": "Huawei",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "教育与展览"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "官方设计门户下半屏用「沉浸光感」与玻璃拟态组件展示鸿蒙设计语言，不是枯燥 API 文档。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/harmonyos-design-portal/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-3d-paper",
+          "name": "ThreeUI · 3D Paper",
+          "url": "https://threeui.com/three-js/3d-paper",
+          "studio": "ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "半透明磨砂证书卡片有折射与受光，是可拖转、可打光的光学组件。Flash 标了整页，按组件列规则收到组件。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-3d-paper/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-glass-ai-button",
+          "name": "ThreeUI · Glass AI Button",
+          "url": "https://threeui.com/buttons/glass-ai-button",
+          "studio": "ThreeUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "透明胶囊按钮的厚度、折射和内部漩涡光都很清楚，是可直接借鉴的液态玻璃组件，和已收的水晶钮、液态时钟不同。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-glass-ai-button/hero.webp"
+          }
+        },
+        {
+          "id": "aceternity-ui-components-liquid-glass",
+          "name": "Liquid Glass",
+          "url": "https://ui.aceternity.com/components/liquid-glass",
+          "studio": "Aceternity UI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "圆形玻璃面有折射、色散和磨砂边缘，光学细节清楚，不是普通毛玻璃。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aceternity-ui-components-liquid-glass/hero.webp"
+          }
+        },
+        {
+          "id": "apple-design-hub",
+          "name": "Apple Design 总入口",
+          "url": "https://developer.apple.com/design/",
+          "studio": "Apple Design",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "教育与展览"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "Apple Design 总入口主视觉把液态玻璃控件（折射、厚度、高光、彩条穿过玻璃环）完整摆出来，比 HIG Materials 文档页和 Newsroom 海报更能看见材质。首屏 canvases=0、videos=0，主视觉很可能是预渲染，和已收的苹果产品页类似。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-design-hub/hero.webp"
+          }
+        },
+        {
+          "id": "aura-matter-immersive",
+          "name": "MATTER",
+          "url": "https://matter-immersive.aura.build/",
+          "studio": "Aura.build",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页",
+            "创作工具"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不是普通 CSS 毛玻璃：条带有厚度、折射和连续高光，是可对照的高阶光学材质视效。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-matter-immersive/hero.webp"
+          }
+        },
+        {
+          "id": "cue__components-fisheye-chromatic-card-grid",
+          "name": "Fisheye Chromatic Card Grid",
+          "url": "https://kit.cuedesign.space/components/fisheye-chromatic-card-grid",
+          "studio": "Cue / Cue Kit",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "鱼眼膨胀和 RGB 色散在网格边缘很清楚，人像有电影感，是可参考的光学着色器图廊，不是普通卡片墙。官网 ?c=cue059 为同一视效，官网截图失败待重拍，本轮先吸收 Kit 页。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/cue__components-fisheye-chromatic-card-grid/hero.webp"
+          }
+        },
+        {
+          "id": "kokonut-ui__docs-backgrounds-rain-glass-background",
+          "name": "Rain Glass Background",
+          "url": "https://kokonutui.com/docs/backgrounds/rain-glass-background",
+          "studio": "Kokonut UI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "雨天窗玻璃上的水珠有透镜折射，后景湖山被雾化，光学完成度高。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/kokonut-ui__docs-backgrounds-rain-glass-background/hero.webp"
+          }
+        },
+        {
+          "id": "r3f-examples__scrollcontrols-and-lens-refraction",
+          "name": "ScrollControls and Lens Refraction",
+          "url": "https://pmndrs.github.io/examples/scrollcontrols-and-lens-refraction",
+          "studio": "React Three Fiber",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "教育与展览"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "圆形透镜盖在室内排版上，边缘有色散，折射把后面的灯和字母弯折，光学清楚。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/r3f-examples__scrollcontrols-and-lens-refraction/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-animations-strands",
+          "name": "Strands",
+          "url": "https://reactbits.dev/animations/strands",
+          "studio": "React Bits",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "磨砂玻璃球体内有光谱光带，体积光和玻璃表面都清楚，好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-animations-strands/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-swirled-lenses",
+          "name": "Swirled Lenses",
+          "url": "https://shaders.com/collection/swirled-lenses",
+          "studio": "Shaders",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "波状楞镜表面高光连贯，像透镜或玻璃瓦楞，光学结构清楚。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-swirled-lenses/hero.webp"
+          }
+        },
+        {
+          "id": "smoothui__docs-components-glass-card",
+          "name": "Glass Card",
+          "url": "https://smoothui.dev/docs/components/glass-card",
+          "studio": "SmoothUI",
+          "row": "液态玻璃与光学",
+          "scenes": [
+            "界面"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "卡片边缘把后景条纹明显折弯，内高光和折射清楚，不是普通毛玻璃。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/smoothui__docs-components-glass-card/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fluid-shader",
+      "no": "02",
+      "name": "流体与着色器场",
+      "short": "流体",
+      "desc": "流动背景、液态金属、着色器场",
+      "caption": "流动背景、液态金属、着色器场，画面在完整页面或组件里持续流动。",
+      "count": 11,
+      "heroId": "product-suno",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/product-suno/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "product-suno",
+          "name": "Suno",
+          "url": "https://suno.com/",
+          "studio": "Suno",
+          "row": "流体与着色器场",
+          "scenes": [
+            "创作工具"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "背景的高光与流体纹理非纯CSS能及，具备着色器渲染的有机感与高级感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/product-suno/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-portal-field",
+          "name": "ThreeUI · Portal Field",
+          "url": "https://threeui.com/backgrounds/portal-field",
+          "studio": "Meng To / ThreeUI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "装饰",
+          "reason": "通过着色器生成柔和的能量环与空间扭曲，极简而富有沉浸感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-portal-field/hero.webp"
+          }
+        },
+        {
+          "id": "aura-ink-landing-page-69",
+          "name": "INK Fluid Engine",
+          "url": "https://ink-landing-page-69.aura.build/",
+          "studio": "Aura.build",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页",
+            "创作工具"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "实时紫色墨水流体场结构与高光清楚，页面写明不是视频或循环，达到流体与着色器场标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-ink-landing-page-69/hero.webp"
+          }
+        },
+        {
+          "id": "aura-tale-52-17",
+          "name": "ÉTALE",
+          "url": "https://tale-52-17.aura.build/",
+          "studio": "Aura.build",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不是普通 CSS 渐变：坡面有体积、高光和层层起伏，色彩场完整铺在整页上，达到流体与着色器场的好看标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-tale-52-17/hero.webp"
+          }
+        },
+        {
+          "id": "inspira-ui-docs-en-components-backgrounds-liquid-background",
+          "name": "Liquid Background",
+          "url": "https://inspira-ui.com/docs/en/components/backgrounds/liquid-background",
+          "studio": "Inspira UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "虹彩流体褶皱和高光清楚，是好看的着色器背景。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/inspira-ui-docs-en-components-backgrounds-liquid-background/hero.webp"
+          }
+        },
+        {
+          "id": "inspira-ui-docs-en-components-backgrounds-neural-background",
+          "name": "Neural Background",
+          "url": "https://inspira-ui.com/docs/en/components/backgrounds/neural-background",
+          "studio": "Inspira UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "深蓝发光的神经分支有体积和层次，不是常见粒子底。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/inspira-ui-docs-en-components-backgrounds-neural-background/hero.webp"
+          }
+        },
+        {
+          "id": "inspira-ui-docs-en-components-visualization-liquid-logo",
+          "name": "Liquid Logo",
+          "url": "https://inspira-ui.com/docs/en/components/visualization/liquid-logo",
+          "studio": "Inspira UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "液态金属苹果标识有体积高光和边缘色散，材质清楚，不是平面描边。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/inspira-ui-docs-en-components-visualization-liquid-logo/hero.webp"
+          }
+        },
+        {
+          "id": "kokonut-ui__docs-backgrounds-caustics-background",
+          "name": "Caustics Background",
+          "url": "https://kokonutui.com/docs/backgrounds/caustics-background",
+          "studio": "Kokonut UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "泳池地砖焦散完整、光影柔和，是可参考的光学着色器英雄区，不只是普通渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/kokonut-ui__docs-backgrounds-caustics-background/hero.webp"
+          }
+        },
+        {
+          "id": "lightswind-ui__components-satin-flow",
+          "name": "Satin Flow",
+          "url": "https://lightswind.com/components/satin-flow",
+          "studio": "Lightswind UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "紫缎褶皱的高光和布褶结构清楚，是可参考的织物着色器背景，不只是普通流体渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/lightswind-ui__components-satin-flow/hero.webp"
+          }
+        },
+        {
+          "id": "lightswind-ui__components-volumetric-fractal",
+          "name": "Volumetric Fractal",
+          "url": "https://lightswind.com/components/volumetric-fractal",
+          "studio": "Lightswind UI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "虹彩体积场的褶皱高光和纵深清楚，是可参考的光线步进着色器背景，不只是普通渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/lightswind-ui__components-volumetric-fractal/hero.webp"
+          }
+        },
+        {
+          "id": "smoothui__docs-components-aurora-curtain",
+          "name": "Aurora Curtain",
+          "url": "https://smoothui.dev/docs/components/aurora-curtain",
+          "studio": "SmoothUI",
+          "row": "流体与着色器场",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "预览中极光帘幕有绿紫分层丝带和胶片颗粒，是可参考的着色器背景，不只是普通渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/smoothui__docs-components-aurora-curtain/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "light",
+      "no": "03",
+      "name": "光与发光",
+      "short": "光与发光",
+      "desc": "辉光、体积光、氛围光",
+      "caption": "辉光、体积光、氛围光，让画面自己发亮。",
+      "count": 15,
+      "heroId": "apple-music",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/apple-music/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "apple-music",
+          "name": "Apple Music 产品页",
+          "url": "https://www.apple.com/apple-music/",
+          "studio": "Apple",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "装饰",
+          "reason": "极简排版结合大面积极致平滑的环境光溢出，营造沉浸式氛围标杆。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-music/hero.webp"
+          }
+        },
+        {
+          "id": "cssda-bmw-f3",
+          "name": "BMW Next Move F3",
+          "url": "https://www.bmwf3.com/",
+          "studio": "",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "高度写实的3D材质按钮结合焦外光影背景，展现超越常规的材质质感与沉浸感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/cssda-bmw-f3/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-emberline-page",
+          "name": "ThreeUI · Emberline Page",
+          "url": "https://threeui.com/hero/emberline-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "无数高亮线条汇聚成光柱，辉光与流线交织，极致展现高能感与科技感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-emberline-page/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-ascension-pegassi",
+          "name": "Ascension · Pegassi",
+          "url": "https://ascension.pegassi.be/",
+          "studio": "Pegassi",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "发光星芒大字与门洞体积光主导视觉，不再只是噪点封面。",
+          "note": "",
+          "captureNote": "首屏是「Click to enter」噪点封面；点进入口后拍到内页发光字与门洞。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-ascension-pegassi/hero.webp"
+          }
+        },
+        {
+          "id": "harmonyos-immersive-light-design",
+          "name": "HarmonyOS / 华为 · 沉浸光感设计指南",
+          "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/immersivelight-0000002612101053",
+          "studio": "Huawei",
+          "row": "光与发光",
+          "scenes": [
+            "教育与展览"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "官方沉浸光感指南的正文与 Before/After 界面光感示例已经加载出来。",
+          "note": "那你等等呗，是有的，等他加载出来啊\n",
+          "captureNote": "在你的 Mac 上打开后，会从 design-guides 路径转到官方 doccenter-ux-design 路径并出现正文。box 网络仍会在约 60 秒跳到文档中心首页、正文出不来。",
+          "imageNote": "截图来自你电脑上的本机 Chrome，不是 box 网络。原输入地址仍是 design-guides/immersivelight-0000002612101053，官网会转到这条可用路径。",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/harmonyos-immersive-light-design/hero.webp"
+          }
+        },
+        {
+          "id": "aura-matrixpay-v4",
+          "name": "MatrixPay v4",
+          "url": "https://matrixpay-v4.aura.build/",
+          "studio": "Aura.build",
+          "row": "光与发光",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "主体是有体积的发光体，而不是常见地球/宇宙科幻贴图；光的结构、网格纵深和进入仪式完整，达到光与发光标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-matrixpay-v4/hero.webp"
+          }
+        },
+        {
+          "id": "inspira-ui-docs-en-components-backgrounds-singularity-background",
+          "name": "Singularity Background",
+          "url": "https://inspira-ui.com/docs/en/components/backgrounds/singularity-background",
+          "studio": "Inspira UI",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "环状奇点有火与冷色光边，体积光清楚，好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/inspira-ui-docs-en-components-backgrounds-singularity-background/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-animations-electric-logo",
+          "name": "Electric Logo",
+          "url": "https://reactbits.dev/animations/electric-logo",
+          "studio": "React Bits",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "标识边缘有跳动电弧和辉光，线条干净，光感清楚。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-animations-electric-logo/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-backgrounds-beams",
+          "name": "Beams",
+          "url": "https://reactbits.dev/backgrounds/beams",
+          "studio": "React Bits",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "暗底上的高光缎带有厚度和反光，光带完整好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-backgrounds-beams/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-backgrounds-light-rays",
+          "name": "Light Rays",
+          "url": "https://reactbits.dev/backgrounds/light-rays",
+          "studio": "React Bits",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "体积光从一侧打下，有雾感和光源，光柱清楚。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-backgrounds-light-rays/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-backgrounds-lightning",
+          "name": "Lightning",
+          "url": "https://reactbits.dev/backgrounds/lightning",
+          "studio": "React Bits",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "闪电分支和辉光清楚，不是简单发光线。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-backgrounds-lightning/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-backgrounds-side-rays",
+          "name": "Side Rays",
+          "url": "https://reactbits.dev/backgrounds/side-rays",
+          "studio": "React Bits",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "侧向体积光有纵深和散射，不是平面扫光。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-backgrounds-side-rays/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-afternoon-sunlight",
+          "name": "Afternoon Sunlight",
+          "url": "https://shaders.com/collection/afternoon-sunlight",
+          "studio": "Shaders",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "窗影焦散和柔和日光斑清楚，还有轻微色散，是完整的光学光效。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-afternoon-sunlight/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-color-eclipse",
+          "name": "Color Eclipse",
+          "url": "https://shaders.com/collection/color-eclipse",
+          "studio": "Shaders",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "日食边缘的彩色光环和棱镜色边清楚，光的层次完整，好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-color-eclipse/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-prism-shards",
+          "name": "Prism Shards",
+          "url": "https://shaders.com/collection/prism-shards",
+          "studio": "Shaders",
+          "row": "光与发光",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "棱镜碎裂的光谱光柱和色散清楚，不是普通放射模糊。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-prism-shards/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "particles",
+      "no": "04",
+      "name": "粒子与点云",
+      "short": "粒子",
+      "desc": "星尘、点阵、打散重组",
+      "caption": "星尘、点阵、打散重组，由大量的点组成形体。",
+      "count": 9,
+      "heroId": "fwa-nebulofi",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/fwa-nebulofi/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "fwa-nebulofi",
+          "name": "NebuLoFi",
+          "url": "https://nebulofi.vercel.app/",
+          "studio": "",
+          "row": "粒子与点云",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "海量粒子与发光着色器构建出宏大的动态三维星系，氛围感极强且交互流畅。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/fwa-nebulofi/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-noema-bloom",
+          "name": "ThreeUI · Noema Bloom",
+          "url": "https://threeui.com/three-js/noema-bloom",
+          "studio": "Meng To / ThreeUI",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "使用WebGL渲染海量粒子模拟有机绽放，配合光晕流场，视觉表现震撼。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-noema-bloom/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-orbital-dust",
+          "name": "ThreeUI · Orbital Dust",
+          "url": "https://threeui.com/backgrounds/orbital-dust",
+          "studio": "Meng To / ThreeUI",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "利用大量粒子实时构建出具有体积感和空间深度的三维行星与光环，非CSS所能实现。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-orbital-dust/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-recursive-erosion",
+          "name": "ThreeUI · Recursive Erosion",
+          "url": "https://threeui.com/backgrounds/recursive-erosion",
+          "studio": "Meng To / ThreeUI",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "装饰",
+          "reason": "通过 WebGL 渲染大量粒子，构建出具有体积感和侵蚀感的三维程序化图形。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-recursive-erosion/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-tideform-page",
+          "name": "ThreeUI · Tideform Page",
+          "url": "https://threeui.com/hero/tideform-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "大规模点阵借助着色器实现起伏形变与高光，呈现流体般实时交互质感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-tideform-page/hero.webp"
+          }
+        },
+        {
+          "id": "kepler-gl",
+          "name": "Kepler.gl",
+          "url": "https://kepler.gl/",
+          "studio": "OpenJS / kepler.gl",
+          "row": "粒子与点云",
+          "scenes": [
+            "数据可视化",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "画面核心由密集发光点阵构成夜间城市三维地图，是点云数据可视化的高阶呈现。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/kepler-gl/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-backgrounds-ghost-fibers",
+          "name": "Ghost Fibers",
+          "url": "https://reactbits.dev/backgrounds/ghost-fibers",
+          "studio": "React Bits",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "发光纤维粒子带有景深和层次，条带扭动好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-backgrounds-ghost-fibers/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-scanner-noise",
+          "name": "Scanner Noise",
+          "url": "https://shaders.com/collection/scanner-noise",
+          "studio": "Shaders",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "彩色点云地形有起伏和纵深，不是稀疏科技粒子。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-scanner-noise/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-traced-paths",
+          "name": "Traced Paths",
+          "url": "https://shaders.com/collection/traced-paths",
+          "studio": "Shaders",
+          "row": "粒子与点云",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "粒子被拉成纤维轨迹，有疏密和方向，不是稀疏点阵。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-traced-paths/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "post",
+      "no": "05",
+      "name": "图像与视频后期",
+      "short": "后期",
+      "desc": "扫描线、颗粒、故障、半色调",
+      "caption": "扫描线、颗粒、故障、半色调，把后期语言当作页面自身的视效。",
+      "count": 24,
+      "heroId": "awwwards-the-tie-break",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/awwwards-the-tie-break/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "awwwards-the-tie-break",
+          "name": "The Tie-Break",
+          "url": "https://thetiebreak.merci-michel.com/",
+          "studio": "Merci Michel",
+          "row": "图像与视频后期",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "运用重度景深模糊与噪点滤镜处理背景，凸显前排文字，极具高级感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-the-tie-break/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-dont-look-up",
+          "name": "Don't Look Up Game",
+          "url": "https://www.dontlookup.app/",
+          "studio": "",
+          "row": "图像与视频后期",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视觉参考",
+          "core": "核心",
+          "reason": "网页游戏首屏靠手绘插画和极端比例排版取胜，按你的「合适」收录，属视觉参考，不是着色器或实时 3D。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-dont-look-up/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-illoca",
+          "name": "Illoca",
+          "url": "https://illoca.unseen.co/",
+          "studio": "Unseen Studio",
+          "row": "图像与视频后期",
+          "scenes": [
+            "创作工具",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视觉参考",
+          "core": "装饰",
+          "reason": "建筑创作工具的营销首屏，插画和编辑排版质感高。按你的「合适」收录为视觉参考。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-illoca/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-santioni-spirits",
+          "name": "Santioni Spirits",
+          "url": "https://santionispirits.com/",
+          "studio": "Active Theory",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视觉参考",
+          "core": "核心",
+          "reason": "已进入内页，目前拍到的是「THE NOTTURNO EXPERIENCE」艺术排版与液体飞溅，不是你说的画作。先按排版视觉参考收录。",
+          "note": "不知道是否属于视效，但是真的很牛，我看到了里面有画；如果不属于视效就算了，但是这个真牛啊，我加载出来了里面的东西了",
+          "captureNote": "已按你的授权点了年龄确认 Yes，进入内页。多次尝试后仍主要停在大字排版页；COLLECTION 导航有时会退回年龄确认。画作尚未稳定拍到，这张不是画作。",
+          "imageNote": "这是年龄确认之后的排版首屏，不是内页画作。",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-santioni-spirits/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-kage",
+          "name": "ThreeUI · Kage 落地页",
+          "url": "https://threeui.com/landing-pages/kage-landing-page",
+          "studio": "ThreeUI",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "夜色山门、红月和满幅胶片颗粒把排版压进同一画面，是完整的后期气质整页。Flash 倾向「视觉参考」，这里按颗粒/胶片语言收到图像与视频后期。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-kage/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-inkbound",
+          "name": "ThreeUI · Inkbound River Story",
+          "url": "https://threeui.com/landing-pages/inkbound-river-story",
+          "studio": "ThreeUI",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视觉参考",
+          "core": "核心",
+          "reason": "完成度很高的水墨长卷和衬线排版，主要是插画与图文气质，不是某一条实时视效语言，故放在视觉参考。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-inkbound/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-book-of-tea",
+          "name": "ThreeUI · Book of Tea",
+          "url": "https://threeui.com/three-js/book-of-tea",
+          "studio": "ThreeUI",
+          "row": "图像与视频后期",
+          "scenes": [
+            "教育与展览"
+          ],
+          "scale": "组件",
+          "kind": "视觉参考",
+          "core": "核心",
+          "reason": "翻开的纸书以极简线描和精致内文排版取胜，更像高端出版物视觉，而不是一条实时视效语言。按组件列收入（可翻页的书）。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-book-of-tea/hero.webp"
+          }
+        },
+        {
+          "id": "aura-wallow-bath-body-63",
+          "name": "Wallow",
+          "url": "https://wallow-bath-body-63.aura.build/",
+          "studio": "Aura.build",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页",
+            "店铺与购买"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "水下光影和色素扩散非常好看，适合作为流体视觉参考；截图无法确认是实时着色器还是预渲染/摄影，所以放在图像与视频后期，并标视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-wallow-bath-body-63/hero.webp"
+          }
+        },
+        {
+          "id": "cue__components-diagonal-field-journal-scroll",
+          "name": "Diagonal Field Journal Scroll",
+          "url": "https://kit.cuedesign.space/components/diagonal-field-journal-scroll",
+          "studio": "Cue / Cue Kit",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "邮票、手写标注与虚线轨迹组成有完成度的田野手记画面，可作为视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/cue__components-diagonal-field-journal-scroll/hero.webp"
+          }
+        },
+        {
+          "id": "cue__components-paper-fold-showcase",
+          "name": "Paper Fold Showcase",
+          "url": "https://kit.cuedesign.space/components/paper-fold-showcase",
+          "studio": "Cue / Cue Kit",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "展览海报式排版与肖像完成度高，可作为图像后期/视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/cue__components-paper-fold-showcase/hero.webp"
+          }
+        },
+        {
+          "id": "cue__components-phantom-infinite-gallery",
+          "name": "Phantom Infinite Gallery",
+          "url": "https://kit.cuedesign.space/components/phantom-infinite-gallery",
+          "studio": "Cue / Cue Kit",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "暗格画廊中的点选影像有电影感与空间层次，可作为视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/cue__components-phantom-infinite-gallery/hero.webp"
+          }
+        },
+        {
+          "id": "cue__home-c-cue015",
+          "name": "Prisma Cinematic Agency Hero",
+          "url": "https://www.cuedesign.space/?c=cue015",
+          "studio": "Cue / Cue Kit",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "黄底剪影人像与大字排版组成完整电影感机构英雄区，可作为视觉参考。底部录屏条挡住一小块，但不影响对主画面的判断。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/cue__home-c-cue015/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-animations-shape-blur",
+          "name": "Shape Blur",
+          "url": "https://reactbits.dev/animations/shape-blur",
+          "studio": "React Bits",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "标识被做成透镜般的失焦与拖影，光学后期清楚。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-animations-shape-blur/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-components-holo-card",
+          "name": "Holo Card",
+          "url": "https://reactbits.dev/components/holo-card",
+          "studio": "React Bits",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "收藏卡上的全息闪粉和箔面高光清楚，卡片本身的视效成立。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-components-holo-card/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-aether",
+          "name": "Aether",
+          "url": "https://www.scrolltide.co/templates/aether",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "极光铺成上山之路，人影与光带构图完整，是可参考的电影感英雄区，不只是普通风景照。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-aether/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-aperture",
+          "name": "Aperture",
+          "url": "https://www.scrolltide.co/templates/aperture",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "银幕方阵绕成隧道包围人影，构图完整，是可参考的媒体沉浸英雄区，不只是普通照片主视觉。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-aperture/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-aurora",
+          "name": "Aurora",
+          "url": "https://www.scrolltide.co/templates/aurora",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "体积云、发光金门与经典轿车组成完整电影感英雄区，完成度高，可作为视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-aurora/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-dune",
+          "name": "Dune",
+          "url": "https://www.scrolltide.co/templates/dune",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "雾中岩柱与夕阳光柱构成完整电影感英雄区，空间和体积光清楚，不只是普通风景照。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-dune/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-flying-garden",
+          "name": "Flying Garden",
+          "url": "https://www.scrolltide.co/templates/flying-garden",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "人在林中光柱里向上飞起，体积光和构图完整，是可参考的电影感英雄区，不只是普通风景照。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-flying-garden/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-glacier",
+          "name": "Glacier",
+          "url": "https://www.scrolltide.co/templates/glacier",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "金云与白鸽环绕标题，展览海报构图完整，是可参考的电影感英雄区。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-glacier/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-nebula",
+          "name": "Nebula",
+          "url": "https://www.scrolltide.co/templates/nebula",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "雾中悬浮树岛构成完整幻想场景，光影和空间完成度高，可作为视觉参考。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-nebula/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-oasis",
+          "name": "Oasis",
+          "url": "https://www.scrolltide.co/templates/oasis",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "螺旋云海铺满视野，空间纵深清楚，是可参考的电影感英雄区，不只是普通风景照。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-oasis/hero.webp"
+          }
+        },
+        {
+          "id": "scrolltide__templates-prairie",
+          "name": "Prairie",
+          "url": "https://www.scrolltide.co/templates/prairie",
+          "studio": "Scrolltide",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "涡旋云穹罩住地平线，构图完整，是可参考的电影感英雄区，不只是普通风景照。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1440,
+            "height": 900,
+            "aspect": 1.6,
+            "file": "generated/cases/scrolltide__templates-prairie/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-holographic-waves",
+          "name": "Holographic Waves",
+          "url": "https://shaders.com/collection/holographic-waves",
+          "studio": "Shaders",
+          "row": "图像与视频后期",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "全息箔面的细密干涉条纹和彩虹色散清楚，不是普通渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-holographic-waves/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generative",
+      "no": "06",
+      "name": "生成艺术与程序化图形",
+      "short": "生成艺术",
+      "desc": "由算法生成的图形与结构",
+      "caption": "由算法生成的图形与结构，而不是预先画好的装饰。",
+      "count": 1,
+      "heroId": "awwwards-lando-norris",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/awwwards-lando-norris/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "awwwards-lando-norris",
+          "name": "Lando Norris",
+          "url": "https://www.landonorris.com/",
+          "studio": "",
+          "row": "生成艺术与程序化图形",
+          "scenes": [
+            "个人站点"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "装饰",
+          "reason": "灰白流场背景与程序化线条交织，暗示了基于着色器或极大计算量的流场渲染。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-lando-norris/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "realtime-object",
+      "no": "07",
+      "name": "实时 3D · 写实材质与物件",
+      "short": "写实材质",
+      "desc": "单个物件的实时 3D 与材质",
+      "caption": "单个物件的实时 3D 与写实材质，发生在完整页面或组件里。",
+      "count": 32,
+      "heroId": "awwwards-sobha-privy",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/awwwards-sobha-privy/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "awwwards-sobha-privy",
+          "name": "Sobha Privy Collection",
+          "url": "https://sobha-privy-collection.com/",
+          "studio": "Vide Infra",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "精细的曲面模型与逼真的漆面材质反射，展现出极高的光影渲染质感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-sobha-privy/hero.webp"
+          }
+        },
+        {
+          "id": "apple-ipad-pro",
+          "name": "Apple iPad Pro 产品页",
+          "url": "https://www.apple.com/ipad-pro/",
+          "studio": "Apple",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "极致的明暗对比与边缘高光，完美呈现了工业级 3D 材质渲染与高级光学质感",
+          "note": "苹果产品页多为预渲染视频，H5 复刻需自行实现",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-ipad-pro/hero.webp"
+          }
+        },
+        {
+          "id": "studio-lusion-atlas-motion",
+          "name": "Atlas Motion（Lusion）",
+          "url": "https://atlasmotion.com/",
+          "studio": "Lusion",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "以高精度工业三维材质、旋转运动模糊与暗调后期构成主视觉，超出常规CSS。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/studio-lusion-atlas-motion/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-a24",
+          "name": "A24（Ravi Klaassens）",
+          "url": "https://a24.raviklaassens.com/",
+          "studio": "Ravi Klaassens",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "个人站点"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "光盘的3D透视、边缘高光与中心孔洞的立体感控制精细，呈现出逼真的材质渲染效果。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-a24/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-butter",
+          "name": "Butter",
+          "url": "https://www.butter.video/",
+          "studio": "ToyFight",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "创作工具",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "逼真的 PBR 材质表现，金属高光、磨砂反光与自发光结合，凸显硬核技术感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-butter/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-edolus",
+          "name": "EDOLUS",
+          "url": "https://edolus.com/",
+          "studio": "Vertex3D",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "通过逼真的 3D 模型、体积光和景深，营造出极具沉浸感的暗黑科技氛围。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-edolus/hero.webp"
+          }
+        },
+        {
+          "id": "fwa-garuda-2026",
+          "name": "Garuda 2026: The Locker Room",
+          "url": "https://garuda2026.offwg.com/",
+          "studio": "",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "奖杯金属材质与反射、卡片3D空间排布和发光后期，超出普通CSS呈现。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/fwa-garuda-2026/hero.webp"
+          }
+        },
+        {
+          "id": "fwa-orvae",
+          "name": "ORVAE",
+          "url": "https://orvae.undreamstudio.com/",
+          "studio": "Undream Studio",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "文字呈现出逼真的金属反光与切割线，背景带有高质感做旧纹理，具备真实的材质光影表现。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/fwa-orvae/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-cathode-page",
+          "name": "ThreeUI · Cathode Page",
+          "url": "https://threeui.com/hero/cathode-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "利用WebGL渲染线框3D模型，结合发光与后期的扫描线质感，构建极简科技美学。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-cathode-page/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-drift",
+          "name": "ThreeUI · DRIFT 落地页",
+          "url": "https://threeui.com/landing-pages/drift-landing-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "高精度 3D 戒指的金属材质量感、环境反射以及细腻的光晕交互，极具高级感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 948,
+            "height": 532,
+            "aspect": 1.782,
+            "file": "generated/cases/threeui-drift/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-matter",
+          "name": "ThreeUI · MATTER 落地页",
+          "url": "https://threeui.com/landing-pages/matter-landing-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "通过 WebGL 实时渲染高光与折射，呈现复杂的金属与玻璃 3D 雕塑质感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 948,
+            "height": 532,
+            "aspect": 1.782,
+            "file": "generated/cases/threeui-matter/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-noctiluca",
+          "name": "ThreeUI · Noctiluca 落地页",
+          "url": "https://threeui.com/landing-pages/noctiluca-landing-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "教育与展览",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "通过 WebGL/着色器精准还原水母的半透明质感与生物发光，深海光影与材质渲染极具沉浸感。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-noctiluca/hero.webp"
+          }
+        },
+        {
+          "id": "studio-active-theory",
+          "name": "Active Theory",
+          "url": "https://activetheory.net/",
+          "studio": "Active Theory",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "工作室首页中央是带反射的 3D 标志和轨道粒子，实时渲染是主视觉。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/studio-active-theory/hero.webp"
+          }
+        },
+        {
+          "id": "awwwards-jesper-landberg",
+          "name": "Jesper Landberg",
+          "url": "http://jesperlandberg.com/",
+          "studio": "Jesper Landberg",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "个人站点"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "个人作品集把项目放在悬浮的曲面 3D 屏幕里，材质和透视都靠实时渲染。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/awwwards-jesper-landberg/hero.webp"
+          }
+        },
+        {
+          "id": "aura-aura-living-sanctuary",
+          "name": "AURA — The Living Sanctuary",
+          "url": "https://aura-living-sanctuary.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "俯视木桌、蓝图、铜钉、台灯、咖啡已清楚，并有导航、PRIVATE VIEWING、WALK THE HOUSE，是概念住宅落地页完整首屏。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-aura-living-sanctuary/hero.webp"
+          }
+        },
+        {
+          "id": "aura-aural-72",
+          "name": "AURAL",
+          "url": "https://aural-72.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "皮革、金属和玻璃的写实材质与影棚布光到位，是可对照的高阶产品级 3D 物件视效，不是普通商品摄影。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-aural-72/hero.webp"
+          }
+        },
+        {
+          "id": "aura-aurelia-bug",
+          "name": "Aurelia",
+          "url": "https://aurelia-bug.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "教育与展览",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "甲虫的金属、珐琅、宝石和薄翅材质都非常精细，光影统一，达到高阶写实物件标杆，也适合教育和展览场景。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-aurelia-bug/hero.webp"
+          }
+        },
+        {
+          "id": "aura-elytra-ladybug",
+          "name": "ELYTRA Ladybug",
+          "url": "https://elytra-ladybug.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "鎏金镂空、珐琅、宝石与半透明翅翼材质完整细腻，从待定改为建议吸收，达到写实物件标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-elytra-ladybug/hero.webp"
+          }
+        },
+        {
+          "id": "aura-inflate-event",
+          "name": "INFLATE",
+          "url": "https://inflate-event.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "米色拱廊里金/白气球和巨大玻璃泡、地面倒影已展开，同时有导航和 PLAN A CELEBRATION，是完整庆典落地页，不是裸场景图。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-inflate-event/hero.webp"
+          }
+        },
+        {
+          "id": "aura-kveld-showroom",
+          "name": "KVELD",
+          "url": "https://kveld-showroom.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "三把吉他分台陈列、中间 FLOE 有青色光环，并有标题、导航和 BOOK A VISIT，是完整 3D 展厅落地页。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-kveld-showroom/hero.webp"
+          }
+        },
+        {
+          "id": "aura-vow-atelier-diamond-ring",
+          "name": "Vow Atelier",
+          "url": "https://vow-atelier-diamond-ring.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页",
+            "店铺与购买"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "钻石切面与贵金属的写实材质达到产品级高阶物件标杆，不是普通珠宝摄影或简易 3D 商品图。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-vow-atelier-diamond-ring/hero.webp"
+          }
+        },
+        {
+          "id": "react-bits-animations-metallic-paint",
+          "name": "Metallic Paint",
+          "url": "https://reactbits.dev/animations/metallic-paint",
+          "studio": "React Bits",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "金属漆标识有高光和反射，材质写实，不是平面描边。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/react-bits-animations-metallic-paint/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-brass",
+          "name": "Brass",
+          "url": "https://shaders.com/collection/brass",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "黄铜环的高光、倒角和反射清楚，材质写实，不是平面描边。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-brass/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-chrome-logo",
+          "name": "Chrome Logo",
+          "url": "https://shaders.com/collection/chrome-logo",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "铬制光圈叶片有清晰反射和边缘高光，材质写实。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-chrome-logo/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-chrome-rings",
+          "name": "Chrome Rings",
+          "url": "https://shaders.com/collection/chrome-rings",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "交错铬带的反射和边缘暖光清楚，写实金属完整好看。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-chrome-rings/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-cracked-crystal",
+          "name": "Cracked Crystal",
+          "url": "https://shaders.com/collection/cracked-crystal",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "锁形标志里的水晶裂纹、内透光和切面清楚，不是平面描边发光。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-cracked-crystal/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-mercury",
+          "name": "Mercury",
+          "url": "https://shaders.com/collection/mercury",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "水银/液态金属在字母里流动，高光和反射清楚，材质成立。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-mercury/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-neutral-folds",
+          "name": "Neutral Folds",
+          "url": "https://shaders.com/collection/neutral-folds",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "中性绸面褶皱有高光和轻微珠光，布料层次清楚，不是薄薄的缎面波。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-neutral-folds/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-resolving-chrome",
+          "name": "Resolving Chrome",
+          "url": "https://shaders.com/collection/resolving-chrome",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "层层铬环的高光和反射清楚，金属体积成立，不是平面渐变。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-resolving-chrome/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-royal-purple",
+          "name": "Royal Purple",
+          "url": "https://shaders.com/collection/royal-purple",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "紫色宝石切面和反射清楚，体积和高光成立。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-royal-purple/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-silk-curtain",
+          "name": "Silk Curtain",
+          "url": "https://shaders.com/collection/silk-curtain",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "彩色绸帘有清楚褶皱和高光，布料成立。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-silk-curtain/hero.webp"
+          }
+        },
+        {
+          "id": "shaders-collection-stainless-steel",
+          "name": "Stainless Steel",
+          "url": "https://shaders.com/collection/stainless-steel",
+          "studio": "Shaders",
+          "row": "实时 3D · 写实材质与物件",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不锈钢链条环高光和倒角清楚，材质写实。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/shaders-collection-stainless-steel/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "realtime-world",
+      "no": "08",
+      "name": "实时 3D · 场景与世界",
+      "short": "场景与世界",
+      "desc": "完整的实时 3D 环境",
+      "caption": "完整的实时 3D 环境，而不只是一件孤立的物件。",
+      "count": 11,
+      "heroId": "studio-lusion-everswap",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/studio-lusion-everswap/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "studio-lusion-everswap",
+          "name": "Everswap（Lusion）",
+          "url": "https://everswap.com/",
+          "studio": "Lusion",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "风格化的实时 3D 山峰占据整页，是产品落地页也是可滚动探索的场景。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/studio-lusion-everswap/hero.webp"
+          }
+        },
+        {
+          "id": "fwa-explore-primland",
+          "name": "Explore Primland",
+          "url": "https://explore.ownprimland.com/",
+          "studio": "",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "基于WebGL的3D地图与动态云雾，呈现大尺度沉浸式空间探索感",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/fwa-explore-primland/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-orrery-page",
+          "name": "ThreeUI · Orrery Page",
+          "url": "https://threeui.com/hero/orrery-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "教育与展览",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "复杂的3D环形轨道与发光材质，结合粒子效果，营造出极强的空间纵深与视觉奇观。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-orrery-page/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-sylva-living-world",
+          "name": "ThreeUI · Sylva Living World",
+          "url": "https://threeui.com/three-js/sylva-living-world",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "基于 WebGL 的线框渲染，呈现出复杂的程序化有机 3D 结构。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-sylva-living-world/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-terrain-plume",
+          "name": "ThreeUI · Terrain Plume",
+          "url": "https://threeui.com/backgrounds/terrain-plume",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "用 WebGL 着色器实时绘制等高线地形与程序化植被，单色线框克制但技术门槛高",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 530,
+            "aspect": 1.777,
+            "file": "generated/cases/threeui-terrain-plume/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-fathomless",
+          "name": "ThreeUI · Fathomless 落地页",
+          "url": "https://threeui.com/landing-pages/fathomless-landing-page",
+          "studio": "Meng To / ThreeUI",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "深海粒子雾里的树状剪影和镜像标题，构成完整的水下场景。",
+          "note": "嗯，其实我认为 threeUI 都得单独拿出来看看，哪些是可以用的，哪些是不能用的？然后可以用的地方，哪些是可以放在地图里的哪个位置？我甚至都觉得可以基于这个 Tree UI 去做一个视效的地图，",
+          "captureNote": "",
+          "imageNote": "ThreeUI 公开预览；拍摄时用 CSS 隐藏了盖在预览上的「Pro 解锁」提示框（未登录，未获取付费内容）",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-fathomless/hero.webp"
+          }
+        },
+        {
+          "id": "threeui-kasane",
+          "name": "ThreeUI · Kasane 落地页",
+          "url": "https://threeui.com/landing-pages/kasane-landing-page",
+          "studio": "ThreeUI",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "青苔鸟居、石阶、樱花和林雾是完整的实时三维世界，光影克制，达到高端整页场景标杆。",
+          "note": "",
+          "captureNote": "ThreeUI 公开预览：只 CSS 隐藏 Pro 浮层，未登录、未绕过付费墙、未点站内搜索。",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 942,
+            "height": 720,
+            "aspect": 1.308,
+            "file": "generated/cases/threeui-kasane/hero.webp"
+          }
+        },
+        {
+          "id": "aura-amber-house",
+          "name": "Amber House",
+          "url": "https://amber-house.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不是单张插画卡片，而是一个可走进的微型室内世界，光影和空间布局统一，适合作为场景与世界的另一种尺度标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-amber-house/hero.webp"
+          }
+        },
+        {
+          "id": "aura-kasane",
+          "name": "KASANE",
+          "url": "https://kasane.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "可进入的雾中鸟居世界已经展开，材质、光雾和空间完整，不是海报上压字，达到场景与世界标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-kasane/hero.webp"
+          }
+        },
+        {
+          "id": "aura-ravine-a-world-65",
+          "name": "Ravine",
+          "url": "https://ravine-a-world-65.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "互动体验与游戏",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不是一张风景插画，而是一个可进入的微型世界：玻璃、水体、雾气和植物材质统一，适合作为实时 3D 场景标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-ravine-a-world-65/hero.webp"
+          }
+        },
+        {
+          "id": "aura-veloce-prive",
+          "name": "Veloce Privé",
+          "url": "https://veloce-prive.aura.build/",
+          "studio": "Aura.build",
+          "row": "实时 3D · 场景与世界",
+          "scenes": [
+            "落地页",
+            "互动体验与游戏"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "不只是一辆车的产品图，而是完整的私密展厅空间：墙面、门廊灯光、地面反射和景深都成立，适合作为实时 3D 场景标杆。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/aura-veloce-prive/hero.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "physics",
+      "no": "09",
+      "name": "物理与软体模拟",
+      "short": "物理",
+      "desc": "布料、沙子、软体等物理计算",
+      "caption": "布料、沙子、软体等物理计算，在页内被模拟出来。",
+      "count": 2,
+      "heroId": "kinematic-cloth",
+      "hero": {
+        "width": 1280,
+        "height": 800,
+        "aspect": 1.6,
+        "file": "generated/cases/kinematic-cloth/hero.webp"
+      },
+      "cases": [
+        {
+          "id": "kinematic-cloth",
+          "name": "Kinematic · Cloth & soft",
+          "url": "https://kinematic.org/simulate/cloth/",
+          "studio": "Kinematic",
+          "row": "物理与软体模拟",
+          "scenes": [
+            "创作工具",
+            "落地页"
+          ],
+          "scale": "整页",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "核心展示布料覆盖方盒的软体模拟，褶皱与重力都清楚，用来代表物理与软体这一行。",
+          "note": "",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/kinematic-cloth/hero.webp"
+          }
+        },
+        {
+          "id": "inspira-ui-docs-en-components-html-in-canvas-html-cloth",
+          "name": "HTML Cloth",
+          "url": "https://inspira-ui.com/docs/en/components/html-in-canvas/html-cloth",
+          "studio": "Inspira UI",
+          "row": "物理与软体模拟",
+          "scenes": [
+            "落地页"
+          ],
+          "scale": "组件",
+          "kind": "视效",
+          "core": "核心",
+          "reason": "把整页 HTML 折成布料，褶皱和形变清楚，不是普通过渡。",
+          "note": "陈雨于 2026-11-11 在待吸收预览中标为合适，按此并入地图。",
+          "captureNote": "",
+          "imageNote": "",
+          "missingCapture": false,
+          "missingLabel": "",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/inspira-ui-docs-en-components-html-in-canvas-html-cloth/hero.webp"
+          }
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "benchmarks",
+      "no": "01",
+      "name": "已上墙标杆",
+      "sceneCount": 9,
+      "sceneLabel": "9 种视效语言",
+      "fan": [
+        {
+          "id": "apple-iphone-18-pro",
+          "name": "Apple iPhone 18 Pro 产品页",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-iphone-18-pro/hero.webp"
+          },
+          "row": "液态玻璃与光学"
+        },
+        {
+          "id": "apple-music",
+          "name": "Apple Music 产品页",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/apple-music/hero.webp"
+          },
+          "row": "光与发光"
+        },
+        {
+          "id": "studio-lusion-atlas-motion",
+          "name": "Atlas Motion（Lusion）",
+          "image": {
+            "width": 1280,
+            "height": 800,
+            "aspect": 1.6,
+            "file": "generated/cases/studio-lusion-atlas-motion/hero.webp"
+          },
+          "row": "实时 3D · 写实材质与物件"
+        }
+      ],
+      "kind": "benchmarks"
+    },
+    {
+      "id": "self",
+      "no": "02",
+      "name": "自身抽样",
+      "sceneCount": 3,
+      "sceneLabel": "做了但不够、未见、点亮与接近标杆",
+      "tease": "94 页里，点亮和接近标杆都是 0。",
+      "fan": [
+        {
+          "id": "unused_000016_q1",
+          "name": "App Store 今日 — 发现下一款心动 App",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000016_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000022_q1",
+          "name": "芯云模体 · 全栈 AI 云解决方案目录 | 百度智能云",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000022_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000056_q1",
+          "name": "GRIDX E1 边缘计算单元｜让算力抵达现场",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000056_q1/hero.jpg"
+          }
+        }
+      ],
+      "kind": "self"
+    }
+  ],
+  "selfScenes": [
+    {
+      "id": "attempted",
+      "no": "01",
+      "name": "做了但不够",
+      "caption": "朝这个方向做了，但还不能算已具备。",
+      "languageCount": 6,
+      "itemCount": 36,
+      "pageCount": 27,
+      "hero": {
+        "width": 960,
+        "height": 600,
+        "aspect": 1.6,
+        "file": "generated/lightup/unused_000022_q1/hero.jpg"
+      },
+      "items": [
+        {
+          "id": "unused_000022_q1::liquid-glass",
+          "pageId": "unused_000022_q1",
+          "title": "芯云模体 · 全栈 AI 云解决方案目录 | 百度智能云",
+          "language": "液态玻璃与光学",
+          "languageId": "liquid-glass",
+          "presence": "attempted",
+          "note": "中央头像/雕塑有虹彩外观，但看不出页内实现的透镜折射、色散或液态玻璃。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000022_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000085_q1::liquid-glass",
+          "pageId": "unused_000085_q1",
+          "title": "教育场景文字识别 · 智识 OCR",
+          "language": "液态玻璃与光学",
+          "languageId": "liquid-glass",
+          "presence": "attempted",
+          "note": "首屏右侧有若干大尺寸光滑球体，带弧形高光与内部偏蓝亮斑，外观接近玻璃/渐变装饰球；看不出页内实现的透镜折射、色散或液态玻璃。按装饰性渐变球体口径，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000085_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000104_q1::liquid-glass",
+          "pageId": "unused_000104_q1",
+          "title": "弹性裸金属服务器 · 云枢算力 CloudNexus",
+          "language": "液态玻璃与光学",
+          "languageId": "liquid-glass",
+          "presence": "attempted",
+          "note": "首屏多枚高光球体带窗格般环境反射，比普通渐变球更接近玻璃/镀铬静帧；仍看不出页内透镜折射、色散或液态玻璃实现。按装饰性球体与 000022 虹彩静帧口径，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000104_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000021_q1::light",
+          "pageId": "unused_000021_q1",
+          "title": "百度智能云 · 产品目录与能力导航",
+          "language": "光与发光",
+          "languageId": "light",
+          "presence": "attempted",
+          "note": "首屏柱状图卡片后的软紫光、滚动段节点高光与注释光迹，属常规装饰/标注，未到 bloom、体积光柱或氛围光晕的语言强度。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000021_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000039_q1::light",
+          "pageId": "unused_000039_q1",
+          "title": "百度百舸一体机 · AI 算力，开箱即用",
+          "language": "光与发光",
+          "languageId": "light",
+          "presence": "attempted",
+          "note": "一体机后方有较大范围的紫红软光，属常见产品主视觉背光，未到地图所定义的辉光（bloom）、体积光柱或氛围光晕、让画面自己发亮的语言强度，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000039_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000057_q1::light",
+          "pageId": "unused_000057_q1",
+          "title": "聆语 LINGYU · 实时语音识别 API",
+          "language": "光与发光",
+          "languageId": "light",
+          "presence": "attempted",
+          "note": "晶体周围有淡紫光晕，属装饰性软光，未到辉光、体积光柱或氛围光晕的语言强度。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000057_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000075_q1::light",
+          "pageId": "unused_000075_q1",
+          "title": "声迹 VOXTRACE · 实时语音识别",
+          "language": "光与发光",
+          "languageId": "light",
+          "presence": "attempted",
+          "note": "晶体边缘与周围有软光和高光星点，属装饰，未到辉光、体积光或氛围光口径。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000075_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000085_q1::light",
+          "pageId": "unused_000085_q1",
+          "title": "教育场景文字识别 · 智识 OCR",
+          "language": "光与发光",
+          "languageId": "light",
+          "presence": "attempted",
+          "note": "球体内部的偏蓝亮斑与暗底软高光属装饰高光，未到 bloom、体积光柱或氛围光晕的语言强度。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000085_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000021_q1::particles",
+          "pageId": "unused_000021_q1",
+          "title": "百度智能云 · 产品目录与能力导航",
+          "language": "粒子与点云",
+          "languageId": "particles",
+          "presence": "attempted",
+          "note": "滚动段可见数百枚紫色圆柱/圆片在透视下堆成圆形簇，并有高亮节点与路径光迹；按地图定义是成千上万个点组成形体、星系或把照片打散，此画面更接近数据可视化里的实例化物件，密度与形态都未到该语言，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000021_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000056_q1::particles",
+          "pageId": "unused_000056_q1",
+          "title": "GRIDX E1 边缘计算单元｜让算力抵达现场",
+          "language": "粒子与点云",
+          "languageId": "particles",
+          "presence": "attempted",
+          "note": "首屏下方可见一条由大量彩色方格组成的横向点阵带，中央收束成橙红黄圆形「核心」，两侧为蓝青色格点。按地图定义，「粒子与点云」是成千上万个点组成形体、星系、星环、点阵波浪或把照片打散；此画面是规则格点铺成的装饰带，方格尺度较大，更接近可视化热力/LED 墙图式，密度与形态都未到该语言，且不能从静帧证明是页内粒子系统，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000056_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000081_q1::post",
+          "pageId": "unused_000081_q1",
+          "title": "澄像 LUMEN — 让每一张图片恢复清晰细节",
+          "language": "图像与视频后期",
+          "languageId": "post",
+          "presence": "attempted",
+          "note": "首屏右侧是图像增强产品的前后对比滑杆：左半模糊带噪，右半更清晰。这是在演示修复/增强能力，对比图里的噪点属于「修复前」素材，不是页把扫描线、颗粒、故障或半色调当作自身视效语言。不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000081_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000082_q1::post",
+          "pageId": "unused_000082_q1",
+          "title": "PRISM 图像特效 API — 让图像，再想象一次",
+          "language": "图像与视频后期",
+          "languageId": "post",
+          "presence": "attempted",
+          "note": "首屏与滚动段展示上色、风格转换、人像动漫化等 API 效果样张（含黑白/彩色对切）。这些是产品能力示例图，嵌在常规浅色排版与卡片里，不是页把扫描线、颗粒、故障或半色调当作自身视效语言。不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000082_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000056_q1::generative",
+          "pageId": "unused_000056_q1",
+          "title": "GRIDX E1 边缘计算单元｜让算力抵达现场",
+          "language": "生成艺术与程序化图形",
+          "languageId": "generative",
+          "presence": "attempted",
+          "note": "点阵核心看起来像程序化像素场，但形态不是地图示例的等高线、线框形变、文字涡旋、程序化花海或波形；也不能从静帧证明由页内算法/着色器生成，可能只是设计好的镶嵌插画，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000056_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000016_q1::realtime-object",
+          "pageId": "unused_000016_q1",
+          "title": "App Store 今日 — 发现下一款心动 App",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "两部带透视、简单高光与投影的手机模型，从静帧看是静态产品图拼装，不能证明实时 3D 或高阶材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000016_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000018_q1::realtime-object",
+          "pageId": "unused_000018_q1",
+          "title": "App Store Today · 今日精选",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "双手机模型与编辑卡片上的渐变球体，均像静态插画/产品图，不能证明实时 3D 或高阶材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000018_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000019_q1::realtime-object",
+          "pageId": "unused_000019_q1",
+          "title": "芯云模体 · 百度智能云全栈 AI 云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "滚动段中心是带高光的青绿–蓝光滑渐变球体，外环轨道线与能力标签，属装饰性渐变球体，不能证明实时 3D 或写实材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000019_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000020_q1::realtime-object",
+          "pageId": "unused_000020_q1",
+          "title": "芯云模体 · 新全栈 AI 云｜百度智能云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "球体像径向渐变装饰，不能证明实时 3D 或写实材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000020_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000022_q1::realtime-object",
+          "pageId": "unused_000022_q1",
+          "title": "芯云模体 · 全栈 AI 云解决方案目录 | 百度智能云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "虹彩/全息质感物件是静帧，无法证明为页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000022_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000025_q1::realtime-object",
+          "pageId": "unused_000025_q1",
+          "title": "百舸 AI 计算平台 · 把万卡集群变成一台计算机",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "等轴测方块阶梯与机械臂是风格化插画/产品图，简单阴影，不能证明实时 3D 或写实材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000025_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000028_q1::realtime-object",
+          "pageId": "unused_000028_q1",
+          "title": "云硬盘 CBS · 高性能持久化块存储 | 云枢云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "云+硬盘是风格化 3D 图标（圆润塑料感、软阴影），属常见静态产品图标，不能证明实时 3D 或写实 PBR。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000028_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000036_q1::realtime-object",
+          "pageId": "unused_000036_q1",
+          "title": "新用户超省季｜限时体验百度智能云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "滚动段千帆卡上的紫色渐变球体、云服务器卡上的风格化设备示意，属装饰/产品插画，不点亮写实材质。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000036_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000039_q1::realtime-object",
+          "pageId": "unused_000039_q1",
+          "title": "百度百舸一体机 · AI 算力，开箱即用",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "右侧是带屏幕与键盘的一体机/显示器产品模型，屏幕为仪表盘 UI。静态产品模型，与 App Store Today 类手机模型同类，不能从静帧证明为页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000039_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000047_q1::realtime-object",
+          "pageId": "unused_000047_q1",
+          "title": "客悦ONE｜全矩阵智能通信服务",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "滚动段「号码认证」卡里有静态手机模型展示来电界面，与 App Store Today 类产品图同类，不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000047_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000054_q1::realtime-object",
+          "pageId": "unused_000054_q1",
+          "title": "百度智能云福宝 · 智慧养老解决方案",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "中央是静态手机模型展示 App 界面，与 App Store Today 类产品图同类，不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000054_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000057_q1::realtime-object",
+          "pageId": "unused_000057_q1",
+          "title": "聆语 LINGYU · 实时语音识别 API",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "低多边形晶体是风格化装饰物件静帧，无法证明为页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000057_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000066_q1::realtime-object",
+          "pageId": "unused_000066_q1",
+          "title": "声屿 SONORA · 让每一句文字自然开口说话",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "风格化剪影与渐变球体，不是写实材质；也不能从静帧证明为页内实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000066_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000074_q1::realtime-object",
+          "pageId": "unused_000074_q1",
+          "title": "短语音识别极速版 · 60 秒语音，1 秒成文 | 声智云",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "是风格化、带横纹的晶体/水滴静帧，不是写实材质；也不能从静帧证明为页内实时 3D，按口径不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000074_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000075_q1::realtime-object",
+          "pageId": "unused_000075_q1",
+          "title": "声迹 VOXTRACE · 实时语音识别",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "低多边形风格化晶体静帧，常见装饰图标，不是写实材质；不能从静帧证明为页内实时 3D，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000075_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000085_q1::realtime-object",
+          "pageId": "unused_000085_q1",
+          "title": "教育场景文字识别 · 智识 OCR",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "球体为静帧装饰物，不能从静帧证明为页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000085_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000092_q1::realtime-object",
+          "pageId": "unused_000092_q1",
+          "title": "燧识 SUI — 离线文字识别 SDK",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "首屏右侧平板设备框是静态产品模型/界面拼装，不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000092_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000101_q1::realtime-object",
+          "pageId": "unused_000101_q1",
+          "title": "语言理解技术 - 百度AI开放平台",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "首屏笔记本与手机是静态设备模型/产品图拼装，不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000101_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000104_q1::realtime-object",
+          "pageId": "unused_000104_q1",
+          "title": "弹性裸金属服务器 · 云枢算力 CloudNexus",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "球体反射看起来像预渲染材质，但不能从静帧证明为页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000104_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000105_q1::realtime-object",
+          "pageId": "unused_000105_q1",
+          "title": "DCC 专属计算集群 · NOVA CLOUD",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "首屏卡片内是浅色等轴测层叠方板插画，按等轴测插画口径不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000105_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000108_q1::realtime-object",
+          "pageId": "unused_000108_q1",
+          "title": "COS 云编排服务 · 让云资源部署更简单",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "控制台两侧各有一枚圆角立体图标砖（层叠与云），属风格化 3D 产品图标，不点亮写实材质或实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000108_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000111_q1::realtime-object",
+          "pageId": "unused_000111_q1",
+          "title": "百度云手机 · 让手机算力随时在线",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "首屏多台手机是静态产品模型拼装，按 App Store Today 口径不点亮实时 3D。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000111_q1/hero.jpg"
+          }
+        },
+        {
+          "id": "unused_000112_q1::realtime-object",
+          "pageId": "unused_000112_q1",
+          "title": "磐玉蜂巢服务器 · ARM 仿生算力，驱动云边协同新基建",
+          "language": "实时 3D · 写实材质与物件",
+          "languageId": "realtime-object",
+          "presence": "attempted",
+          "note": "首屏是一台透视摆放的机架服务器产品图（金属机箱、硬盘位、高光与投影），周围有风格化应用图标。是静帧产品图，不能证明页内实时 3D / PBR，不点亮。",
+          "image": {
+            "width": 960,
+            "height": 600,
+            "aspect": 1.6,
+            "file": "generated/lightup/unused_000112_q1/hero.jpg"
+          }
+        }
+      ],
+      "languages": [
+        {
+          "id": "liquid-glass",
+          "name": "液态玻璃与光学",
+          "short": "液态玻璃",
+          "count": 3
+        },
+        {
+          "id": "light",
+          "name": "光与发光",
+          "short": "光与发光",
+          "count": 5
+        },
+        {
+          "id": "particles",
+          "name": "粒子与点云",
+          "short": "粒子",
+          "count": 2
+        },
+        {
+          "id": "post",
+          "name": "图像与视频后期",
+          "short": "后期",
+          "count": 2
+        },
+        {
+          "id": "generative",
+          "name": "生成艺术与程序化图形",
+          "short": "生成艺术",
+          "count": 1
+        },
+        {
+          "id": "realtime-object",
+          "name": "实时 3D · 写实材质与物件",
+          "short": "写实材质",
+          "count": 23
+        }
+      ]
+    },
+    {
+      "id": "unseen",
+      "no": "02",
+      "name": "未见",
+      "caption": "抽样里还没见到，不拿标杆图填上。",
+      "languageCount": 3,
+      "languages": [
+        {
+          "id": "fluid-shader",
+          "name": "流体与着色器场",
+          "short": "流体"
+        },
+        {
+          "id": "realtime-world",
+          "name": "实时 3D · 场景与世界",
+          "short": "场景与世界"
+        },
+        {
+          "id": "physics",
+          "name": "物理与软体模拟",
+          "short": "物理"
+        }
+      ],
+      "hero": null,
+      "items": [],
+      "emptyKind": "pending",
+      "emptyLabel": "待补充"
+    },
+    {
+      "id": "lit",
+      "no": "03",
+      "name": "点亮与接近标杆",
+      "caption": "还没有。",
+      "present": 0,
+      "nearBenchmark": 0,
+      "hero": null,
+      "items": [],
+      "emptyKind": "none",
+      "emptyLabel": "还没有"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "intake",
+      "no": "01",
+      "short": "汇入",
+      "full": "页从三条主渠进入研究",
+      "role": "官方渠道、开源与组件库、X 汇入输入池；细渠道在下钻里展开。权威性打分判断的是来源值不值得进输入库。",
+      "draft": "intake"
+    },
+    {
+      "id": "screen",
+      "no": "02",
+      "short": "初筛",
+      "full": "好看，且必须在完整页面或组件里",
+      "role": "机器先按规则过滤，减轻人审；引擎或 playground 的孤立场景照会被滤出。",
+      "draft": "screen",
+      "passedExampleId": "apple-iphone-18-pro"
+    },
+    {
+      "id": "classify",
+      "no": "03",
+      "short": "分类",
+      "full": "按视效语言分类，不按动效",
+      "role": "分类轴是九种视效语言；动效不是一类。分类体系可被人审回流修订。",
+      "draft": "classify"
+    },
+    {
+      "id": "review",
+      "no": "04",
+      "short": "人审",
+      "full": "同一来源也要逐页看，通过的进入视效库",
+      "role": "人做最终判断。通过的注入视效库；未通过的反馈回流，用于修订初筛规则或分类体系。候审不计入已入库的 124。",
+      "draft": "review"
+    },
+    {
+      "id": "lightup",
+      "no": "05",
+      "short": "点亮",
+      "full": "对照自身时分三层，再按杠杆排期",
+      "role": "点亮、做了但不够、接近标杆，三层都不等于已掌握。有限时间里，先按能不能在目标场景里跑、再按区分度与复用面决定先补什么。",
+      "draft": "lightup"
+    }
+  ],
+  "defineDrills": [
+    {
+      "id": "origins",
+      "no": "01",
+      "short": "来源",
+      "full": "视效的行业定义，以及为什么高阶和基础分得开"
+    },
+    {
+      "id": "bounds",
+      "no": "02",
+      "short": "边界",
+      "full": "故意不含的一条，以及什么算顶级标杆"
+    }
+  ],
+  "priorityDrills": [
+    {
+      "id": "hbr",
+      "no": "01",
+      "short": "排序",
+      "full": "效用与学会的时间，以及操作顺序"
+    },
+    {
+      "id": "scenes",
+      "no": "02",
+      "short": "场景",
+      "full": "场景可以加权，但不替换分类"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "method",
+      "no": "01",
+      "nav": "研究逻辑",
+      "subtitle": "研究逻辑",
+      "title": "先机器初筛，按视效分类，人审之后进入视效库。",
+      "accent": "进入视效库",
+      "kind": "method"
+    }
+  ],
+  "hiddenChapters": [
+    {
+      "id": "results",
+      "no": "00",
+      "nav": "成果展",
+      "subtitle": "高阶视效地图",
+      "title": "已上墙 124 条标杆，自身抽样还没有点亮。",
+      "kind": "results",
+      "hidden": true,
+      "reason": "地图本身就是成果墙，研究逻辑不再打开成果展。"
+    },
+    {
+      "id": "compare",
+      "no": "04",
+      "nav": "对照",
+      "hidden": true,
+      "reason": "没有接近标杆的成对对照，不能把「做了但不够」排成已完成的左右对比。"
+    }
+  ],
+  "foldedChapters": [
+    {
+      "id": "coverage",
+      "no": "02",
+      "nav": "覆盖评测",
+      "subtitle": "研究逻辑 · 覆盖评测",
+      "title": "已上墙 124，自身抽样还没有点亮，也不称已掌握。",
+      "accent": "不称已掌握",
+      "kind": "coverage"
+    },
+    {
+      "id": "define",
+      "no": "03",
+      "nav": "定义与优先级",
+      "subtitle": "研究逻辑 · 定义与优先级",
+      "title": "先立下工作定义，再按杠杆决定先补什么。",
+      "accent": "工作定义",
+      "kind": "define"
+    }
+  ]
+}

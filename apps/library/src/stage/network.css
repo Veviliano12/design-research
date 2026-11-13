@@ -1,0 +1,297 @@
+/*
+ * 规模章节的叠加层与画布遮罩。只作用于 .net-* 和规模章节的 data-chapter / data-step。
+ * 线条只两档：主线 14% 白，次线 8% 白；图中不铺整张网格。
+ */
+
+.net-scale,
+.net-index {
+  --net-line: rgb(255 255 255 / 0.14);
+  --net-line-soft: rgb(255 255 255 / 0.08);
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ---------- 规模第 1 步（总览）：下部统计带，与右侧细索引同屏，细索引止于发丝线之上 ---------- */
+
+.net-scale {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 0.25rem;
+  border-top: 1px solid var(--net-line);
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.net-scale.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+.net-scale__total {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.net-scale__label {
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+/* 数字：随统计带高度缩放的超大数字 */
+.net-scale__value {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: calc(var(--band-h, 160px) * 0.58);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.net-scale__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+
+.net-scale__stats {
+  display: flex;
+  margin: 0;
+}
+
+/* 每项前一根短竖线 */
+.net-scale__stats > div {
+  padding-left: 1rem;
+  border-left: 1px solid var(--net-line);
+  margin-left: clamp(1rem, 2.4vw, 3rem);
+}
+
+.net-scale__stats dt {
+  font-size: clamp(1.5rem, 2.1vw, 2.5rem);
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.net-scale__stats dd {
+  margin: 0.45rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.net-scale--compact {
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+/* 紧凑统计带矮（最小 96px）：数字同时受视口宽与带高约束，右侧统计与之同一行 */
+.net-scale--compact .net-scale__value {
+  font-size: min(11vw, calc(var(--band-h, 96px) * 0.5), 4rem);
+}
+
+.net-scale--compact .net-scale__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.net-scale--compact .net-scale__stats > div {
+  padding-left: 0.6rem;
+  margin-left: 0.8rem;
+}
+
+.net-scale--compact .net-scale__stats > div:first-child {
+  margin-left: 0;
+}
+
+.net-scale--compact .net-scale__stats dt {
+  font-size: 1.25rem;
+}
+
+.net-scale--compact .net-scale__stats dd {
+  font-size: 0.75rem;
+}
+
+/* ---------- 规模第 1、2 步：细索引（桌面在右侧，紧凑布局是统计带上方的横带），两步共用同一矩形 ---------- */
+
+@keyframes net-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.net-index {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  border-left: 1px solid var(--net-line);
+  overflow: hidden;
+}
+
+.net-index__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.6rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.net-index__head b {
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.net-index__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: net-in var(--dur-fade) var(--ease-out) var(--delay-copy) both;
+}
+
+.net-index__row {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr auto;
+  align-items: baseline;
+  column-gap: 0.4rem;
+  /* 行距随视口高收放：矮屏上 6 个大类和脚注仍能放进统计带之上的索引区 */
+  padding: clamp(0.3rem, 1.1vh, 0.7rem) 0 clamp(0.25rem, 0.9vh, 0.55rem);
+  border-top: 1px solid var(--net-line-soft);
+  font-size: 0.9375rem;
+}
+
+.net-index__no {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.net-index__name {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.net-index__name i {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: var(--dot);
+}
+
+.net-index__pct {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 占比细线：长度即占比 */
+.net-index__bar {
+  grid-column: 2 / -1;
+  height: 1px;
+  margin-top: 0.45rem;
+  background: var(--dot);
+  opacity: 0.7;
+  transform-origin: left;
+  transform: scaleX(var(--pct, 0));
+}
+
+.net-index__note {
+  margin: auto 0 0;
+  padding-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.net-index--compact {
+  padding-left: 0;
+  border-left: 0;
+  border-top: 1px solid var(--net-line);
+  padding-top: 0.4rem;
+}
+
+.net-index--compact .net-index__head {
+  padding-bottom: 0.3rem;
+  font-size: 0.75rem;
+}
+
+/* 紧凑：两列排，6 个大类占 3 行；去掉序号列，名称与数值同一行 */
+.net-index--compact .net-index__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.75rem;
+}
+
+.net-index--compact .net-index__row {
+  grid-template-columns: 1fr auto;
+  padding: 0.25rem 0;
+  font-size: 0.75rem;
+}
+
+.net-index--compact .net-index__no,
+.net-index--compact .net-index__bar {
+  display: none;
+}
+
+.net-index--compact .net-index__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.net-index--compact .net-index__pct {
+  font-size: 0.75rem;
+}
+
+.net-index--compact .net-index__note {
+  padding-top: 0.3rem;
+  font-size: 0.75rem;
+}
+
+/* ---------- 画布遮罩：总览的网络让开统计带与右侧细索引，阅读型网页树的大图出血渐隐 ---------- */
+
+/*
+ * 3.0 页面网格：margin 5vw、gap 1.25vw、12 栏，右侧索引从第 10 栏起（约 81vw），大图在其左 2vw 前渐隐。
+ * 规模第 2 步（阅读型网页树）：上沿在标题栏之下渐入，下沿落进导航暗衬。
+ */
+.stage:not(.stage--compact)[data-chapter='scale'][data-step='1'][data-tree-edge='1'] .stage__canvas {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 68%, transparent 80%), linear-gradient(to bottom, transparent 6%, #000 16%, #000 84%, transparent 94%);
+  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 68%, transparent 80%), linear-gradient(to bottom, transparent 6%, #000 16%, #000 84%, transparent 94%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/*
+ * 规模第 1 步（总览）：左缘前 16% 渐入，压暗文案列最左侧的枝条，正文区另有暗衬；右缘与第 2 步相同，在细索引之前收完。
+ * 纵向：上沿对 4:3 之类较矮的画面渐入；下沿在统计带发丝线上方完全淡出，保证统计可读。
+ * 统计带从内容区下 24% 起（约 69vh），渐隐到统计带之前收完。
+ */
+.stage:not(.stage--compact)[data-chapter='scale'][data-step='0'][data-tree-edge='1'] .stage__canvas {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 68%, transparent 80%), linear-gradient(to bottom, transparent 0, #000 8%, #000 61%, transparent 69%);
+  mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 68%, transparent 80%), linear-gradient(to bottom, transparent 0, #000 8%, #000 61%, transparent 69%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/*
+ * 紧凑布局第 1、2 步：网络两侧裁掉枝端，上沿轻微渐入；下沿在细索引横带的发丝线之前 8px 淡出。
+ * 横带上沿按 stageApi.scaleRects 的紧凑分支写成 calc：网格下沿 = 100% − 导航 88 − 16，内容区高 = 100% − 176，
+ * 统计带 max(96px, 内容区 × 0.2)，细索引 max(120px, 内容区 × 0.22)，间距 8（VIEW.scaleBandCompact* / indexCompact*）。
+ */
+.stage--compact[data-chapter='scale']:is([data-step='0'], [data-step='1'])[data-tree-edge='1'] .stage__canvas {
+  --net-index-top: calc(100% - 104px - max(96px, (100% - 176px) * 0.2) - 8px - max(120px, (100% - 176px) * 0.22));
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 calc(var(--net-index-top) - 32px), transparent calc(var(--net-index-top) - 8px));
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 calc(var(--net-index-top) - 32px), transparent calc(var(--net-index-top) - 8px));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "design-research",
+  "private": true,
+  "description": "设计研究：视效库、研究逻辑、来源与评判的工作目录",
+  "scripts": {
+    "dev:site": "python3 -m http.server 4173 --bind 127.0.0.1 -d site",
+    "dev:library": "npm --prefix apps/library run dev:library",
+    "dev:logic": "npm --prefix apps/logic run dev",
+    "build:library": "npm --prefix apps/library ci && npm --prefix apps/library run build:library",
+    "build:logic": "npm --prefix apps/logic ci && npm --prefix apps/logic run build:logic"
+  }
+}

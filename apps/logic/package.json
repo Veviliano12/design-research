@@ -1,0 +1,23 @@
+{
+  "name": "vfx-presentation-pages",
+  "version": "1.0.0",
+  "private": true,
+  "description": "高阶视效地图 · 全屏演示页（成果与研究逻辑，不是 3D 舞台）",
+  "type": "module",
+  "scripts": {
+    "assets": "python3 scripts/prepare-assets.py",
+    "dev": "vite --strictPort --host 127.0.0.1 --port 5190",
+    "build": "vite build",
+    "build:logic": "vite build --config vite.logic.config.js",
+    "preview": "vite preview --strictPort --host 127.0.0.1 --port 5190",
+    "test": "node --test src/nav/deckState.test.js"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.2.1",
+    "vite": "8.3.6"
+  }
+}

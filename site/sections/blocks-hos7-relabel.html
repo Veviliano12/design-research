@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<title>HOS7 重标 · 设计研究</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/shell.css">
+<link rel="stylesheet" href="../css/blocks.css">
+</head>
+<body>
+<div class="doc is-wide" data-page>
+  <div class="bk-page" data-hos7-relabel-root>
+    <nav class="bk-subnav" data-bk-subnav aria-label="本页章节">
+      <a href="#bk-rl-intro">概览</a>
+      <a href="#bk-rl-tensions">混粒度</a>
+      <a href="#bk-rl-table">69 条</a>
+    </nav>
+
+    <div class="bk-rl-intro" id="bk-rl-intro">
+      <header class="bk-hero">
+        <p class="bk-kicker">标注提案 · 不是目录扩编 · 不回答需要几个</p>
+        <h2>HOS7 重标</h2>
+        <p class="bk-lede">这是一份标注提案，只给已经存在的 69 条官方 HOS7 blocks 补上 <code>grain</code>、<code>kind</code>、<code>data_contract</code>、<code>scene</code>、<code>routeable</code> 与卡片单元旗标。它不扩编目录，也不回答“我们需要 N 个 blocks”。</p>
+        <p class="bk-meta">官方目录重新点算后与证据一致：69 = 14 个 page-type + 55 个 region。kind 为 53 个 component、16 个 demo。能被 <code>ds.py route</code> 选中的只有这 14 个整页。本页数字全部来自已核对的重标草案，不改写、不另造。</p>
+      </header>
+      <div data-bk-rl-board></div>
+      <div data-bk-rl-discrepancy></div>
+      <p class="bk-caption" data-bk-rl-legend></p>
+    </div>
+
+    <section class="bk-section" id="bk-rl-tensions">
+      <header class="bk-sec-head">
+        <h3>混粒度张力</h3>
+        <p>官方定义是 “a whole screen or a whole region of one”，目录却只有 page / region 两章。下列张力已经能标出来——标注即可，不要因此新增 N。</p>
+      </header>
+      <div class="bk-rl-tensions" data-bk-rl-tensions></div>
+    </section>
+
+    <section class="bk-section" id="bk-rl-table">
+      <header class="bk-sec-head">
+        <h3>69 条重标</h3>
+        <p>按官方目录顺序排列。筛选项可叠加。点开一行可看官方描述、备注与出处；默认保持紧凑。</p>
+      </header>
+      <div class="bk-rl-tools">
+        <div class="bk-rl-filters" data-bk-rl-filters></div>
+        <p class="bk-rl-count" data-bk-rl-count></p>
+      </div>
+      <div class="bk-flow-scroll" data-bk-rl-table></div>
+    </section>
+  </div>
+</div>
+<script src="../data/blocks/hos7-relabel.js"></script>
+<script src="../js/blocks-hos7-relabel.js"></script>
+</body>
+</html>

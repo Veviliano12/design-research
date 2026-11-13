@@ -1,0 +1,1601 @@
+:root {
+  color-scheme: dark;
+  --bg: #0e0f11;
+  --bg-raised: #17191c;
+  --line: #2a2d32;
+  --text: #e8e9eb;
+  --text-muted: #8b9098;
+  /* 全站唯一强调色（荧光黄绿）。章节小标题、导航当前项与进度点、聚焦焦点环、入库高亮、标注点都引用它；
+     iterate/ 以 var(--accent, 回退色) 引用，quality/ 以 --q-accent 引用，值由这里决定 */
+  --accent: #c9ff3a;
+  /* 动效：运行时由 src/motion/tokens.ts 的 applyMotionTokens() 写入同名变量；这里只是首帧兜底，数值须与之一致 */
+  --dur-quick: 0.2s;
+  --dur-fade: 0.45s;
+  --dur-slow: 0.6s;
+  --dur-move: 1.1s;
+  --delay-copy: 0.3s;
+  --ease-move: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+  --ease-swap: cubic-bezier(0.65, 0, 0.35, 1);
+  /* 底部导航高度：运行时由 src/motion/tokens.ts 的 applyMotionTokens() 写入同名变量；这里只是首帧兜底 */
+  --nav-h-desktop: 100px;
+  --nav-h-compact: 88px;
+  --font-sans: system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- 舞台 ---------- */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  /* 当前布局的导航高度：桌面 100、紧凑 88，数值来自 motion/tokens.ts 的 NAV_H */
+  --nav-h: var(--nav-h-desktop);
+}
+
+.stage--compact {
+  --nav-h: var(--nav-h-compact);
+}
+
+.stage:focus,
+.stage:focus-visible {
+  outline: none;
+}
+
+.stage-gl-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem 7rem;
+  color: var(--text-muted);
+  text-align: center;
+  pointer-events: none;
+}
+
+.stage-gl-fallback p {
+  max-width: 28rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.stage__canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 1;
+}
+
+/*
+ * 树的步骤（规模第 1–3 步）：画面左右边缘处相邻的树会被截断，用遮罩让 canvas 向两侧渐隐，
+ * 断枝在到达边缘前已完全透明。左侧文案列本身已有暗衬，所以左缘渐隐更短。
+ */
+.stage[data-tree-edge='1'] .stage__canvas {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--edge-left, 22%), #000 calc(100% - var(--edge-right, 12%)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--edge-left, 22%), #000 calc(100% - var(--edge-right, 12%)), transparent 100%);
+}
+
+/* 背景光晕：颜色由场景每帧写入 --glow，取焦点作品主色 */
+.glow {
+  --glow: #1c2530;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(60% 55% at 50% 48%, color-mix(in srgb, var(--glow) 34%, transparent), transparent 72%);
+  pointer-events: none;
+}
+
+/*
+ * 作品墙场景（同事版展馆 iframe，.archive-gallery）的进出转场，阶段由 Stage 写在 data-curve-phase（off / leave / fade / on / out），
+ * 时序见 Stage.tsx：
+ * - leave：旧舞台 canvas 照常显示，作品在 Scene 里向上飞出、树淡出；展馆仍隐藏（.archive-gallery--inactive）。
+ * - fade / on（data-curve='1'）：旧舞台已暂停，canvas、背景光晕、树的节点标签与悬停路径立即隐去，不接收输入。
+ * - fade：展馆 iframe 从透明淡入（DUR.fade）。
+ * - out：展馆 iframe 淡出（DUR.fade），结束后 Stage 才把展馆置为非激活（隐藏、停帧）。旧舞台此时已恢复显示，
+ *   它的 canvas（z 1）叠在展馆（z auto）之上、背景透明，作品飞回的同时透出下方渐隐的展馆，不会先淡到黑。
+ *   淡出用 CSS 过渡：out 中又回到作品墙（on）时，透明度从当前值接着淡回。
+ * 透明度只加在 iframe 这个叶节点上，展馆外壳（.archive-gallery）不设 transform / opacity / z-index，不新建层叠上下文，
+ * 名单、统计、悬停信息与导航层级不变。不做整场景横移。减少动效偏好下 Stage 直接到终态，全局规则也把过渡时长压到 0。
+ * 旧圆墙（.curve）不再挂载到正式页，这里不再为它写规则。
+ */
+.stage[data-curve='1'] .glow,
+.stage[data-curve='1'] .stage__canvas,
+.stage[data-curve='1'] .nebula-labels,
+.stage[data-curve='1'] .nebula-path {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 展馆外层包装：只用于 inert（飞出与淡入途中关闭展馆输入），不参与布局与层叠 */
+.stage-curve {
+  display: contents;
+}
+
+.stage .archive-gallery__frame {
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.stage[data-curve-phase='out'] .archive-gallery__frame {
+  opacity: 0;
+}
+
+.stage[data-curve-phase='fade'] .archive-gallery__frame {
+  animation: curve-fade-in var(--dur-fade) var(--ease-out) both;
+}
+
+@keyframes curve-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- 作品墙 DOM 层：名单与右下统计块（z 9）、悬停信息（z 7），均在 canvas（z 1）之上 ---------- */
+
+.wall-stats {
+  position: absolute;
+  inset: 0;
+  /* 与名单同层：高于底部暗衬（z 8）、低于导航（z 50） */
+  z-index: 9;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.wall-stats.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+.roster {
+  position: absolute;
+  inset: 0;
+  /* 高于底部暗衬（z 8），名单不被压暗；低于导航（z 50） */
+  z-index: 9;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.roster:not([data-ready]) .roster__row {
+  visibility: hidden;
+}
+
+.roster.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+.roster__scrim {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--scrim-w);
+  background: linear-gradient(to right, rgb(10 11 13 / 0.88) 0%, rgb(10 11 13 / 0.7) 45%, transparent 100%);
+}
+
+.roster__list {
+  position: absolute;
+  left: var(--roster-x);
+  /* 名单区从内容区上沿到公共网格下沿（原统计块底边）；当前行落在区内中线 */
+  top: var(--roster-top);
+  height: var(--roster-h);
+  width: var(--roster-w);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* 上下边缘渐隐，名单不压到内容区上沿与网格下沿 */
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+}
+
+/*
+ * 右下统计块：分区线、超大总量与维度摘要。右边缘对齐公共网格右页边距，文字右对齐；
+ * 底边在导航之上（几何见 layout.ts 的 wallGeometry），墙上作品避让此块。
+ * 块高由内容决定，底边固定，分区线作为块内首行贴在内容之上。
+ */
+.wall-total {
+  position: absolute;
+  right: var(--stats-right);
+  bottom: var(--stats-bottom);
+  width: var(--stats-w);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+  text-align: right;
+}
+
+/* 统计块顶部的分区线（主结构线，白 14%） */
+.wall-rule {
+  align-self: stretch;
+  height: 1px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.wall-total__label {
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.wall-total__value {
+  font-size: clamp(3.5rem, 6.6vw, 8rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.wall-total__dims {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.wall-total__dims div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.wall-total__dims dt {
+  font-size: 1.5rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.wall-total__dims dd {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.wall-total__filter {
+  margin: 0;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.roster__row {
+  position: absolute;
+  left: 0;
+  /* 整像素：50% 减去奇数行高的一半会得到 .5，文字落在半像素上发虚 */
+  top: var(--row-top);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: var(--row-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.roster.is-on .roster__row {
+  pointer-events: auto;
+}
+
+.roster__name {
+  font-size: clamp(0.83rem, 0.92vw, 1.1rem);
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roster__meta {
+  margin-top: 0.15rem;
+  font-size: 0.675rem;
+  line-height: 1.3;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.roster__row[data-current] {
+  color: #fff;
+}
+
+.roster__row:hover .roster__name {
+  color: #fff;
+}
+
+.roster__row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.wall-info[data-hidden='1'] {
+  display: none;
+}
+
+.wall-info {
+  position: absolute;
+  z-index: 7;
+  top: var(--info-y);
+  right: var(--info-x);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  text-align: right;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity var(--dur-quick) var(--ease-out), transform var(--dur-quick) var(--ease-out);
+}
+
+.wall-info[data-on="1"] {
+  opacity: 1;
+  transform: none;
+}
+
+.wall-info__index {
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.wall-info__title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.wall-info__tags {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* 聚焦时的设备框：边框围出屏幕区域，屏幕透明，露出 canvas 中的作品 */
+.device {
+  position: absolute;
+  z-index: 20;
+  border-style: solid;
+  border-color: #1d2024;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px var(--line), 0 40px 120px rgb(0 0 0 / 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.device.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-fade) var(--ease-out) var(--delay-copy);
+}
+
+.device__dots {
+  position: absolute;
+  left: 4px;
+  top: -21px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4a4f57;
+  box-shadow: 14px 0 #4a4f57, 28px 0 #4a4f57;
+}
+
+.screen {
+  position: absolute;
+  z-index: 21;
+  overflow: hidden;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.long-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-quick) var(--ease-in);
+}
+
+.long-image.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.long-image img {
+  width: 100%;
+  height: auto;
+}
+
+/* 作品墙展馆的单张作品图：不是整页长图，按原比例完整放进画板，不裁切、不滚动 */
+.long-image--still img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- 文案层 ---------- */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.focus-meta,
+.cluster-label,
+.mark {
+  animation: fade-in var(--dur-fade) var(--ease-out) both;
+}
+
+.chapter-copy {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*
+ * 树的步骤里，文案后面有时会掠过树的枝端：给文案框一层很淡的径向暗衬（框自己的背景，不加伪元素、
+ * 不多出合成层），边缘渐隐到 0。椭圆比文案框向外多出一圈，只用来淡出。
+ */
+.stage[data-tree-edge='1'] .chapter-copy {
+  background: radial-gradient(ellipse 62% 52% at 38% 50%, rgb(8 9 11 / 0.78) 0%, rgb(8 9 11 / 0.66) 46%, rgb(8 9 11 / 0.3) 76%, rgb(8 9 11 / 0) 100%);
+}
+
+.chapter-copy__kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.chapter-copy__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.2vw, 3.5rem);
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  /* 标题在语义处用 \n 手动断行（pre-line）；没写断行的标题用 balance 均分，不留单字孤行 */
+  white-space: pre-line;
+  text-wrap: balance;
+}
+
+.chapter-copy__body {
+  margin: 1.25rem 0 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.chapter-copy__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
+  margin: 2.5rem 0 0;
+}
+
+.chapter-copy__stats dt {
+  font-size: clamp(1.75rem, 3vw, 3.25rem);
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.chapter-copy__stats dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.cluster-label {
+  position: absolute;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  animation-delay: var(--delay-copy);
+}
+
+.mark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.7rem 0.3rem 0.4rem;
+  border-radius: 999px;
+  background: rgb(14 15 17 / 0.85);
+  box-shadow: 0 0 0 1px var(--accent);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transform: translate(-0.6rem, -50%);
+}
+
+.mark i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: translate(-0.6rem, -50%) scale(0.85);
+  }
+}
+
+.mark {
+  animation-name: mark-in;
+}
+
+.focus-meta {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation-delay: var(--delay-copy);
+}
+
+.focus-meta__index {
+  margin: 0;
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.focus-meta__title {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+  line-height: 1.2;
+}
+
+.focus-meta__list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1.25rem;
+  margin: 2rem 0 0;
+}
+
+.focus-meta__list dt {
+  color: var(--text-muted);
+}
+
+.focus-meta__list dd {
+  margin: 0;
+}
+
+.focus-meta__hint {
+  margin: 2rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* 通用文案的构图变体（桌面）：scale 左上小标题，headline 左下大标题，quality 单件上方；紧凑布局沿用默认 */
+.stage:not(.stage--compact) .chapter-copy[data-variant='scale'] {
+  justify-content: flex-start;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='scale'] .chapter-copy__body {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='headline'] {
+  justify-content: flex-end;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='headline'] .chapter-copy__title {
+  font-size: clamp(2.5rem, 5.2vw, 6.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='quality'] {
+  justify-content: flex-start;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='quality'] .chapter-copy__kicker {
+  margin-bottom: 0.5rem;
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='quality'] .chapter-copy__title {
+  font-size: clamp(1.5rem, 2.2vw, 2.75rem);
+}
+
+.stage:not(.stage--compact) .chapter-copy[data-variant='quality'] .chapter-copy__body {
+  display: none;
+}
+
+/* 单件质量：细引线（主 14%、次 8%）、旁注、规格行 */
+.feature-lines {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.feature-lines__minor {
+  stroke: rgb(255 255 255 / 0.08);
+  stroke-width: 1;
+}
+
+.feature-lines__main {
+  stroke: rgb(255 255 255 / 0.14);
+  stroke-width: 1;
+}
+
+.feature-lines__leader {
+  animation: fade-in var(--dur-fade) var(--ease-out) both;
+}
+
+.feature-lines__leader polyline {
+  fill: none;
+  stroke-width: 1;
+}
+
+.feature-lines__out {
+  stroke: rgb(255 255 255 / 0.32);
+}
+
+.feature-lines__in {
+  stroke: rgb(14 15 17 / 0.6);
+}
+
+.feature-lines__leader circle {
+  fill: var(--accent);
+  stroke: color-mix(in srgb, var(--accent) 25%, transparent);
+  stroke-width: 4;
+}
+
+.feature-note {
+  position: absolute;
+  max-width: 18vw;
+  font-size: clamp(0.9rem, 1.1vw, 1.25rem);
+  line-height: 1.3;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  animation: feature-note-in var(--dur-fade) var(--ease-out) both;
+}
+
+.feature-note--left {
+  text-align: right;
+}
+
+@keyframes feature-note-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.feature-specs {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  animation: fade-in var(--dur-fade) var(--ease-out) var(--delay-copy) both;
+}
+
+.feature-specs__sim {
+  margin-left: auto;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 章节叠加层与星云 ---------- */
+
+.chapter-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 38;
+  pointer-events: none;
+}
+
+/* 容器常为可见；标签显隐由每个 .nebula-label 的 clip-path 横向擦除负责（入库外圈自带透明度，不受影响） */
+.nebula-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 34;
+  pointer-events: none;
+}
+
+.nebula-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 22px;
+  padding: 0 0.5rem 0 0;
+  white-space: nowrap;
+  background: rgb(8 9 11 / 0.88);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  font-size: 0.8125rem;
+  line-height: 22px;
+  /* 收起：右缘向左收拢至消失；时长须与 nebulaScene.ts 里收起后等待换内容的 DUR.quick 一致 */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--dur-quick) var(--ease-in);
+}
+
+/* 展开：从左缘向右展开，左侧色块先出现 */
+.nebula-labels[data-on='1'] .nebula-label {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+/* 左侧一小块色块，取行业色（节点标签的色块不发光） */
+.nebula-label::before {
+  content: '';
+  width: 6px;
+  align-self: stretch;
+  background: var(--dot);
+}
+
+.nebula-label b {
+  font-weight: 600;
+}
+
+/* 点数：等宽数字，暗色圆角底 */
+.nebula-label span {
+  padding: 0 0.4rem;
+  border-radius: 4px;
+  background: rgb(255 255 255 / 0.08);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 16px;
+  color: var(--text);
+  text-shadow: none;
+}
+
+.nebula-label[data-level='0'] {
+  height: 26px;
+  line-height: 26px;
+  font-size: 0.9375rem;
+}
+
+.nebula-label[data-level='2'] {
+  height: 18px;
+  line-height: 18px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* 入库外圈：方块长成之后向外扩散并淡出的细框 */
+.nebula-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid #fff;
+  opacity: 0;
+}
+
+/* 悬停路径：左下角，在导航暗衬之上、导航之下 */
+.nebula-path {
+  position: absolute;
+  z-index: 36;
+  left: 4vw;
+  bottom: calc(var(--nav-h) + 24px);
+  padding: 4px 10px;
+  background: rgb(8 9 11 / 0.88);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  font-size: 0.8125rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-quick) var(--ease-out);
+}
+
+.nebula-path[data-on='1'] {
+  opacity: 1;
+}
+
+.scale-stats {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* 与左侧文案区同高、同样垂直居中，两者中线对齐 */
+  justify-content: center;
+  gap: 1.75rem;
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.scale-stats.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+/*
+ * 统计面板的暗衬：很淡的椭圆径向渐隐，边缘在 100% 半径处精确到 0，没有可见边界。
+ * 小字压在树的枝条上也能读；椭圆比面板大一圈，向外多出的部分只是淡出。
+ */
+.scale-stats::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -12% -22%;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgb(8 9 11 / 0.82) 0%, rgb(8 9 11 / 0.78) 34%, rgb(8 9 11 / 0.55) 58%, rgb(8 9 11 / 0.22) 80%, rgb(8 9 11 / 0) 100%);
+  pointer-events: none;
+}
+
+.scale-stats__label {
+  display: block;
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.scale-stats__value {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: clamp(2.25rem, 3.4vw, 4rem);
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.scale-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 1.5rem 2rem;
+  margin: 0;
+}
+
+.scale-stats__grid dt {
+  font-size: clamp(1.5rem, 2vw, 2.25rem);
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.scale-stats__grid dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.scale-stats__note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.ingest {
+  position: absolute;
+  right: 4vw;
+  bottom: calc(var(--nav-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+  /* 提示卡固定在右下角，不随内容高度变化而位移 */
+  min-height: 4.5rem;
+  justify-content: flex-end;
+}
+
+.ingest__wait {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.ingest__toast {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  width: 20rem;
+  padding: 0.6rem 0.75rem 0.6rem 0.6rem;
+  border-radius: 10px;
+  background: rgb(23 25 28 / 0.88);
+  box-shadow: 0 0 0 1px var(--line), 0 12px 32px rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(8px);
+  animation: toast-in var(--dur-fade) var(--ease-out) both;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+/* 离场：先淡出，再由组件移除 */
+.ingest__toast.is-leaving {
+  opacity: 0;
+}
+
+.ingest__toast img {
+  width: 4.5rem;
+  height: auto;
+  aspect-ratio: 1.6;
+  border-radius: 4px;
+  flex: none;
+}
+
+.ingest__toast div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ingest__head {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.ingest__toast strong {
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ingest__meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 底部导航 ---------- */
+
+/*
+ * 刻度尺式导航：横线在最上（贯穿整宽，含左区），刻度从线向下垂，标题在刻度下方。
+ * 横线画在 .stage-nav::after（不随 track 滚动）；刻度顶端贴线。
+ * 左侧固定区（播放/当前章节/章节进度）不滚动，右侧章节轨独立横向滚动。
+ */
+.stage-nav {
+  --tick-h: 22px;
+  /* 每组统一宽度 = 8 格刻度的总宽（8 × 14px）；当前最长章节 6 步，仍留余量 */
+  --nav-group-w: 112px;
+  /* 站点标题占位宽度：章节项左右各让出同样宽度，章节项保持居中 */
+  --nav-site-w: 7.5rem;
+  /* 左区宽度：放下播放与从头播放按钮、当前章节名与进度条；窄屏收窄，避免挤占章节 */
+  --nav-now-w: 17.25rem;
+  position: absolute;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: stretch;
+  height: var(--nav-h);
+  padding: 1px calc(5rem + var(--nav-site-w)) 0 5rem;
+}
+
+.stage-nav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgb(255 255 255 / 0.14);
+  pointer-events: none;
+}
+
+/* 站点标题：靠导航右侧内边距的内沿右对齐，纵向以导航整体高度为基准居中（top/bottom 撑满，flex 居中） */
+.stage-nav__site {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 5rem;
+  width: var(--nav-site-w);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: 'Helvetica Neue', Arial, var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-in);
+}
+
+.stage-nav__site.is-on {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-out) var(--delay-copy);
+}
+
+/* ---------- 导航左区：播放/暂停、当前章节、章节进度（不随 track 滚动） ---------- */
+
+.stage-nav__now {
+  flex: none;
+  width: var(--nav-now-w);
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 1.5rem;
+}
+
+.stage-nav__play {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  box-shadow: inset 0 0 0 1px var(--line);
+  cursor: pointer;
+  transition: color 0.2s, box-shadow 0.2s;
+}
+
+.stage-nav__play:hover {
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.32);
+}
+
+.stage-nav__play[aria-pressed='true'] {
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.stage-nav__play:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.stage-nav__play-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* 从头播放：与播放按钮同尺寸，仅用负外边距贴近播放按钮 */
+.stage-nav__play--restart {
+  margin-left: -0.375rem;
+}
+
+.stage-nav__now-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stage-nav__now-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.stage-nav__now-chapter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+/* 自动播放状态：圆点 + 文字；播放中为强调色，聚焦暂停为白色，已暂停为暗色 */
+.stage-nav__now-state {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.stage-nav__now-state::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.3);
+}
+
+.stage-nav__now[data-play='on'] .stage-nav__now-state,
+.stage-nav__now[data-play='focus'] .stage-nav__now-state {
+  color: var(--text);
+}
+
+.stage-nav__now[data-play='on'] .stage-nav__now-state::before {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.stage-nav__now[data-play='focus'] .stage-nav__now-state::before {
+  background: var(--text);
+}
+
+/* 章节进度：当前步序号（从 1 起）/ 总步数，不是动画时间进度；作品墙为空进度 */
+.stage-nav__progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.stage-nav__progress-label {
+  flex: none;
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.stage-nav__progress-bar {
+  flex: 1;
+  min-width: 2rem;
+  height: 2px;
+  /* 进度按章节步数计；--fill 由 Stage 按当前步写入（0–100%） */
+  background: linear-gradient(
+    to right,
+    var(--accent) 0 var(--fill, 0%),
+    rgb(255 255 255 / 0.16) var(--fill, 0%) 100%
+  );
+}
+
+.stage-nav__progress-pct {
+  flex: none;
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* overflow 会裁掉轨内的发光和焦点环：用内边距留出空间，再以负外边距抵回 */
+.stage-nav__track {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  padding: 8px 8px 6px;
+  /*
+   * 左侧负外边距把 8px 内边距留给首格刻度伸进导航内边距；右侧不再抵回：
+   * 右缘与导航可用宽度对齐，8px 右内边距就是末格焦点环/发光的裁切安全区，不会把外盒撑出视口，
+   * 点击或聚焦末位刻度时浏览器只滚动本轨，不会程序性横滚舞台。
+   */
+  margin: -8px 0 -6px -8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.stage-nav__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* 用首尾外边距居中：内容超宽时退化为左对齐并可滚动 */
+.stage-nav__group:first-child {
+  margin-left: auto;
+}
+
+.stage-nav__group:last-child {
+  margin-right: auto;
+}
+
+.stage-nav__group {
+  flex: none;
+  width: var(--nav-group-w);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage-nav__label {
+  display: flex;
+  align-items: center;
+  height: 18px;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* 底部暗衬：覆盖操作提示和导航，保证任何作品经过时文字都清晰可读 */
+.stage-scrim {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--nav-h) + 118px);
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgb(10 11 13 / 0.96) 0%,
+    rgb(10 11 13 / 0.92) 36%,
+    rgb(10 11 13 / 0.7) 62%,
+    rgb(10 11 13 / 0.32) 84%,
+    rgb(10 11 13 / 0) 100%
+  );
+}
+
+.stage-nav__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.stage-nav__title:hover,
+.stage-nav__group.is-current .stage-nav__title {
+  color: var(--text);
+}
+
+.stage-nav__title:focus-visible,
+.stage-nav__tick:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.stage-nav__num {
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+.stage-nav__count {
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.stage-nav__ticks {
+  display: flex;
+  align-items: flex-start;
+  height: var(--tick-h);
+}
+
+/* 点击区 14px 宽，刻度顶端贴线向下垂；刻度线是左缘的 ::before，所以组标题与首格刻度左对齐 */
+.stage-nav__tick {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: var(--tick-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.stage-nav__tick::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 9px;
+  background: rgb(255 255 255 / 0.22);
+  transition: background-color 0.2s, height 0.2s, box-shadow 0.2s;
+}
+
+.stage-nav__tick:first-child::before {
+  height: 15px;
+}
+
+.stage-nav__tick.is-past::before {
+  background: rgb(255 255 255 / 0.6);
+}
+
+.stage-nav__tick:hover::before {
+  background: rgb(255 255 255 / 0.85);
+}
+
+.stage-nav__tick.is-current::before {
+  width: 2px;
+  height: var(--tick-h);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ---------- 手机 ---------- */
+
+.stage--compact .roster {
+  display: none;
+}
+
+/* 窄屏章节项已占满导航宽度，不显示站点标题 */
+.stage--compact .stage-nav__site {
+  display: none;
+}
+
+.stage--compact .stage-nav {
+  --nav-now-w: 12.25rem;
+  padding: 1px 0 0 1rem;
+}
+
+/* 窄屏：左区收窄，状态与章节名分两行，进度标签省略，避免挤占章节轨 */
+.stage--compact .stage-nav__now {
+  gap: 0.5rem;
+  padding-right: 1rem;
+}
+
+.stage--compact .stage-nav__play {
+  width: 2rem;
+  height: 2rem;
+}
+
+.stage--compact .stage-nav__play--restart {
+  margin-left: -0.25rem;
+}
+
+.stage--compact .stage-nav__now-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.stage--compact .stage-nav__now-chapter {
+  font-size: 0.75rem;
+}
+
+.stage--compact .stage-nav__now-state {
+  font-size: 0.625rem;
+}
+
+.stage--compact .stage-nav__progress {
+  gap: 0.4rem;
+}
+
+.stage--compact .stage-nav__progress-label {
+  display: none;
+}
+
+.stage--compact .stage-nav__progress-pct {
+  font-size: 0.625rem;
+}
+
+.stage--compact .stage-nav__track {
+  gap: 1.5rem;
+}
+
+.stage--compact .stage-nav__group:first-child {
+  margin-left: 0;
+}
+
+.stage--compact .chapter-copy__stats {
+  grid-template-columns: repeat(4, auto);
+  margin-top: 1rem;
+}
+
+.stage--compact .chapter-copy__body {
+  margin-top: 0.5rem;
+}
+
+.stage--compact .focus-meta__list {
+  grid-template-columns: repeat(4, auto);
+  margin-top: 0.5rem;
+}
+
+.stage--compact .focus-meta__hint {
+  display: none;
+}
+
+.stage--compact .cluster-label {
+  font-size: 0.7rem;
+}
+
+.stage--compact .ingest {
+  right: 16px;
+  bottom: calc(var(--nav-h) + 16px);
+}
+
+.stage--compact .ingest__toast {
+  width: min(20rem, calc(100vw - 32px));
+}
+
+.stage--compact .wall-total,
+.stage--compact .wall-rule {
+  display: none;
+}
+
+.stage--compact .mark {
+  font-size: 0.7rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* ---------- 加载页：舞台首屏与圆墙都就绪前盖住整个舞台，揭幕时淡出后由 Stage 移除 ---------- */
+
+.stage-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-in);
+}
+
+.stage-loader.is-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage-loader__body {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: min(15rem, 60vw);
+}
+
+.stage-loader__site {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.stage-loader__bar {
+  width: 100%;
+  height: 2px;
+  /* --fill 由 StageLoader 按真实进度写入（0–100%） */
+  background: linear-gradient(to right, var(--accent) 0 var(--fill, 0%), rgb(255 255 255 / 0.16) var(--fill, 0%) 100%);
+}
+
+.stage-loader__pct {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-loader {
+    transition: none;
+  }
+}
+
+
+/* 展墙：场景筛选与缺图标记（名单位置仍由 Scene 写入） */
+.roster__filter {
+  position: absolute;
+  left: var(--roster-x);
+  top: 16px;
+  z-index: 3;
+  width: min(440px, var(--roster-w));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+.roster__filter[data-on='1'] {
+  pointer-events: auto;
+  opacity: 1;
+}
+.roster__filter-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.roster__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.roster__chip {
+  background: transparent;
+  border: 1px solid #2a2d32;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.roster__chip[data-on='1'] {
+  color: #0e0f11;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.roster__chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.roster__row[data-dim='1'] {
+  opacity: 0.22;
+  pointer-events: none;
+}
+.roster__missing {
+  margin-left: 0.45em;
+  color: var(--accent);
+  font-style: normal;
+  font-size: 0.65rem;
+  font-weight: 500;
+}

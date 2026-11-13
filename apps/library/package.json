@@ -1,0 +1,36 @@
+{
+  "name": "vfx-cinematic-stage",
+  "version": "1.0.0",
+  "description": "高阶视效研究 · 全屏 3D 导览舞台",
+  "scripts": {
+    "dev": "vite --port 5180 --strictPort",
+    "assets": "tsx scripts/build-assets.ts",
+    "build": "npm run assets && tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview --port 5180 --strictPort --host 127.0.0.1",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "dev:library": "vite --config vite.library.config.ts --port 5181 --strictPort",
+    "build:library": "tsc --noEmit -p tsconfig.json && vite build --config vite.library.config.ts",
+    "preview:library": "vite preview --config vite.library.config.ts --port 5181 --strictPort --host 127.0.0.1"
+  },
+  "type": "module",
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
+    "gsap": "3.15.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "playwright-core": "1.61.1",
+    "sharp": "0.35.5",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.6"
+  },
+  "private": true
+}

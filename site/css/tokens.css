@@ -1,0 +1,74 @@
+/* 设计研究 · 设计令牌
+ * 纸色 + 钴蓝。平台壳与可见内容页共用同一套字阶、间距、运动与颜色。
+ * 默认浅色为审阅目标；深色只做映射，不另起皮肤。
+ */
+
+:root {
+  --bg: #f7f7f5;
+  --side: #fbfbfa;
+  --surface: #ffffff;
+  --sunken: #f1f1f2;
+  --ink: #111113;
+  --ink2: #3a3a3f;
+  --mute: #63636b;
+  --faint: #b9b9bf;
+  --line: #e7e7ea;
+  --edge: #c9c9cf;
+  --side-glass: rgba(251, 251, 250, .86);
+  --acc: #2f43ff;
+  --acc-ink: #2f43ff;
+  --acc-soft: rgba(47, 67, 255, .07);
+  --acc-soft2: rgba(47, 67, 255, .13);
+  --acc-2: #98a3ff;
+  --gray-l: #8d8d95;
+  --gray-ll: #cfcfd4;
+  --tip: rgba(20, 20, 23, .92);
+  --scrim: rgba(247, 247, 245, .55);
+  --shadow-s: 0 1px 2px rgba(17, 17, 30, .05);
+  --shadow-m: 0 1px 2px rgba(17, 17, 30, .04), 0 8px 24px rgba(17, 17, 30, .05);
+  --shadow-l: 0 0 0 1px rgba(17, 17, 30, .05), 0 24px 70px rgba(17, 17, 30, .16);
+
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-io: cubic-bezier(.77, 0, .175, 1);
+  --ease-drawer: cubic-bezier(.32, .72, 0, 1);
+  --spring: cubic-bezier(.34, 1.45, .64, 1);
+  --ease-enter: cubic-bezier(.22, 1, .36, 1);
+
+  --f11: 11px; --f13: 13px; --f15: 15px; --f17: 17px; --f20: 20px; --f24: 24px; --f30: 30px;
+  --f40: 40px;
+  --r-s: 8px; --r-m: 12px; --r-l: 18px;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  --display: "Helvetica Neue", "SF Pro Display", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --side-w: 260px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f11;
+    --side: #131316;
+    --surface: #19191c;
+    --sunken: #222226;
+    --ink: #f2f2f4;
+    --ink2: #c9c9ce;
+    --mute: #9b9ba3;
+    --faint: #55555c;
+    --line: #2a2a2f;
+    --edge: #3c3c43;
+    --side-glass: rgba(19, 19, 22, .86);
+    --acc: #6576ff;
+    --acc-ink: #8a97ff;
+    --acc-soft: rgba(101, 118, 255, .12);
+    --acc-soft2: rgba(101, 118, 255, .2);
+    --acc-2: #434c9e;
+    --gray-l: #74747c;
+    --gray-ll: #3e3e44;
+    --tip: rgba(44, 44, 50, .94);
+    --scrim: rgba(10, 10, 12, .5);
+    --shadow-s: 0 1px 2px rgba(0, 0, 0, .3);
+    --shadow-m: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    --shadow-l: 0 0 0 1px rgba(255, 255, 255, .06), 0 24px 70px rgba(0, 0, 0, .55);
+    color-scheme: dark;
+  }
+}
