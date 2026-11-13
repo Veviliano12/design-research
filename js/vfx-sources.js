@@ -113,31 +113,61 @@
   }
 
   function paintGrid(canvas, items, opts) {
-    const cell = Math.max(2, opts.cell || 8);
-    const gap = opts.gap != null ? opts.gap : Math.min(2, Math.max(1, Math.floor(cell / 5)));
     const pad = opts.pad || 0;
     const width = Math.max(1, canvas.clientWidth || opts.width || 120);
-    const maxCols = Math.max(1, Math.floor((width - pad * 2) / cell));
-    const sq = Math.ceil(Math.sqrt(Math.max(items.length, 1)));
-    const cols = Math.min(maxCols, Math.max(1, opts.fillWidth ? maxCols : (opts.cols || sq)));
-    const rows = Math.max(1, Math.ceil(Math.max(items.length, 1) / cols));
-    const h = rows * cell + pad * 2;
+    const boxH = canvas.clientHeight || opts.height || 0;
+    const n = Math.max(items.length, 1);
+    let cell, cols, rows, gap, height, originX, originY;
+
+    if (opts.fillBox && boxH > 2) {
+      height = boxH;
+      const minCell = opts.minCell || 3;
+      const maxCell = opts.maxCell || 36;
+      cell = maxCell;
+      while (cell > minCell) {
+        gap = Math.min(2, Math.max(1, Math.floor(cell / 6)));
+        cols = Math.max(1, Math.floor((width - pad * 2) / cell));
+        rows = Math.ceil(n / cols);
+        if (rows * cell + pad * 2 <= height + 0.01) break;
+        cell -= 0.5;
+      }
+      cell = Math.max(minCell, cell);
+      gap = Math.min(2, Math.max(1, Math.floor(cell / 6)));
+      cols = Math.max(1, Math.floor((width - pad * 2) / cell));
+      rows = Math.ceil(n / cols);
+      const gridW = cols * cell;
+      const gridH = rows * cell;
+      originX = pad + Math.max(0, (width - pad * 2 - gridW) / 2);
+      originY = pad + Math.max(0, (height - pad * 2 - gridH) / 2);
+      // 铺满时不把画布高度改回内容高度，避免把列面重新漏空。
+    } else {
+      cell = Math.max(2, opts.cell || 8);
+      gap = opts.gap != null ? opts.gap : Math.min(2, Math.max(1, Math.floor(cell / 5)));
+      const maxCols = Math.max(1, Math.floor((width - pad * 2) / cell));
+      const sq = Math.ceil(Math.sqrt(n));
+      cols = Math.min(maxCols, Math.max(1, opts.fillWidth ? maxCols : (opts.cols || sq)));
+      rows = Math.max(1, Math.ceil(n / cols));
+      height = rows * cell + pad * 2;
+      originX = pad;
+      originY = pad;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+    }
+
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     canvas.width = Math.max(1, Math.floor(width * dpr));
-    canvas.height = Math.max(1, Math.floor(h * dpr));
-    canvas.style.width = width + "px";
-    canvas.style.height = h + "px";
+    canvas.height = Math.max(1, Math.floor(height * dpr));
     const ctx = canvas.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, width, h);
+    ctx.clearRect(0, 0, width, height);
     const size = Math.max(1, cell - gap);
     items.forEach((it, i) => {
-      const x = pad + (i % cols) * cell;
-      const y = pad + Math.floor(i / cols) * cell;
+      const x = originX + (i % cols) * cell;
+      const y = originY + Math.floor(i / cols) * cell;
       ctx.fillStyle = statusFill(it.status);
       ctx.fillRect(x, y, size, size);
     });
-    canvas.__grid = { items, cols, rows, cell, pad, size, width, height: h };
+    canvas.__grid = { items, cols, rows, cell, pad, size, width, height, originX, originY };
     return canvas.__grid;
   }
 
@@ -217,53 +247,32 @@
     function renderHead(host) {
       host.innerHTML = `
         <header class="src-viz-head">
-          <div class="src-viz-title">
-            <p class="kicker">来源</p>
-            <div class="src-inventories" aria-label="分库存立账，不加总">
-              <div class="src-inv">
-                <b>${coreC.total}</b>
-                <span>核心清单</span>
-                <small>已吸收 ${coreC.absorbed} · 不吸收 ${coreC.rejected} · 待审 ${coreC.pending}</small>
-              </div>
-              <div class="src-inv">
-                <b>${siteC.total}</b>
-                <span>站点清单</span>
-                <small>待审 ${siteC.pending}</small>
-              </div>
-              <div class="src-inv">
-                <b>${xC.total}</b>
-                <span>X</span>
-                <small>已吸收 ${xC.absorbed} · 不吸收 ${xC.rejected} · 待审 ${xC.pending}</small>
-              </div>
-            </div>
-          </div>
+          <p class="kicker">来源</p>
           <div class="src-viz-legend">
             <span><i class="src-swatch is-absorbed"></i>已吸收</span>
             <span><i class="src-swatch is-rejected"></i>不吸收</span>
             <span><i class="src-swatch is-pending"></i>待审</span>
+            <span class="src-legend-note">亮格 = 该条来源记录已吸收，不是视效库的 124</span>
             <a class="src-queue" href="${QUEUE_HREF}">
               <i class="src-swatch is-queue"></i>候审 30 · 不计入 124
             </a>
           </div>
         </header>
-        <p class="src-viz-note">亮格 = 该条来源记录已吸收，不是视效库的 124。站点清单与 X 按真实条数铺成密色域，几乎都还待审。</p>
       `;
     }
 
-    function clusterButton(name, group) {
+    function clusterBlock(name, group, fill) {
       const items = sortItems(itemsOf(name));
       const c = countsOf(items);
       if (!c.total) return "";
       const kind = kindOf(name, group);
-      const featured = name === "ThreeUI" || name === "视效推文" ? " is-featured" : "";
-      return `<button type="button" class="src-cluster is-${kind}${featured}" data-source="${U.esc(name)}" data-kind="${kind}">
+      return `<div class="src-cluster is-${kind}${fill ? " is-fill" : ""}" data-kind="${kind}">
         <span class="src-cluster-head">
           <span class="src-cluster-name">${U.esc(name)}</span>
           <b>${c.total}</b>
         </span>
-        <span class="src-cluster-mix">${mixHtml(U, c, false)}</span>
         <canvas class="src-grid" data-grid="${U.esc(name)}" aria-hidden="true"></canvas>
-      </button>`;
+      </div>`;
     }
 
     function leftoverSources(ch) {
@@ -277,48 +286,76 @@
       return names;
     }
 
+    function officialTotal() {
+      return channelItems(CHANNELS[0]).length;
+    }
+
     function renderBoard(host) {
-      const cols = CHANNELS.map((ch) => {
-        const extra = leftoverSources(ch);
-        const groupsSpec = ch.groups.map((g, i, arr) => {
-          if (i === arr.length - 1 && extra.length) {
-            return Object.assign({}, g, { sources: g.sources.concat(extra) });
-          }
-          return g;
-        });
-        const items = channelItems(ch).concat(extra.flatMap(itemsOf));
-        const c = countsOf(items);
-        const groups = groupsSpec
-          .map((g) => {
-            const present = g.sources.filter((n) => itemsOf(n).length);
-            if (!present.length) return "";
-            const body = present.map((n) => clusterButton(n, g)).join("");
-            const wrapCls = g.kind === "sites" || g.kind === "x" ? "src-dense-wrap" : "src-core-wrap";
-            return `<div class="src-group">
-              <p class="src-group-name">${U.esc(g.name)}</p>
-              <div class="${wrapCls}">${body}</div>
-            </div>`;
-          })
-          .join("");
-        let tally = "";
-        if (ch.id === "official") {
-          tally = `${c.total} · 核心清单中的官方渠道`;
-        } else if (ch.id === "oss") {
-          const coreN = itemsOf("ThreeUI").length + itemsOf("开源产品").length;
-          const siteN = c.total - coreN;
-          tally = `核心 ${coreN} · 站点清单 ${siteN}`;
-        } else {
-          tally = String(c.total);
-        }
-        return `<section class="src-channel" data-channel="${ch.id}">
-          <header class="src-channel-head">
-            <h2>${U.esc(ch.label)}</h2>
-            <p>${U.esc(tally)}</p>
-          </header>
-          <div class="src-groups">${groups}</div>
-        </section>`;
+      const officialN = officialTotal();
+      const ossCoreN = itemsOf("ThreeUI").length + itemsOf("开源产品").length;
+      const siteN = siteC.total;
+      const xN = xC.total;
+
+      const officialNames = CHANNELS[0].groups.flatMap((g) => g.sources)
+        .concat(leftoverSources(CHANNELS[0]))
+        .filter((n) => itemsOf(n).length);
+      const officialTiles = officialNames.map((n) => clusterBlock(n, { kind: "core" }, true)).join("");
+
+      const ossCoreTiles = ["ThreeUI", "开源产品"]
+        .filter((n) => itemsOf(n).length)
+        .map((n) => clusterBlock(n, { kind: "core" }, true))
+        .join("");
+      const siteNames = CHANNELS[1].groups.find((g) => g.kind === "sites").sources
+        .concat(leftoverSources(CHANNELS[1]))
+        .filter((n) => itemsOf(n).length);
+      const siteTiles = siteNames.map((n) => clusterBlock(n, { kind: "sites" }, true)).join("");
+
+      const xNames = CHANNELS[2].groups.flatMap((g) => g.sources)
+        .concat(leftoverSources(CHANNELS[2]))
+        .filter((n) => itemsOf(n).length);
+      const xTiles = xNames.map((n) => {
+        const share = Math.max(8, Math.round((itemsOf(n).length / Math.max(xN, 1)) * 100));
+        return `<div class="src-x-band" style="--share:${share}">${clusterBlock(n, { kind: "x" }, true)}</div>`;
       }).join("");
-      host.insertAdjacentHTML("beforeend", `<div class="src-board">${cols}</div>`);
+
+      host.insertAdjacentHTML(
+        "beforeend",
+        `<div class="src-board">
+          <section class="src-channel" data-channel="official">
+            <header class="src-channel-head"><h2>官方渠道</h2></header>
+            <div class="src-hero">
+              <b>${officialN}</b>
+              <span>核心清单中的官方渠道</span>
+            </div>
+            <div class="src-field src-field-official">${officialTiles}</div>
+          </section>
+          <section class="src-channel" data-channel="oss">
+            <header class="src-channel-head"><h2>开源与组件库</h2></header>
+            <div class="src-hero src-hero-pair">
+              <div class="src-hero-num">
+                <b>${ossCoreN}</b>
+                <span>核心清单</span>
+              </div>
+              <div class="src-hero-num">
+                <b>${siteN}</b>
+                <span>站点清单</span>
+              </div>
+            </div>
+            <div class="src-field src-field-oss">
+              <div class="src-oss-core">${ossCoreTiles}</div>
+              <div class="src-oss-sites">${siteTiles}</div>
+            </div>
+          </section>
+          <section class="src-channel" data-channel="x">
+            <header class="src-channel-head"><h2>X</h2></header>
+            <div class="src-hero">
+              <b>${xN}</b>
+              <span>发现渠道</span>
+            </div>
+            <div class="src-field src-field-x">${xTiles}</div>
+          </section>
+        </div>`
+      );
     }
 
     function paintAll(scope) {
@@ -337,12 +374,17 @@
         } else {
           items = sortItems(itemsOf(name));
         }
-        const fillWidth = kind === "sites" || kind === "x" || mode === "focus";
-        paintGrid(cv, items, { cell: cellSize(kind, mode), fillWidth });
+        if (mode === "focus") {
+          paintGrid(cv, items, { cell: cellSize(kind, mode), fillWidth: true });
+          return;
+        }
+        const maxCell = kind === "core" ? 28 : kind === "x" ? 14 : 8;
+        const minCell = kind === "core" ? 6 : kind === "x" ? 5 : 3;
+        paintGrid(cv, items, { fillBox: true, maxCell, minCell });
       });
     }
 
-    function languageOf(it) {
+        function languageOf(it) {
       return (it.map && it.map.row) || "未分组";
     }
 
@@ -448,13 +490,8 @@
     function render() {
       root.innerHTML = "";
       root.classList.add("src-viz-root");
-      if (state.focus) {
-        renderHead(root);
-        renderFocus(root, state.focus);
-      } else {
-        renderHead(root);
-        renderBoard(root);
-      }
+      renderHead(root);
+      renderBoard(root);
       requestAnimationFrame(() => paintAll(root));
     }
 
@@ -465,50 +502,7 @@
     });
     ro.observe(root);
 
-    root.addEventListener("click", (e) => {
-      const back = e.target.closest("[data-back]");
-      if (back) {
-        state.focus = null;
-        state.item = null;
-        render();
-        return;
-      }
-      const canvas = e.target.closest("canvas[data-grid]");
-      if (canvas && canvas.closest(".src-focus")) {
-        const it = hitCell(canvas, e);
-        if (it) {
-          state.item = it;
-          const pane = root.querySelector("[data-inspect]");
-          if (pane) pane.innerHTML = inspectHtml(it);
-          root.querySelectorAll("canvas[data-grid]").forEach((cv) => cv.classList.remove("is-picked"));
-          canvas.classList.add("is-picked");
-        }
-        return;
-      }
-      const cluster = e.target.closest("[data-source]");
-      if (cluster && !state.focus) {
-        state.focus = cluster.getAttribute("data-source");
-        state.item = null;
-        render();
-      }
-    });
-
-    global.addEventListener("keydown", function onKey(ev) {
-      if (ev.key !== "Escape") return;
-      if (state.item) {
-        ev.preventDefault();
-        state.item = null;
-        const pane = root.querySelector("[data-inspect]");
-        if (pane) pane.innerHTML = inspectHtml(null);
-        return;
-      }
-      if (state.focus) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        state.focus = null;
-        render();
-      }
-    }, true);
+    /* 给别人看时先不支持点进单个来源。renderFocus / inspectHtml 仍留在文件里，不接线。 */
 
     render();
 

@@ -59,7 +59,7 @@
       const img = src
         ? `<img src="${U.esc(src)}" alt="${U.esc(it.name)}" loading="lazy">`
         : `<span>暂无现场截图</span>`;
-      return `<button type="button" class="${cellClass(it)}" data-vfx-id="${U.esc(it.id)}" aria-label="${U.esc(it.name)}">${img}</button>`;
+      return `<div class="${cellClass(it)}" title="${U.esc(it.name)}">${img}</div>`;
     }
 
     function inspectHtml(it) {
@@ -121,23 +121,15 @@
 
       root.innerHTML = `
         <header class="src-viz-head">
-          <div class="src-viz-title">
-            <p class="kicker">候审</p>
-            <div class="src-inventories">
-              <div class="src-inv">
-                <b>${items.length}</b>
-                <span>候审 · 不计入 124</span>
-              </div>
-            </div>
-          </div>
+          <p class="kicker">候审</p>
           <div class="src-viz-legend">
-            <span><i class="src-swatch is-queue"></i>候审，尚未进入视效库</span>
+            <span><i class="src-swatch is-queue"></i>候审，尚未进入视效库 · 不计入 124</span>
             <a class="src-queue" href="#/sources/review">返回来源</a>
           </div>
         </header>
-        <div class="q-board">
+        <div class="q-hero"><b>${items.length}</b><span>候审</span></div>
+        <div class="q-board is-static">
           <div class="q-fields">${fields}</div>
-          <aside class="src-inspect" data-inspect>${inspectHtml(selected)}</aside>
         </div>
       `;
 
@@ -152,39 +144,9 @@
       });
     }
 
-    root.addEventListener("click", (e) => {
-      const act = e.target.closest("[data-vfx-act]");
-      if (act && selected) {
-        const kind = act.getAttribute("data-vfx-act");
-        const cur = marksOf(selected.id);
-        if (kind === "seen") setMark(selected.id, { seen: !cur.seen });
-        else if (kind === "yes") setMark(selected.id, { fit: cur.fit === "yes" ? "" : "yes" });
-        else if (kind === "no") setMark(selected.id, { fit: cur.fit === "no" ? "" : "no" });
-        const pane = root.querySelector("[data-inspect]");
-        const latest = byId.get(selected.id);
-        if (pane && latest) pane.innerHTML = inspectHtml(latest);
-        const cell = root.querySelector(`[data-vfx-id="${CSS.escape(selected.id)}"]`);
-        if (cell && latest) cell.className = cellClass(latest);
-        return;
-      }
-      const cell = e.target.closest("[data-vfx-id]");
-      if (!cell) return;
-      const it = byId.get(cell.getAttribute("data-vfx-id"));
-      if (!it) return;
-      selected = it;
-      root.querySelectorAll(".q-cell.is-on").forEach((el) => el.classList.remove("is-on"));
-      cell.classList.add("is-on");
-      const pane = root.querySelector("[data-inspect]");
-      if (pane) pane.innerHTML = inspectHtml(it);
-    });
+    /* 先不支持点进单条：格子本身已展示缩略图与分组，不再打开未完成的详层。 */
 
-    root.addEventListener("input", (e) => {
-      const area = e.target.closest("[data-vfx-act='note']");
-      if (!area || !selected) return;
-      setMark(selected.id, { note: area.value || "" });
-    });
-
-    render();
+        render();
   }
 
   global.VfxPages = global.VfxPages || {};
